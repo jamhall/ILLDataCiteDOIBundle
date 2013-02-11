@@ -1,28 +1,49 @@
 <?php
 
+/*
+* This file is part of the ILLDataCiteDOIBundle package.
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*
+* @License  MIT License
+*/
+
 namespace ILL\DataCiteDOIBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * This is the class that validates and merges configuration from your app/config files
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
- */
+* This class contains the configuration information for the bundle
+*
+* This information is solely responsible for how the different configuration
+* sections are normalised, and merged.
+*
+* @author Mr. Jamie Hall <hall@ill.eu>
+*/
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritDoc}
-     */
+    * Generates the configuration tree.
+    *
+    * @return TreeBuilder
+    */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('ill_data_cite_doi');
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+                ->children()
+                ->scalarNode('username')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('password')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('default')->defaultValue('mm')->end()
+                ->arrayNode('proxy')
+                    ->children()
+                        ->scalarNode('url')->defaultValue(null)->end()
+                        ->scalarNode('port')->defaultValue(null)->end()
+                    ->end()
+                ->end();
 
         return $treeBuilder;
     }
