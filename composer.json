@@ -1,0 +1,25 @@
+{
+    "name": "illgrenoble/datacite-doi-bundle",
+    "type": "symfony-bundle",
+    "description": "A symfony 2 bundle for communicating with the datacite.org API for minting DOIs and storing metadata for the datasets.",
+    "keywords": ["doi", "datacite"],
+    "homepage": "https://github.com/ILLGrenoble/ILLDataCiteDOIBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jamie Hall",
+            "email": "hall@ill.fr"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "require-dev": {
+        "symfony/framework-bundle": ">=2.1,<2.2-dev"
+    },
+    "autoload": {
+        "psr-0": { "ILL\\DataCiteDOIBundle": "" }
+    },
+    "minimum-stability": "dev",
+    "target-dir": "ILL/DataCiteDOIBundle"
+}
