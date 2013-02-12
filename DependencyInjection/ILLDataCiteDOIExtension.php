@@ -24,5 +24,7 @@ class ILLDataCiteDOIExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        $container->getDefinition("ill_data_cite_doi.manager")->addArgument($config);
     }
 }
