@@ -17,9 +17,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 /**
 * This class contains the configuration information for the bundle
 *
-* This information is solely responsible for how the different configuration
-* sections are normalised, and merged.
-*
 * @author Mr. Jamie Hall <hall@ill.eu>
 */
 class Configuration implements ConfigurationInterface
@@ -37,7 +34,7 @@ class Configuration implements ConfigurationInterface
                 ->children()
                 ->scalarNode('username')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('password')->isRequired()->cannotBeEmpty()->end()
-                ->scalarNode('default')->defaultValue('mm')->end()
+                // we only support the use of a proxy if using cURL
                 ->arrayNode('proxy')
                     ->children()
                         ->scalarNode('url')->defaultValue(null)->end()
