@@ -13,6 +13,7 @@ class DOIManager
 	public function __construct(array $options = array())
 	{
 
+$browser = new Buzz\Browser();
 		    $request = new Request(new Url('http://versionable.co.uk/'));
 		var_dump($options);
 	}
