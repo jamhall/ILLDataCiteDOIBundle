@@ -14,7 +14,7 @@ class DOIManager
 	{
 
 $browser = new Buzz\Browser();
-		    $request = new Request(new Url('http://versionable.co.uk/'));
+		    $request = new \Versionable\Prospect\Request\Request(new Url('http://versionable.co.uk/'));
 		var_dump($options);
 	}
 
