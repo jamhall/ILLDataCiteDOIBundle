@@ -12,14 +12,14 @@ namespace ILL\DataCiteDOIBundle\Model;
 /*
  * This class represents a DOI
  */
-class DOI 
+class DOI
 {
     /**
-	 * The DOI identifier
+	 * The identifier
 	 *
 	 * @var string
 	 */
-	protected $doi;
+	protected $id;
 
 	/**
 	 * The URL for the DOI
@@ -28,20 +28,20 @@ class DOI
 	 */
 	protected $url;
 
-	public function setDoi($doi)
+	public function setId($id)
 	{
-		$this->doi = $doi;
+		$this->id = $id;
 		return $this;
 	}
 
     /**
-	 * Gets the DOI
+	 * Gets the id
 	 *
 	 * @return string
 	 */
-	public function getDoi()
+	public function getId()
 	{
-		return $this->doi;
+		return $this->id;
 	}
 
 	public function setUrl($url)
