@@ -28,18 +28,35 @@ class Configuration implements ConfigurationInterface
     */
     public function getConfigTreeBuilder()
     {
+        $supportedAdapters = array('curl', 'socket');
+
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('ill_data_cite_doi');
         $rootNode
+                ->validate()
+                    ->ifTrue(function($v){ return isset($v['proxy']) && 'curl' !== $v['adapter'];})
+                    ->thenInvalid('Proxy support is only available to the curl adapter.')
+                ->end()
                 ->children()
-                ->scalarNode('username')->isRequired()->cannotBeEmpty()->end()
-                ->scalarNode('password')->isRequired()->cannotBeEmpty()->end()
-                // we only support the use of a proxy if using cURL
-                ->arrayNode('proxy')
-                    ->children()
-                        ->scalarNode('url')->defaultValue(null)->end()
-                        ->scalarNode('port')->defaultValue(null)->end()
+                    ->scalarNode('username')->isRequired()->cannotBeEmpty()->end()
+                    ->scalarNode('password')->isRequired()->cannotBeEmpty()->end()
+                    ->scalarNode('adapter')
+                        ->validate()
+                            ->ifNotInArray($supportedAdapters)
+                            ->thenInvalid('The adapter %s is not supported. Please choose one of '.json_encode($supportedAdapters))
+                        ->end()
+                        ->cannotBeOverwritten()
+                        ->isRequired()
+                        ->cannotBeEmpty()
                     ->end()
+                    // allow the use of a proxy for cURL requests
+                    ->arrayNode('proxy')
+                        ->children()
+                            ->scalarNode('host')->isRequired()->cannotBeEmpty()->end()
+                            ->scalarNode('port')->isRequired()->cannotBeEmpty()->end()
+                            ->scalarNode('username')->defaultValue(null)->end()
+                            ->scalarNode('password')->defaultValue(null)->end()
+                        ->end()
                 ->end();
 
         return $treeBuilder;
