@@ -28,15 +28,9 @@ class Configuration implements ConfigurationInterface
     */
     public function getConfigTreeBuilder()
     {
-        $supportedAdapters = array('curl', 'socket');
-
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('ill_data_cite_doi');
         $rootNode
-                ->validate()
-                    ->ifTrue(function($v){ return isset($v['proxy']) && 'curl' !== $v['adapter'];})
-                    ->thenInvalid('Proxy support is only available to the curl adapter.')
-                ->end()
                 ->children()
                     ->scalarNode('username')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('password')->isRequired()->cannotBeEmpty()->end()
@@ -53,15 +47,6 @@ class Configuration implements ConfigurationInterface
                      * A query parameter of testMode=true is added to every request
                      */
                     ->scalarNode('testMode')->defaultValue(false)->end()
-                    ->scalarNode('adapter')
-                        ->validate()
-                            ->ifNotInArray($supportedAdapters)
-                            ->thenInvalid('The adapter %s is not supported. Please choose one of '.json_encode($supportedAdapters))
-                        ->end()
-                        ->cannotBeOverwritten()
-                        ->isRequired()
-                        ->cannotBeEmpty()
-                    ->end()
                     // allow the use of a proxy for cURL requests
                     ->arrayNode('proxy')
                         ->children()
