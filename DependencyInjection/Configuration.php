@@ -40,6 +40,19 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('username')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('password')->isRequired()->cannotBeEmpty()->end()
+                    ->scalarNode("prefix")->isRequired()->cannotBeEmpty()->end()
+                    /*
+                     * if set to true, a special test prefix of 10.5072 will be used. This test prefix is available to all
+                     * data centres. The test DOIs with this prefix will behave like an other DOI, e.g. they can be normally resolved. 
+                     * They will not be exposed by upcoming services like search and OAI, though. Periodically, all of these test
+                     * datasets are purged from the system
+                     */
+                    ->scalarNode("test")->defaultValue(false)->end()
+                    /*
+                     * if set to true a request will not change the database nor will the DOI handle be registered or updated
+                     * A query parameter of testMode=true is added to every request
+                     */
+                    ->scalarNode('testMode')->defaultValue(false)->end()
                     ->scalarNode('adapter')
                         ->validate()
                             ->ifNotInArray($supportedAdapters)
