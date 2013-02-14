@@ -1,7 +1,7 @@
 <?php
 namespace ILL\DataCiteDOIBundle\Http\Adapter;
 
-abstract class BaseAdapter 
+abstract class BaseAdapter
 {
 	// the API end point for the datacite api
 	const DATACITE_API_ENDPOINT = "https://mds.datacite.org";
@@ -16,7 +16,17 @@ abstract class BaseAdapter
 	protected $prefix = null;
 	protected $testMode = false;
 	protected $test = false;
+	protected $proxy = false;
 
+	protected function initialise(array $config = array())
+	{
+		$this->username = $config['username'];
+		$this->password = $config['password'];
+		$this->prefix = (true === $config['test']) ? self::DATACITE_TEST_PREFIX : $config['prefix'];
+		$this->test = $config['test'];
+		$this->testMode = $config['testMode'];
+		$this->proxy = $config['proxy'];
+	}
 	public function setUsername($username)
 	{
 		$this->username = $username;
@@ -67,10 +77,12 @@ abstract class BaseAdapter
 	}
 
 	public function getPrefix() {
-		if(true === $this->test) {
-			return self::DATACITE_TEST_PREFIX;
-		}
 		return $this->prefix;
+	}
+
+	public function setProxy(array $settings = array()) 
+	{
+		$this->proxy = $settings;
 	}
 
 	// URIs for datacite
