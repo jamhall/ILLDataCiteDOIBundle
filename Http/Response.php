@@ -10,5 +10,4 @@ class Response extends \Versionable\Prospect\Response\Response
 	   	}
     	throw new \Exception($this->code . ":" . self::$valid_codes[$this->code]);
 	}
-
 }
