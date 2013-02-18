@@ -11,34 +11,34 @@
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 
 /**
- * Unstructures size information about the resource
+ * Technical format of the resource. Use file extension or MIME type where possible.
  * If an embargo period has been in effect, use the date when the embargo period ends.
  * Please see http://schema.datacite.org/meta/kernel-2.0/metadata.xsd for more detail.
  */
-class Size
+class Format
 {
-    private $size;
+    private $format;
 
-    public function __construct($size = null)
+    public function __construct($format = null)
     {
-        if (null !== $size) {
-            $this->size = $size;
+        if (null !== $format) {
+            $this->format = $format;
         }
     }
 
-    public function setSize($size)
+    public function setFormat($format)
     {
-        if (null === $size) {
-            throw new \Exception("Size cannot be empty");
+        if (null === $format) {
+            throw new \Exception("Format cannot be empty");
         } else {
-            $this->size = $size;
+            $this->format= $format;
 
             return $this;
         }
     }
 
-    public function getSize()
+    public function getFormat()
     {
-        return $this->size;
+        return $this->format;
     }
 }
