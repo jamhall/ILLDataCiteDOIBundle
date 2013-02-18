@@ -37,7 +37,7 @@ class Creator
 
     public function setNameIdentifier($scheme, $value)
     {
-        $this->nameIdentifier = array("scheme"=$scheme, "value"=>$value);
+        $this->nameIdentifier = array("scheme"=>$scheme, "value"=>$value);
 
         return $this;
     }
