@@ -17,46 +17,49 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class Date
 {
-	private $date;
-	private $type;
+    private $date;
+    private $type;
+
    /*
-	* The type of date. To indicate a date period, provide two dates, specifying the StartDate and the EndDate.
-	* To indicate the end of an embargo period. use Available.
-	* To indicate the start of an embargo period, use Submitted or Accepted, as appropriate.
-	*/
-	private static $TYPES = array("Accepted",
-						"Available",
-						"Copyrighted",
-						"Created",
-						"EndDate",
-						"Issued",
-						"StartDate",
-						"Submitted",
-						"Updated",
-						"Valid");
+    * The type of date. To indicate a date period, provide two dates, specifying the StartDate and the EndDate.
+    * To indicate the end of an embargo period. use Available.
+    * To indicate the start of an embargo period, use Submitted or Accepted, as appropriate.
+    */
+    private static $TYPES = array("Accepted",
+                        "Available",
+                        "Copyrighted",
+                        "Created",
+                        "EndDate",
+                        "Issued",
+                        "StartDate",
+                        "Submitted",
+                        "Updated",
+                        "Valid");
 
-	public function setDate($date)
-	{
-		// check if date matches a format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)
-		if(true === preg_match("/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(:(\d{2}))?(?:([-+])(\d{2}):?(\d{2})|(Z))?/" , $date)) {
-			$this->date = $date;
-			return $this;
-		}
-		throw new \Exception("Not a valid date. It must be in the format of YYYY or YYYY-MM-DD or any other format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)");
-	}
+    public function setDate($date)
+    {
+        // check if date matches a format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)
+        if (true === preg_match("/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(:(\d{2}))?(?:([-+])(\d{2}):?(\d{2})|(Z))?/" , $date)) {
+            $this->date = $date;
 
-	public function setType($type)
-	{
-		if(in_array($type, self::TYPES)) {
-			$this->type = $type;
-			return $this;
-		} else {
-			throw new \Exception(sprintf("Not a valid type. Valid types are: %s", json_encode(self::TYPES)));
-		}
-	}
+            return $this;
+        }
+        throw new \Exception("Not a valid date. It must be in the format of YYYY or YYYY-MM-DD or any other format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)");
+    }
 
-	public function getType()
-	{
-		return $this->type;
-	}
+    public function setType($type)
+    {
+        if (in_array($type, self::TYPES)) {
+            $this->type = $type;
+
+            return $this;
+        } else {
+            throw new \Exception(sprintf("Not a valid type. Valid types are: %s", json_encode(self::TYPES)));
+        }
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
 }

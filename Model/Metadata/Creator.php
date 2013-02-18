@@ -17,30 +17,33 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class Creator
 {
-	private $name;
-	private $nameIdentifier = array();
+    private $name;
+    private $nameIdentifier = array();
 
-	public function setName($name)
-	{
-		if(null === $name) {
-			throw new \Exception("Creator name cannot be null");
-		}
-		$this->name = $name;
-		return $this;
-	}
+    public function setName($name)
+    {
+        if (null === $name) {
+            throw new \Exception("Creator name cannot be null");
+        }
+        $this->name = $name;
 
-	public function getName() {
-		return $this->name;
-	}
+        return $this;
+    }
 
-	public function setNameIdentifier($scheme, $value)
-	{
-		$this->nameIdentifier = array("scheme"=$scheme, "value"=>$value);
-		return $this;
-	}
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	public function getNameIdentifier()
-	{
-		return $this->nameIdentifier;
-	}
+    public function setNameIdentifier($scheme, $value)
+    {
+        $this->nameIdentifier = array("scheme"=$scheme, "value"=>$value);
+
+        return $this;
+    }
+
+    public function getNameIdentifier()
+    {
+        return $this->nameIdentifier;
+    }
 }

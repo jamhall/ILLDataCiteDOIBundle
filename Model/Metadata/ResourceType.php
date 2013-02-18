@@ -16,50 +16,53 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class ResourceType
 {
-	private $type;
-	private $resourceType;
+    private $type;
+    private $resourceType;
 
-	/*
- 	 * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-resourceType-v1.0.xsd for valid
- 	 * general types
- 	 */
-	private static $RESOURCE_TYPES = array("Collection",
-								 "Dataset",
-								 "Event",
-								 "Film",
-								 "Image",
-								 "InteractiveResource",
-								 "PhysicalObject",
-								 "Service",
-								 "Software",
-								 "Sound",
-								 "Text");
+    /*
+      * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-resourceType-v1.0.xsd for valid
+      * general types
+      */
+    private static $RESOURCE_TYPES = array("Collection",
+                                 "Dataset",
+                                 "Event",
+                                 "Film",
+                                 "Image",
+                                 "InteractiveResource",
+                                 "PhysicalObject",
+                                 "Service",
+                                 "Software",
+                                 "Sound",
+                                 "Text");
 
-	public function setType($type)
-	{
-		if(null === $type) {
-			throw new \Exception("Type cannot be null");
-		}
-		$this->type = $type;
-		return $this;
-	}
+    public function setType($type)
+    {
+        if (null === $type) {
+            throw new \Exception("Type cannot be null");
+        }
+        $this->type = $type;
 
-	public function getType() {
-		return $this->type;
-	}
+        return $this;
+    }
 
-	public function setResourceType($resourceType)
-	{
-		if(in_array($resourceType, self::RESOURCE_TYPES)) {
-			$this->resourceType = $resourceType;
-			return $this;
-		} else {
-			throw new \Exception(sprintf("Not a valid resource type. Valid types are: %s", json_encode(self::RESOURCE_TYPES)));
-		}
-	}
+    public function getType()
+    {
+        return $this->type;
+    }
 
-	public function getResourceType()
-	{
-		return $this->resourceType;
-	}
+    public function setResourceType($resourceType)
+    {
+        if (in_array($resourceType, self::RESOURCE_TYPES)) {
+            $this->resourceType = $resourceType;
+
+            return $this;
+        } else {
+            throw new \Exception(sprintf("Not a valid resource type. Valid types are: %s", json_encode(self::RESOURCE_TYPES)));
+        }
+    }
+
+    public function getResourceType()
+    {
+        return $this->resourceType;
+    }
 }

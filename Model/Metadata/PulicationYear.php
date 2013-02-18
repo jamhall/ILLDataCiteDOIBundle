@@ -17,22 +17,23 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class PublicationYear
 {
-	private $year;
+    private $year;
 
-	public function __construct($year = null)
-	{
-		if (null !== $year) {
-        	$this->setYear($year);
-  		}
-	}
+    public function __construct($year = null)
+    {
+        if (null !== $year) {
+            $this->setYear($year);
+        }
+    }
 
-	public function setYear($year)
-	{
-		// check if a valid year
-		if(true === preg_match("^\d{4}$" , $year)) {
-			$this->year = $year;
-			return $this;
-		}
-		throw new \Exception("Not a valid year. It must be of the format: YYYY");
-	}
+    public function setYear($year)
+    {
+        // check if a valid year
+        if (true === preg_match("^\d{4}$" , $year)) {
+            $this->year = $year;
+
+            return $this;
+        }
+        throw new \Exception("Not a valid year. It must be of the format: YYYY");
+    }
 }
