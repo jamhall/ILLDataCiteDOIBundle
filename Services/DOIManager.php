@@ -13,13 +13,9 @@ namespace ILL\DataCiteDOIBundle\Services;
 use \Versionable\Prospect\Request\Request;
 use \Versionable\Prospect\Url\Url;
 use \Versionable\Prospect\Client\Client;
-use \Versionable\Prospect\Header\BasicAuthentication;
 use \Versionable\Prospect\Header\Collection;
-use \Versionable\Prospect\Header\Accept;
-use \Versionable\Prospect\Header\ContentType;
 
 use ILL\DataCiteDOIBundle\Http\Adapter\CurlAdapter;
-use ILL\DataCiteDOIBundle\Http\Adapter\SocketAdapter;
 use ILL\DataCiteDOIBundle\Http\Response;
 use ILL\DataCiteDOIBundle\Model\DOI;
 use Symfony\Component\Validator\Validator;
@@ -29,70 +25,70 @@ use Symfony\Component\Validator\Validator;
  */
 class DOIManager
 {
-	private $doi = null;
-	private $adapter = null;
+    private $doi = null;
+    private $adapter = null;
 
-	/**
-	 * @var array $defaults Array of default options
-	 */
-	protected $defaults = array(
-		'username'    => null,
-		'password'  => null,
-		'prefix'	=> null,
-		'test'		=> false,
-		'testMode'	=> false,
-		'adapter'	=> null,
-		'proxy' => false
-	);
+    /**
+     * @var array $defaults Array of default options
+     */
+    protected $defaults = array(
+        'username'    => null,
+        'password'  => null,
+        'prefix'	=> null,
+        'test'		=> false,
+        'testMode'	=> false,
+        'adapter'	=> null,
+        'proxy' => false
+    );
 
-	public function __construct(array $options = array(), Validator $validator)
-	{
-		$this->defaults = array_merge($this->defaults, $options);
-		$this->adapter = new CurlAdapter($this->defaults);
-		$this->validator = $validator;
-	}
+    public function __construct(array $options = array(), Validator $validator)
+    {
+        $this->defaults = array_merge($this->defaults, $options);
+        $this->adapter = new CurlAdapter($this->defaults);
+        $this->validator = $validator;
+    }
 
-	public function findById($id)
-	{
-	    $request = new Request(new Url($this->adapter->getDoiGetUri($id)));
-	    $client = new Client($this->adapter->getAdapter());
-	    $response = $client->send($request, new Response());
-	    try {
-	    	// check the response is valid
-			if($response->isValid()) {
-				$this->doi = new DOI();
-				$this->doi->setId($id)
-						  ->setUrl($response->getContent());
-				return $this->doi;
-	    	}
-	    } catch(\Exception $e) {
-	    	return null;
-	    }
-	}
+    public function findById($id)
+    {
+        $request = new Request(new Url($this->adapter->getDoiGetUri($id)));
+        $client = new Client($this->adapter->getAdapter());
+        $response = $client->send($request, new Response());
+        try {
+            // check the response is valid
+            if ($response->isValid()) {
+                $this->doi = new DOI();
+                $this->doi->setId($id)
+                          ->setUrl($response->getContent());
 
-	public function create(DOI $doi)
-	{
-    	$errors = $this->validator->validate($doi);
-		$request = new Request(new Url($this->adapter->getDoiPostUri()));
-		var_dump($errors);
-		$request->setMethod("POST");
-		$parameters = new \Versionable\Prospect\Parameter\Collection();
-		$parameters->add(new \Versionable\Prospect\Parameter\Parameter('doi', 'TEST-2-1'));
-		$parameters->add(new \Versionable\Prospect\Parameter\Parameter('url', 'http://www.ill.eu'));
-		$request->setParameters($parameters);
-	    $client = new Client($this->adapter->getAdapter());
-	    $response = $client->send($request, new Response());
-	    echo $response->getCode();
-	    try {
-	    	// check the response is valid
-			if($response->isValid()) {
-				$this->doi = new DOI();
-				$this->doi->setId($id)
-						  ->setUrl($response->getContent());
-				return $this->doi;
-	    	}
-	    } catch(\Exception $e) {
-	    	return null;
-	    }
-	}
+                return $this->doi;
+            }
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+    public function create(DOI $doi)
+    {
+        $errors = $this->validator->validate($doi);
+        $request = new Request(new Url($this->adapter->getDoiPostUri()));
+        $request->setMethod("POST");
+        $parameters = new \Versionable\Prospect\Parameter\Collection();
+        $parameters->add(new \Versionable\Prospect\Parameter\Parameter('doi', 'TEST-2-1'));
+        $parameters->add(new \Versionable\Prospect\Parameter\Parameter('url', 'http://example.com'));
+        $request->setParameters($parameters);
+        $client = new Client($this->adapter->getAdapter());
+        $response = $client->send($request, new Response());
+        try {
+            // check the response is valid
+            if ($response->isValid()) {
+                $this->doi = new DOI();
+                $this->doi->setId($id)
+                          ->setUrl($response->getContent());
+
+                return $this->doi;
+            }
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
 }
