@@ -20,7 +20,7 @@ class NonEmptyString implements ValidatorInterface
 {
     public static function isValid($attributeName, $value)
     {
-        if (1 <= strlen($name)) {
+        if (1 < strlen($name)) {
             throw new \InvalidArgumentException(sprintf("%s must have a minimum length of 1 character"), $attributeName);
         }
 

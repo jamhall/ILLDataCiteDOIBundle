@@ -12,11 +12,40 @@ namespace ILL\DataCiteDOIBundle\Model;
 
 class Metadata
 {
-    private $language;
+    private $identifier;
+    /**
+     * Register a new DOI (or primary identifier) when the version of the resource changes to enable the citation of the exact version of a research dataset (or other resource).
+     * May be used in conjunction with properties 11 and 12 (AlternateIdentifier and RelatedIdentifier)
+     * to indicate various information updates.
+     */
     private $version;
     private $rights;
     private $publisher;
     private $publicationYear;
+    private $language;
+
+    public function __construct($identifier = null)
+    {
+        if (null !== $identifier) {
+            $this->setIdentifier($identifier);
+        }
+    }
+
+    public function setIdentifier($identifier)
+    {
+        // check if a valid year
+        if (true === preg_match("[1][0][/.].*" , $identifier)) {
+            $this->identifier = $identifier;
+
+            return $this;
+        }
+        throw new \InvalidArgumentException("Not a valid identifier. DOI must start with '10.'");
+    }
+
+    pulic function getIdentifier()
+    {
+        return $this->identifier;
+    }
 
     public function setLanguage($language)
     {
@@ -68,9 +97,13 @@ class Metadata
 
     public function setPublicationYear($publicationYear)
     {
-        $this->publicationYear = $publicationYear;
+        // check if a valid year
+        if (true === preg_match("^\d{4}$" , $publicationYear)) {
+            $this->publicationYear = $publicationYear;
 
-        return $this;
+            return $this;
+        }
+        throw new \InvalidArgumentException("Not a valid year. It must be of the format: YYYY");
     }
 
     public function getPublicationYear()
