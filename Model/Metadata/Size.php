@@ -14,6 +14,7 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  * Unstructures size information about the resource
  * If an embargo period has been in effect, use the date when the embargo period ends.
  * Please see http://schema.datacite.org/meta/kernel-2.0/metadata.xsd for more detail.
+ * @author Jamie Hall <hall@ill.eu>
  */
 class Size
 {

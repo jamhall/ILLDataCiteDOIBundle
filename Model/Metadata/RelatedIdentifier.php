@@ -13,6 +13,7 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
 /**
  * Identifiers of related resources. Use this property to indicate subsets of properties, as appropriate.
  * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
+ * @author Jamie Hall <hall@ill.eu>
  */
 class RelatedIdentifier
 {

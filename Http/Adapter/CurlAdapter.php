@@ -11,7 +11,9 @@
 namespace ILL\DataCiteDOIBundle\Http\Adapter;
 
 use \Versionable\Prospect\Adapter\Curl;
-
+/**
+ * @author Jamie Hall <hall@ill.eu>
+ */
 class CurlAdapter extends BaseAdapter
 {
 	public function __construct(array $config = array())

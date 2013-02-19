@@ -13,6 +13,7 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
 /**
  * Subject, keywords, classification codes, or key phrases describing the resource.
  * Please see http://schema.datacite.org/meta/kernel-2.0/metadata.xsd for more detail.
+ * @author Jamie Hall <hall@ill.eu>
  */
 class Subject
 {

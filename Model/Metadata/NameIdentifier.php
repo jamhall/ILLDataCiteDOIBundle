@@ -13,7 +13,8 @@ use ILL\DataCiteDOIBundle\Model\Metadata\Validator\NonEmptyStringValidator;
 
 /**
  * The name identifier for a creator
- * Please see http://schema.datacite.org/meta/kernel-2.0/metadata.xsd for more detail.
+ * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
+ * @author Jamie Hall <hall@ill.eu>
  */
 class NameIdentifier
 {

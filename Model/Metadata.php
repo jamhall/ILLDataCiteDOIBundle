@@ -9,7 +9,11 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model;
-
+/**
+ * This class represents a metadata data structure. It conforms to the layout metadata xsd file which can
+ * be found here: http://schema.datacite.org/meta/kernel-2.1/metadata.xsd
+ * @author Jamie Hall <hall@ill.eu>
+ */
 class Metadata
 {
     private $identifier;
@@ -42,13 +46,16 @@ class Metadata
         throw new \InvalidArgumentException("Not a valid identifier. DOI must start with '10.'");
     }
 
-    pulic function getIdentifier()
+    public function getIdentifier()
     {
         return $this->identifier;
     }
 
     public function setLanguage($language)
     {
+        if(3 !== strlen($language)){
+            throw new \InvalidArgumentException("The language must be a three letter code");
+        }
         $this->language = $language;
 
         return $this;
@@ -85,6 +92,9 @@ class Metadata
 
     public function setPublisher($publisher)
     {
+        if(null === $publisher) {
+            throw new \InvalidArgumentException("The publisher cannot be null");
+        }
         $this->publisher = $publisher;
 
         return $this;

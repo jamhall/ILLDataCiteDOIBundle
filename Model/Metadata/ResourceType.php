@@ -13,6 +13,7 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
 /**
  * The type of a resource. You may enter an additional free text description.
  * Please see http://schema.datacite.org/meta/kernel-2.0/metadata.xsd for more detail.
+ * @author Jamie Hall <hall@ill.eu>
  */
 class ResourceType
 {

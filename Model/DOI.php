@@ -9,54 +9,61 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model;
+
+use Symfony\Component\Validator\Constraints as Assert;
 /*
  * This class represents a DOI
+ * @author Jamie Hall <hall@ill.eu>
  */
 class DOI
 {
     /**
-	 * The identifier
-	 *
-	 * @var string
-	 */
-	protected $id;
-
-	/**
-	 * The URL for the DOI
-	 *
-	 * @var string
-	 */
-	protected $url;
-
-	public function setId($id)
-	{
-		$this->id = $id;
-		return $this;
-	}
+     * The identifier
+     *
+     * @var string
+     * @Assert\Regex(pattern="/^[-_a-zA-Z0-9.:\+\\]+$/", message="The following characters are only allowed in a DOI name: 0-9, a-z, A-Z, dash, dot, underscore, plus, colon and slash")
+     */
+    protected $id;
 
     /**
-	 * Gets the id
-	 *
-	 * @return string
-	 */
-	public function getId()
-	{
-		return $this->id;
-	}
+     * The URL for the DOI
+     *
+     * @var string
+     * @Assert\Url()
+     */
+    protected $url;
 
-	public function setUrl($url)
-	{
-		$this->url = $url;
-		return $this;
-	}
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
-	 * Gets the URL for the DOI
-	 *
-	 * @return string
-	 */
-	public function getUrl()
-	{
-		return $this->url;
-	}
+     * Gets the id
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets the URL for the DOI
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
 }

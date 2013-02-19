@@ -1,6 +1,18 @@
 <?php
+/*
+* This file is part of the ILLDataCiteDOIBundle package.
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*
+* @License  MIT License
+*/
+
 namespace ILL\DataCiteDOIBundle\Http\Adapter;
 
+/**
+ * @author Jamie Hall <hall@ill.eu>
+ */
 abstract class BaseAdapter
 {
 	// the API end point for the datacite api

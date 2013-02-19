@@ -14,7 +14,8 @@ use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
 /**
  * The main researchers involved working on the data, or the authors of the publication in
  * priority order. May be a corporate/institutional or personal name.
- * Please see http://schema.datacite.org/meta/kernel-2.0/metadata.xsd for more detail.
+ * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
+ * @author Jamie Hall <hall@ill.eu>
  */
 class Creator
 {
