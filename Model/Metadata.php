@@ -61,7 +61,6 @@ class Metadata
      * The general type of the resource from a controlled list.
      * @var string
      */
-
     private $resourceType;
 
     /**
