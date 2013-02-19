@@ -29,7 +29,7 @@ class Size
     public function setSize($size)
     {
         if (null === $size) {
-            throw new \Exception("Size cannot be empty");
+            throw new \InvalidArgumentException("Size cannot be empty");
         } else {
             $this->size = $size;
 

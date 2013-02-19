@@ -19,10 +19,10 @@ class ResourceType
     private $type;
     private $resourceType;
 
-    /*
-      * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-resourceType-v1.0.xsd for valid
-      * general types
-      */
+    /**
+     * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-resourceType-v1.0.xsd for valid
+     * general types
+     */
     private static $RESOURCE_TYPES = array("Collection",
                                  "Dataset",
                                  "Event",
@@ -38,7 +38,7 @@ class ResourceType
     public function setType($type)
     {
         if (null === $type) {
-            throw new \Exception("Type cannot be null");
+            throw new \InvalidArgumentException("Type cannot be null");
         }
         $this->type = $type;
 
@@ -57,7 +57,7 @@ class ResourceType
 
             return $this;
         } else {
-            throw new \Exception(sprintf("Not a valid resource type. Valid types are: %s", json_encode(self::RESOURCE_TYPES)));
+            throw new \InvalidArgumentException(sprintf("Not a valid resource type. Valid types are: %s", json_encode(self::RESOURCE_TYPES)));
         }
     }
 

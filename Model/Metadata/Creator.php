@@ -8,8 +8,9 @@
 * @License  MIT License
 */
 
-namespace ILL\DataCiteDOIBundle\Model\Metadata;
-
+namespace ILL\DataCiteDOIBundle\Model\Metadata\Validator;
+use ILL\DataCiteDOIBundle\Model\Metadata\Validator\NonEmptyStringValidator;
+use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
 /**
  * The main researchers involved working on the data, or the authors of the publication in
  * priority order. May be a corporate/institutional or personal name.
@@ -18,14 +19,13 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
 class Creator
 {
     private $name;
-    private $nameIdentifier = array();
+    private $nameIdentifiers = array();
 
     public function setName($name)
     {
-        if (null === $name) {
-            throw new \Exception("Creator name cannot be null");
+        if (NonEmptyStringValidator::isValid("name", $name)) {
+            $this->name = $name;
         }
-        $this->name = $name;
 
         return $this;
     }
@@ -35,15 +35,15 @@ class Creator
         return $this->name;
     }
 
-    public function setNameIdentifier($scheme, $value)
+    public function addNameIndentifier(NameIdentifier $nameIdentifier)
     {
-        $this->nameIdentifier = array("scheme"=>$scheme, "value"=>$value);
+        $this->nameIdentifiers[] = $nameIdentifier;
 
         return $this;
     }
 
-    public function getNameIdentifier()
+    public function getNameIdentifiers()
     {
-        return $this->nameIdentifier;
+        return $this->nameIdentifiers;
     }
 }

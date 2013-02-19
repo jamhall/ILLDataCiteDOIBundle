@@ -20,7 +20,7 @@ class Date
     private $date;
     private $type;
 
-   /*
+   /**
     * The type of date. To indicate a date period, provide two dates, specifying the StartDate and the EndDate.
     * To indicate the end of an embargo period. use Available.
     * To indicate the start of an embargo period, use Submitted or Accepted, as appropriate.
@@ -44,7 +44,7 @@ class Date
 
             return $this;
         }
-        throw new \Exception("Not a valid date. It must be in the format of YYYY or YYYY-MM-DD or any other format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)");
+        throw new \InvalidArgumentException("Not a valid date. It must be in the format of YYYY or YYYY-MM-DD or any other format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)");
     }
 
     public function setType($type)
@@ -54,7 +54,7 @@ class Date
 
             return $this;
         } else {
-            throw new \Exception(sprintf("Not a valid type. Valid types are: %s", json_encode(self::TYPES)));
+            throw new \InvalidArgumentException(sprintf("Not a valid type. Valid types are: %s", json_encode(self::TYPES)));
         }
     }
 

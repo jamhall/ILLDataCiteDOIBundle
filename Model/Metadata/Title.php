@@ -19,10 +19,10 @@ class Title
     private $title;
     private $type;
 
-    /*
-      * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-titleType-v1.0.xsd for valid
-      * title types
-      */
+    /**
+     * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-titleType-v1.0.xsd for valid
+     * title types
+     */
     private static $TYPES = array("AlternativeTitle", "Subtitle", "TranslatedTitle");
 
     public function setTitle($title)
@@ -44,7 +44,7 @@ class Title
 
             return $this;
         } else {
-            throw new \Exception(sprintf("Not a valid type. Valid types are: %s", json_encode(self::TYPES)));
+            throw new \InvalidArgumentException(sprintf("Not a valid type. Valid types are: %s", json_encode(self::TYPES)));
         }
     }
 

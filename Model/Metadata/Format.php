@@ -29,7 +29,7 @@ class Format
     public function setFormat($format)
     {
         if (null === $format) {
-            throw new \Exception("Format cannot be empty");
+            throw new \InvalidArgumentException("Format cannot be empty");
         } else {
             $this->format= $format;
 

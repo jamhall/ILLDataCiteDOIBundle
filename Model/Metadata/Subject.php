@@ -22,7 +22,7 @@ class Subject
     public function setSubject($subject)
     {
         if (null === $subject) {
-            throw new \Exception("Subject cannot be empty");
+            throw new \InvalidArgumentException("Subject cannot be empty");
         } else {
             $this->subject= $subject;;
 
