@@ -9,8 +9,11 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model;
+
+use ILL\DataCiteDOIBundle\Model\Metadata;
+
 /**
- * This class represents a metadata data structure. It conforms to the metadata xsd file which can
+ * This class represents a metadata data structure. It conforms to the metadata schema llwhich can
  * be found here: http://schema.datacite.org/meta/kernel-2.1/metadata.xsd
  * @author Jamie Hall <hall@ill.eu>
  */
@@ -149,21 +152,6 @@ class Metadata
         return $this->identifier;
     }
 
-    public function setLanguage($language)
-    {
-        if (3 !== strlen($language)) {
-            throw new \InvalidArgumentException("The language must be a three letter code");
-        }
-        $this->language = $language;
-
-        return $this;
-    }
-
-    public function getLanguage()
-    {
-        return $this->language;
-    }
-
     public function setVersion($version)
     {
         $this->version = $version;
@@ -219,4 +207,128 @@ class Metadata
         return $this->publicationYear;
     }
 
+    public function setLanguage($language)
+    {
+        if (3 !== strlen($language)) {
+            throw new \InvalidArgumentException("The language must be a three letter code");
+        }
+        $this->language = $language;
+
+        return $this;
+    }
+
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    public function setResourceType(ResourceType $resourceType)
+    {
+        $this->resourceType = $resourceType;
+    }
+
+    public function getResourceType()
+    {
+        return $this->resourceType;
+    }
+
+    public function addTitle(Title $title)
+    {
+        $this->titles[] = $title;
+    }
+
+    public function getTitles()
+    {
+        return $this->titles;
+    }
+
+    public function addCreator(Creator $creator)
+    {
+        $this->creators[] = $creator;
+    }
+
+    public function getCreators()
+    {
+        return $this->creators;
+    }
+
+    public function addContributor(Contributor $contributor)
+    {
+        $this->contributors[] = $contributor;
+    }
+
+    public function getContributors()
+    {
+        return $this->contributors;
+    }
+
+    public function addSubject(Subject $subject)
+    {
+        $this->subjects[] = $subject;
+    }
+
+    public function getSubjects()
+    {
+        return $this->subjects;
+    }
+
+    public function addDate(Date $date)
+    {
+        $this->dates[] = $date;
+    }
+
+    public function getDates()
+    {
+        return $this->dates;
+    }
+
+    public function addAlternateIdentifier(AlternateIdentifier $alternateIdentifier)
+    {
+        $this->alternateIdentifiers[] = $alternateIdentifier;
+    }
+
+    public function getAlternateIdentifiers()
+    {
+        return $this->alternateIdentifiers;
+    }
+
+    public function addRelatedIdentifier(RelatedIdentifier $relatedIdentifier)
+    {
+        $this->relatedIdentifiers[] = $relatedIdentifier;
+    }
+
+    public function getRelatedIdentifiers()
+    {
+        return $this->relatedIdentifiers;
+    }
+
+    public function addSize(Size $size)
+    {
+        $this->sizes[] = $size;
+    }
+
+    public function getSizes()
+    {
+        return $this->sizes;
+    }
+
+    public function addFormat(Format $format)
+    {
+        $this->formats[] = $format;
+    }
+
+    public function getFormats()
+    {
+        return $this->formats;
+    }
+
+    public function addDescription(Description $description)
+    {
+        $this->descriptions[] = $description;
+    }
+
+    public function getDescriptions()
+    {
+        return $this->descriptions;
+    }
 }
