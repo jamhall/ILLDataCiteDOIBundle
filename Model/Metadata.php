@@ -21,6 +21,7 @@ class Metadata
      * @var string
      */
     private $identifier;
+
     /**
      * Register a new DOI (or primary identifier) when the version of the resource changes to enable the citation
      * of the exact version of a research dataset (or other resource).
