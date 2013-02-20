@@ -15,7 +15,6 @@ use \Versionable\Prospect\Url\Url;
 use \Versionable\Prospect\Client\Client;
 use \Versionable\Prospect\Header\Collection;
 
-use ILL\DataCiteDOIBundle\Http\Adapter\CurlAdapter;
 use ILL\DataCiteDOIBundle\Http\Response;
 use ILL\DataCiteDOIBundle\Model\DOI;
 use Symfony\Component\Validator\Validator;
@@ -23,32 +22,11 @@ use Symfony\Component\Validator\Validator;
 /**
  * @author Jamie Hall <hall@ill.eu>
  */
-class DOIManager
+class DOIManager extends BaseManager implements DOIManagerInterface
 {
     private $doi = null;
-    private $adapter = null;
 
-    /**
-     * @var array $defaults Array of default options
-     */
-    protected $defaults = array(
-        'username'    => null,
-        'password'  => null,
-        'prefix'	=> null,
-        'test'		=> false,
-        'testMode'	=> false,
-        'adapter'	=> null,
-        'proxy' => false
-    );
-
-    public function __construct(array $options = array(), Validator $validator)
-    {
-        $this->defaults = array_merge($this->defaults, $options);
-        $this->adapter = new CurlAdapter($this->defaults);
-        $this->validator = $validator;
-    }
-
-    public function findById($id)
+    public function find($id)
     {
         $request = new Request(new Url($this->adapter->getDoiGetUri($id)));
         $client = new Client($this->adapter->getAdapter());
@@ -90,5 +68,15 @@ class DOIManager
         } catch (\Exception $e) {
             return null;
         }
+    }
+
+    public function exists($id)
+    {
+
+    }
+
+    public function update(DOI $doi)
+    {
+
     }
 }
