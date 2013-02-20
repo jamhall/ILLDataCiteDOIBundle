@@ -20,7 +20,7 @@ class MetadataSerializer
 {
     /**
      * Serialize metadata model into XML for the API
-     * @return object Metadata
+     * @return string
      */
     public function serialize(Metadata $metadata)
     {
@@ -28,8 +28,8 @@ class MetadataSerializer
     }
 
     /**
-     *  Unserialize XML returned from the API into a metadata model
-     * @return [type] [description]
+     * Unserialize XML returned from the API into a metadata model
+     * @return object Metadata
      */
     public function unserialize($xml)
     {
