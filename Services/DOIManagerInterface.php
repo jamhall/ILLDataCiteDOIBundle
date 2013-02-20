@@ -21,28 +21,29 @@ interface DOIManagerInterface
 {
     /**
      * Create a DOI
-     * @param  DOI
-     * @return DOI
+     * @param  DOI    $doi
+     * @return object DOI
      */
     public function create(DOI $doi);
 
     /**
      * Update a DOIs URL
-     * @return DOI $doi
+     * @param  DOI    $doi;
+     * @return object DOI
      */
     public function update(DOI $doi);
 
     /**
      * Find a DOI by its identifier
      * @param  string $id
-     * @return DOI $doi
+     * @return object DOI
      */
     public function find($id);
 
     /**
      * Check if an identifier exists
-     * @param  string $id
-     * @return DOI $doi
+     * @param  string  $id
+     * @return boolean
      */
     public function exists($id);
 }
