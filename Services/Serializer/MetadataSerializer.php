@@ -1,16 +1,38 @@
 <?php
+/*
+* This file is part of the ILLDataCiteDOIBundle package.
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*
+* @License  MIT License
+*/
 
 namespace ILL\DataCiteDOIBundle\Services\Serializer;
 
+use ILL\DataCiteDOIBundle\Model\Metadata;
+
+/**
+ * Serialization and unserialization of metadata
+ * @author Jamie Hall <hall@ill.eu>
+ */
 class MetadataSerializer
 {
-	public function serialize()
-	{
+    /**
+     * Serialize metadata model into XML for the API
+     * @return object Metadata
+     */
+    public function serialize(Metadata $metadata)
+    {
 
-	}
+    }
 
-	public function unserialize()
-	{
+    /**
+     *  Unserialize XML returned from the API into a metadata model
+     * @return [type] [description]
+     */
+    public function unserialize($xml)
+    {
 
-	}
+    }
 }
