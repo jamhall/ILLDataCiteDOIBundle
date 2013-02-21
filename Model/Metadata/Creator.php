@@ -8,7 +8,7 @@
 * @License  MIT License
 */
 
-namespace ILL\DataCiteDOIBundle\Model\Metadata\Validator;
+namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use ILL\DataCiteDOIBundle\Model\Metadata\Validator\NonEmptyStringValidator;
 use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
 /**
@@ -21,6 +21,11 @@ class Creator
 {
     private $name;
     private $nameIdentifiers = array();
+
+    static public function instantiate()
+    {
+        return new self();
+    }
 
     public function setName($name)
     {

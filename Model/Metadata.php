@@ -11,10 +11,23 @@
 namespace ILL\DataCiteDOIBundle\Model;
 
 use ILL\DataCiteDOIBundle\Model\Metadata;
+use ILL\DataCiteDOIBundle\Model\Metadata\AlternateIdentifier;
+use ILL\DataCiteDOIBundle\Model\Metadata\Creator;
+use ILL\DataCiteDOIBundle\Model\Metadata\Contributor;
+use ILL\DataCiteDOIBundle\Model\Metadata\Date;
+use ILL\DataCiteDOIBundle\Model\Metadata\Description;
+use ILL\DataCiteDOIBundle\Model\Metadata\Format;
+use ILL\DataCiteDOIBundle\Model\Metadata\RelatedIdentifier;
+use ILL\DataCiteDOIBundle\Model\Metadata\ResourceType;
+use ILL\DataCiteDOIBundle\Model\Metadata\Size;
+use ILL\DataCiteDOIBundle\Model\Metadata\Subject;
+use ILL\DataCiteDOIBundle\Model\Metadata\Title;
 
 /**
- * This class represents a metadata data structure. It conforms to the metadata schema llwhich can
+ * This class represents a metadata data structure. It conforms to the metadata schema which can
  * be found here: http://schema.datacite.org/meta/kernel-2.1/metadata.xsd
+ * Please also read the documentation for the metadata schema found here:
+ * http://schema.datacite.org/meta/kernel-2.2/index.html
  * @author Jamie Hall <hall@ill.eu>
  */
 class Metadata
@@ -139,7 +152,7 @@ class Metadata
     public function setIdentifier($identifier)
     {
         // check if a valid year
-        if (true === preg_match("[1][0][/.].*" , $identifier)) {
+        if (preg_match('/^[[1][0][\.]]*/' , $identifier)) {
             $this->identifier = $identifier;
 
             return $this;
@@ -194,7 +207,7 @@ class Metadata
     public function setPublicationYear($publicationYear)
     {
         // check if a valid year
-        if (true === preg_match("^\d{4}$" , $publicationYear)) {
+        if (preg_match('/^\d{4}$/' , $publicationYear)) {
             $this->publicationYear = $publicationYear;
 
             return $this;
@@ -235,6 +248,8 @@ class Metadata
     public function addTitle(Title $title)
     {
         $this->titles[] = $title;
+
+        return $this;
     }
 
     public function getTitles()
@@ -245,6 +260,8 @@ class Metadata
     public function addCreator(Creator $creator)
     {
         $this->creators[] = $creator;
+
+        return $this;
     }
 
     public function getCreators()
@@ -255,6 +272,8 @@ class Metadata
     public function addContributor(Contributor $contributor)
     {
         $this->contributors[] = $contributor;
+
+        return $this;
     }
 
     public function getContributors()
@@ -265,6 +284,8 @@ class Metadata
     public function addSubject(Subject $subject)
     {
         $this->subjects[] = $subject;
+
+        return $this;
     }
 
     public function getSubjects()
@@ -275,6 +296,8 @@ class Metadata
     public function addDate(Date $date)
     {
         $this->dates[] = $date;
+
+        return $this;
     }
 
     public function getDates()
@@ -285,6 +308,8 @@ class Metadata
     public function addAlternateIdentifier(AlternateIdentifier $alternateIdentifier)
     {
         $this->alternateIdentifiers[] = $alternateIdentifier;
+
+        return $this;
     }
 
     public function getAlternateIdentifiers()
@@ -295,6 +320,8 @@ class Metadata
     public function addRelatedIdentifier(RelatedIdentifier $relatedIdentifier)
     {
         $this->relatedIdentifiers[] = $relatedIdentifier;
+
+        return $this;
     }
 
     public function getRelatedIdentifiers()
@@ -305,6 +332,8 @@ class Metadata
     public function addSize(Size $size)
     {
         $this->sizes[] = $size;
+
+        return $this;
     }
 
     public function getSizes()
@@ -315,6 +344,8 @@ class Metadata
     public function addFormat(Format $format)
     {
         $this->formats[] = $format;
+
+        return $this;
     }
 
     public function getFormats()
@@ -325,6 +356,8 @@ class Metadata
     public function addDescription(Description $description)
     {
         $this->descriptions[] = $description;
+
+        return $this;
     }
 
     public function getDescriptions()
