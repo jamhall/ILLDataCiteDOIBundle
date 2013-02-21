@@ -16,12 +16,12 @@ use ILL\DataCiteDOIBundle\Model\Metadata\Validator\ValidatorInterface;
  * This validator is defined in the metadata xsd file.
  * Please see http://schema.datacite.org/meta/kernel-2.0/metadata.xsd for more detail.
  */
-class NonEmptyString implements ValidatorInterface
+class NonEmptyStringValidator implements ValidatorInterface
 {
     public static function isValid($attributeName, $value)
     {
-        if (1 < strlen($name)) {
-            throw new \InvalidArgumentException(sprintf("%s must have a minimum length of 1 character"), $attributeName);
+        if (strlen($value) < 1) {
+            throw new \InvalidArgumentException(sprintf("%s must have a minimum length of 1 character", $attributeName));
         }
 
         return true;
