@@ -39,12 +39,12 @@ class Description
 
     public function setType($type)
     {
-        if (in_array($type, self::TYPES)) {
+        if (in_array($type, self::$TYPES)) {
             $this->type = $type;
 
             return $this;
         } else {
-            throw new \InvalidArgumentException(sprintf("Not a valid type. Valid types are: %s", json_encode(self::TYPES)));
+            throw new \InvalidArgumentException(sprintf("Not a valid type. Valid types are: %s", json_encode(self::$TYPES)));
         }
     }
 

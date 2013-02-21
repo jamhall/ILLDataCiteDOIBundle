@@ -79,12 +79,12 @@ class RelatedIdentifier
 
     public function setRelationType($relationType)
     {
-        if (in_array($relationType, self::RELATION_TYPES)) {
+        if (in_array($relationType, self::$RELATION_TYPES)) {
             $this->relationType = $relationType;
 
             return $this;
         } else {
-            throw new \InvalidArgumentException(sprintf("Not a valid relation type. Valid relation types are: %s", json_encode(self::RELATION_TYPES)));
+            throw new \InvalidArgumentException(sprintf("Not a valid relation type. Valid relation types are: %s", json_encode(self::$RELATION_TYPES)));
         }
     }
 
@@ -95,12 +95,12 @@ class RelatedIdentifier
 
     public function setRelatedIdentifierType($relatedIdentifierType)
     {
-        if (in_array($relatedIdentifierType, self::RELATED_IDENTIFIER_TYPES)) {
+        if (in_array($relatedIdentifierType, self::$RELATED_IDENTIFIER_TYPES)) {
             $this->relatedIdentifierType = $relatedIdentifierType;
 
             return $this;
         } else {
-            throw new \InvalidArgumentException(sprintf("Not a valid related identifier type. Valid related identifier types are: %s", json_encode(self::RELATED_IDENTIFIER_TYPES)));
+            throw new \InvalidArgumentException(sprintf("Not a valid related identifier type. Valid related identifier types are: %s", json_encode(self::$RELATED_IDENTIFIER_TYPES)));
         }
     }
 

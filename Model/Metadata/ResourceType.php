@@ -38,6 +38,10 @@ class ResourceType
 
     public function setType($type)
     {
+        if(null === $this->resourceType) {
+            throw new \InvalidArgumentException(sprintf("Please set the type first. Valid types are: %s", json_encode(self::$RESOURCE_TYPES)));
+        }
+
         if (null === $type) {
             throw new \InvalidArgumentException("Type cannot be null");
         }
@@ -53,12 +57,12 @@ class ResourceType
 
     public function setResourceType($resourceType)
     {
-        if (in_array($resourceType, self::RESOURCE_TYPES)) {
+        if (in_array($resourceType, self::$RESOURCE_TYPES)) {
             $this->resourceType = $resourceType;
 
             return $this;
         } else {
-            throw new \InvalidArgumentException(sprintf("Not a valid resource type. Valid types are: %s", json_encode(self::RESOURCE_TYPES)));
+            throw new \InvalidArgumentException(sprintf("Not a valid resource type. Valid types are: %s", json_encode(self::$RESOURCE_TYPES)));
         }
     }
 

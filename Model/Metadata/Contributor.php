@@ -8,7 +8,7 @@
 * @License  MIT License
 */
 
-namespace ILL\DataCiteDOIBundle\Model\Metadata\Validator;
+namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use ILL\DataCiteDOIBundle\Model\Metadata\Validator\NonEmptyStringValidator;
 use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
 /**
@@ -16,7 +16,7 @@ use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
  * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
  * @author Jamie Hall <hall@ill.eu>
  */
-class Contriutor
+class Contributor
 {
     private $name;
     private $type;
@@ -53,12 +53,12 @@ class Contriutor
 
     public function setType($type)
     {
-        if (in_array($type, self::TYPES)) {
+        if (in_array($type, self::$TYPES)) {
             $this->type = $type;
 
             return $this;
         } else {
-            throw new \InvalidArgumentException(sprintf("Not a valid type. Valid types are: %s", json_encode(self::TYPES)));
+            throw new \InvalidArgumentException(sprintf("Not a valid type. Valid types are: %s", json_encode(self::$TYPES)));
         }
     }
 
@@ -67,7 +67,7 @@ class Contriutor
         return $this->type;
     }
 
-    public function addNameIndentifier(NameIdentifier $nameIdentifier)
+    public function addNameIdentifier(NameIdentifier $nameIdentifier)
     {
         $this->nameIdentifiers[] = $nameIdentifier;
 

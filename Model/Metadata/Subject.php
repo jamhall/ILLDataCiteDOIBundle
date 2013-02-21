@@ -38,7 +38,9 @@ class Subject
 
     public function setScheme($scheme)
     {
-        return $this->scheme;
+        $this->scheme = $scheme;
+
+        return $this;
     }
 
     public function getScheme()

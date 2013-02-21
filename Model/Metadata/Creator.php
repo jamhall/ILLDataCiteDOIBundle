@@ -41,7 +41,7 @@ class Creator
         return $this->name;
     }
 
-    public function addNameIndentifier(NameIdentifier $nameIdentifier)
+    public function addNameIdentifier(NameIdentifier $nameIdentifier)
     {
         $this->nameIdentifiers[] = $nameIdentifier;
 

@@ -8,7 +8,7 @@
 * @License  MIT License
 */
 
-namespace ILL\DataCiteDOIBundle\Model\Metadata\Validator;
+namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use ILL\DataCiteDOIBundle\Model\Metadata\Validator\NonEmptyStringValidator;
 
 /**
@@ -48,8 +48,8 @@ class NameIdentifier
         return $this;
     }
 
-    public function getNameIdentifier()
+    public function getScheme()
     {
-        return $this->nameIdentifier;
+        return $this->scheme;
     }
 }

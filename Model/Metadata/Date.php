@@ -41,7 +41,7 @@ class Date
     public function setDate($date)
     {
         // check if date matches a format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)
-        if (true === preg_match("/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(:(\d{2}))?(?:([-+])(\d{2}):?(\d{2})|(Z))?/" , $date)) {
+        if (preg_match('/(\d{4})|(\d{4}-\d{2})|(\d{4}-\d{2}-\d{2})|(\d{4}-\d{2}-\d{2}T\d{2}(:\d{2}){1,2}[-+]\d{2}:\d{2})/', $date)) {
             $this->date = $date;
 
             return $this;
@@ -49,9 +49,15 @@ class Date
         throw new \InvalidArgumentException("Not a valid date. It must be in the format of YYYY or YYYY-MM-DD or any other format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)");
     }
 
+
+    public function getDate()
+    {
+        return $this->date;
+    }
+
     public function setType($type)
     {
-        if (in_array($type, self::TYPES)) {
+        if (in_array($type, self::$TYPES)) {
             $this->type = $type;
 
             return $this;
