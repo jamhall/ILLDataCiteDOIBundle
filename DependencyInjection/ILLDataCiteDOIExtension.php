@@ -25,8 +25,10 @@ class ILLDataCiteDOIExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        $logger = new Reference('validator');
+        $validator = new Reference('validator');
         $container->getDefinition("ill_data_cite_doi.manager")->addArgument($config);
-        $container->getDefinition("ill_data_cite_doi.manager")->addArgument($logger);
+        $container->getDefinition("ill_data_cite_doi.manager")->addArgument($validator);
+        $container->getDefinition("ill_data_cite_doi.metadata_manager")->addArgument($config);
+        $container->getDefinition("ill_data_cite_doi.metadata_manager")->addArgument($validator);
     }
 }
