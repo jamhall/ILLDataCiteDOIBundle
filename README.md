@@ -58,7 +58,7 @@ public function registerBundles()
 ill_data_cite_doi:
    username: YourDataCiteUsername
    password: YourDataCiteUsername
-   identifier:   YourDataCiteIdentifier
+   prefix:   YourDataCitePrefix
    // enable for testing the creation of DOIs and metadata using a special test prefix(They will not be exposed by upcoming services like search and OAI)
    test: true
    // configure a proxy (if you're going through one for curl requests)
