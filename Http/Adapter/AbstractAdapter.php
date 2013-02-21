@@ -13,7 +13,7 @@ namespace ILL\DataCiteDOIBundle\Http\Adapter;
 /**
  * @author Jamie Hall <hall@ill.eu>
  */
-abstract class BaseAdapter
+abstract class AbstractAdapter
 {
 	// the API end point for the datacite api
 	const DATACITE_API_ENDPOINT = "https://mds.datacite.org";
