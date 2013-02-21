@@ -16,7 +16,7 @@ use ILL\DataCiteDOIBundle\Model\DOI;
 /**
  * @author Jamie Hall <hall@ill.eu>
  */
-class MetadataManager extends BaseManager implements MetadataManagerInterface
+class MetadataManager extends AbstractManager implements MetadataManagerInterface
 {
     public function create(Metadata $metadata)
     {

@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator;
 /**
  * @author Jamie Hall <hall@ill.eu>
  */
-class DOIManager extends BaseManager implements DOIManagerInterface
+class DOIManager extends AbstractManager implements DOIManagerInterface
 {
     private $doi = null;
 

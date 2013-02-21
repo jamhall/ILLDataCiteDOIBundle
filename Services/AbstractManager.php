@@ -15,7 +15,7 @@ use ILL\DataCiteDOIBundle\Http\Adapter\CurlAdapter;
 /**
  * @author Jamie Hall <hall@ill.eu>
  */
-abstract class BaseManager
+abstract class AbstractManager
 {
     protected $adapter = null;
     /**
