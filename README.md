@@ -1,18 +1,13 @@
 ILLDataCiteDOIBundle
-=================
+====================
 
 A symfony 2 bundle for communicating with the [mds.datacite.org](https://mds.datacite.org/) API to mint DOIs and register associated metadata.
 
 *Note:* In order to use the API, it requires organisations to first register for an account with a [DataCite member](http://www.datacite.org/members)
 
-Documentation
--------------
+## Documentation
 
 The bulk of the documentation is stored in the `Resources/doc/index.md`
-
-
-Installation
-------------
 
 ## Installation
 
