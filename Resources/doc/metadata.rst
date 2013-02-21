@@ -22,6 +22,7 @@ This bundle works by serializing your POPOs (plain old php objects) into XML for
 
 To upload some metadata which conforms to the minimum requirements, we can do the following:
 
+```php
     // get the metadata manager from the service container
     $metadataManager = $this->container->get("ill_datacite_doi_metadata_manager");
     
@@ -38,3 +39,4 @@ To upload some metadata which conforms to the minimum requirements, we can do th
 
     // create the metadata
     $metadataManager->create($metadata);
+```
