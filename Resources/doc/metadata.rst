@@ -1,9 +1,6 @@
 Metadata
 ========
 
-Introduction
-------------
-
 Please refer to the documentation for Metadata schema 2.2 which can be found [here](http://schema.datacite.org/meta/kernel-2.2/index.html)
 
 When uploading metadata to the DataCite API, there are *5* required properties:
@@ -16,13 +13,13 @@ When uploading metadata to the DataCite API, there are *5* required properties:
 
 The rest of the properties outlined in the documentation are optional.
 
-In order to upload metadata to the API, it needs to be in an XML format which conforms to the [XSD schema](http://schema.datacite.org/meta/kernel-2.2/metadata.xsd).
+In order to upload metadata to the API, it needs to be in an XML format which conforms to the [XSD schema](http://schema.datacite.org/meta/kernel-2.2/metadata.xsd)
 
 This bundle works by serializing your POPOs (plain old php objects) into XML for the API and deserializes XML returned from the API into POPOs.
 
 To upload some metadata which conforms to the minimum requirements, we can do the following:
 
-```php
+``` php
     // get the metadata manager from the service container
     $metadataManager = $this->container->get("ill_datacite_doi_metadata_manager");
     
