@@ -10,6 +10,7 @@
 
 namespace ILL\DataCiteDOIBundle\Services;
 
+use ILL\DataCiteDOIBundle\Model\DOI;
 use ILL\DataCiteDOIBundle\Model\Metadata;
 
 /**
