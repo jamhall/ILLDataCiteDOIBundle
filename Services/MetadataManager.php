@@ -40,5 +40,4 @@ class MetadataManager extends AbstractManager implements MetadataManagerInterfac
     {
 
     }
-
 }
