@@ -33,7 +33,7 @@ class MetadataSerializer
     public static function serialize(Metadata $metadata)
     {
         // create a new XML document
-        $xml = new \DomDocument('1.0', 'UTF-8');
+        $xml = new \DomDocument();
         // create root node
         $root = $xml->createElementNS(self::DATACITE_KERNEL_RESOURCE_NAMESPACE, 'resource');
         $root = $xml->appendChild($root);
@@ -224,20 +224,25 @@ class MetadataSerializer
         }
 
         /**
-         * Validate the XML produced against the Metadata XSD
-         * @var [type]
-         */
-        $validate = new \DOMDocument;
-        $validate->loadXML($xml->savexml());
+        * Validate the XML produced against the Metadata XSD
+        * This an ugly hack. The XML produced includes the XML declaration.
+        * There is no way to not include this (why?!?!)
+        * We have to instantiate another DomDocument so we can validate the previous document against
+        * the XSD schema.
+        * This seems to work but I'm not entirely happy with this solution
+        */
+        $validate = new \DOMDocument();
+        $validate->loadXML($xml->saveXML($xml->documentElement));
 
         try {
-            if ($validate->schemaValidate("/home/hall/workspace/illdatacitedoibundle/Model/Metadata/Schema/metadata.xsd")) {
+            if ($validate->schemaValidate(__DIR__ . "../../../Model/Metadata/Schema/metadata.xsd")) {
                 return $xml->savexml();
             }
         } catch (\ErrorException $e) {
             throw new \Exception("The XML could not be validated: " . $e->getMessage());
         }
-        #file_put_contents("/tmp/test.xml", $xml->savexml());
+
+        #file_put_contents("/tmp/test.xml",  $xml->saveXML($xml->documentElement));
     }
 
     /**
