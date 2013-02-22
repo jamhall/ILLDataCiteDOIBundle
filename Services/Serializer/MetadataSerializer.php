@@ -11,7 +11,18 @@
 namespace ILL\DataCiteDOIBundle\Services\Serializer;
 
 use ILL\DataCiteDOIBundle\Model\Metadata;
-
+use ILL\DataCiteDOIBundle\Model\Metadata\Creator;
+use ILL\DataCiteDOIBundle\Model\Metadata\Title;
+use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
+use ILL\DataCiteDOIBundle\Model\Metadata\Subject;
+use ILL\DataCiteDOIBundle\Model\Metadata\Contributor;
+use ILL\DataCiteDOIBundle\Model\Metadata\Date;
+use ILL\DataCiteDOIBundle\Model\Metadata\ResourceType;
+use ILL\DataCiteDOIBundle\Model\Metadata\AlternateIdentifier;
+use ILL\DataCiteDOIBundle\Model\Metadata\RelatedIdentifier;
+use ILL\DataCiteDOIBundle\Model\Metadata\Size;
+use ILL\DataCiteDOIBundle\Model\Metadata\Format;
+use ILL\DataCiteDOIBundle\Model\Metadata\Description;
 /**
  * Serialization and unserialization of metadata
  * @author Jamie Hall <hall@ill.eu>
@@ -28,9 +39,12 @@ class MetadataSerializer
 
     /**
      * Serialize metadata model into XML for the API
+     * @param object Metadata
+     * @param String fileDirectory Location to store the XML output
+     * @param String fileName Name of the file
      * @return string
      */
-    public static function serialize(Metadata $metadata)
+    public static function serialize(Metadata $metadata, $fileDirectory = null, $fileName = null)
     {
         // create a new XML document
         $xml = new \DomDocument();
@@ -58,12 +72,10 @@ class MetadataSerializer
             $creatorNameElement = $xml->createElement("creatorName", $creator->getName());
             $creatorsElement->appendChild($creatorElement);
             $creatorElement->appendChild($creatorNameElement);
-            if ($creator->getNameIdentifiers()) {
-                foreach ($creator->getNameIdentifiers() as $nameIdentifier) {
-                    $nameIdentifierElement = $xml->createElement("nameIdentifier", $nameIdentifier->getIdentifier());
-                    $nameIdentifierElement->setAttribute("nameIdentifierScheme", $nameIdentifier->getScheme());
+            if ($creator->getNameIdentifier()) {
+                    $nameIdentifierElement = $xml->createElement("nameIdentifier", $creator->getNameIdentifier()->getIdentifier());
+                    $nameIdentifierElement->setAttribute("nameIdentifierScheme", $creator->getNameIdentifier()->getScheme());
                     $creatorElement->appendChild($nameIdentifierElement);
-                }
             }
         }
 
@@ -110,15 +122,13 @@ class MetadataSerializer
             foreach ($metadata->getContributors() as $contributor) {
                 $contributorElement = $xml->createElement("contributor");
                 $contributorElement->setAttribute("contributorType", $contributor->getType());
-                $contributorNameElement = $xml->createElement("contributorName", $creator->getName());
+                $contributorNameElement = $xml->createElement("contributorName", $contributor->getName());
                 $contributorsElement->appendChild($contributorElement);
                 $contributorElement->appendChild($contributorNameElement);
-                if ($contributor->getNameIdentifiers()) {
-                    foreach ($contributor->getNameIdentifiers() as $nameIdentifier) {
-                        $nameIdentifierElement = $xml->createElement("nameIdentifier", $nameIdentifier->getIdentifier());
-                        $nameIdentifierElement->setAttribute("nameIdentifierScheme", $nameIdentifier->getScheme());
-                        $contributorElement->appendChild($nameIdentifierElement);
-                    }
+                if ($contributor->getNameIdentifier()) {
+                    $nameIdentifierElement = $xml->createElement("nameIdentifier", $contributor->getNameIdentifier()->getIdentifier());
+                    $nameIdentifierElement->setAttribute("nameIdentifierScheme", $contributor->getNameIdentifier()->getScheme());
+                    $contributorElement->appendChild($nameIdentifierElement);
                 }
             }
         }
@@ -134,6 +144,13 @@ class MetadataSerializer
                 $dateElement->setAttribute("dateType", $date->getType());
                 $datesElement->appendChild($dateElement);
             }
+        }
+
+        /**
+         * Set language (if specified)
+         */
+        if ($metadata->getLanguage()) {
+            $root->appendChild($xml->createElement("language", $metadata->getLanguage()));
         }
 
         /**
@@ -232,25 +249,196 @@ class MetadataSerializer
         * This seems to work but I'm not entirely happy with this solution
         */
         $validate = new \DOMDocument();
-        $validate->loadXML($xml->saveXML($xml->documentElement));
+        $xmlOutput = $xml->saveXML($xml->documentElement);
+        $validate->loadXML($xmlOutput);
+       // file_put_contents("/tmp/test.xml",  $xml->saveXML($xml->documentElement));
 
         try {
             if ($validate->schemaValidate(__DIR__ . "../../../Model/Metadata/Schema/metadata.xsd")) {
-                return $xml->savexml();
+                return $xmlOutput;
             }
         } catch (\ErrorException $e) {
             throw new \Exception("The XML could not be validated: " . $e->getMessage());
         }
-
-        #file_put_contents("/tmp/test.xml",  $xml->saveXML($xml->documentElement));
     }
 
     /**
      * Unserialize XML returned from the API into a metadata model
      * @return object Metadata
      */
-    public static function unserialize($xml)
+    public static function unserialize($xmlString)
     {
+        $xml = simplexml_load_string($xmlString);
+        $metadata = new Metadata();
+        $metadata->setIdentifier((string) $xml->identifier)
+                 ->setPublisher((string) $xml->publisher)
+                 ->setPublicationYear((string) $xml->publicationYear);
 
+        /**
+         * Get creators
+         */
+        if (isset($xml->creators)) {
+            foreach ($xml->creators->creator as $creatorElement) {
+                $creator = new Creator();
+                $creator->setName((string) $creatorElement->creatorName);
+                foreach ($creatorElement->nameIdentifier as $nameIdentifierElement) {
+                    $nameIdentifier = new NameIdentifier();
+                    $nameIdentifier->setScheme((string) $nameIdentifierElement->attributes()->nameIdentifierScheme);
+                    $nameIdentifier->setIdentifier((string) $nameIdentifierElement);
+                    $creator->setNameIdentifier($nameIdentifier);
+                }
+                $metadata->addCreator($creator);
+            }
+        }
+
+        /**
+         * Get titles
+         */
+        if (isset($xml->titles)) {
+            foreach ($xml->titles->title as $titleElement) {
+                $title = new Title();
+                $title->setTitle((string) $titleElement);
+                // check if we have a title type
+                if (isset($titleElement->attributes()->titleType)) {
+                    $title->setType((string) $titleElement->attributes()->titleType);
+                }
+                $metadata->addTitle($title);
+            }
+        }
+
+        /**
+         * Get subjects
+         */
+        if (isset($xml->subjects)) {
+            foreach ($xml->subjects->subject as $subjectElement) {
+                $subject = new Subject();
+                $subject->setSubject((string) $subjectElement);
+                // check if we have a subject scheme
+                if (isset($subjectElement->attributes()->subjectScheme)) {
+                    $subject->setScheme((string) $subjectElement->attributes()->subjectScheme);
+                }
+                $metadata->addSubject($subject);
+            }
+        }
+
+        /**
+         * Get contributors
+         */
+        if (isset($xml->contributors)) {
+            foreach ($xml->contributors->contributor as $contributorElement) {
+                $contributor = new Contributor();
+                $contributor->setName((string) $contributorElement->contributorName);
+                $contributor->setType((string) $contributorElement->attributes()->contributorType);
+                foreach ($contributorElement->nameIdentifier as $nameIdentifierElement) {
+                    $nameIdentifier = new NameIdentifier();
+                    $nameIdentifier->setScheme((string) $nameIdentifierElement->attributes()->nameIdentifierScheme);
+                    $nameIdentifier->setIdentifier((string) $nameIdentifierElement);
+                    $contributor->setNameIdentifier($nameIdentifier);
+                }
+                $metadata->addContributor($contributor);
+            }
+        }
+
+        /**
+         * Get language
+         */
+        if (isset($xml->language)) {
+            $metadata->setLanguage((string) $xml->language);
+        }
+
+        /**
+         * Get dates
+         */
+        if (isset($xml->dates)) {
+            foreach ($xml->dates->date as $dateElement) {
+                $date = new Date();
+                $date->setDate((string) $dateElement);
+                // check if we have a subject scheme
+                if (isset($dateElement->attributes()->dateType)) {
+                    $date->setType((string) $dateElement->attributes()->dateType);
+                }
+                $metadata->addDate($date);
+            }
+        }
+
+        /**
+         * Get resource type
+         */
+        if (isset($xml->resourceType)) {
+                $resourceType = new ResourceType();
+                $resourceType->setResourceType((string) $xml->resourceType->attributes()->resourceTypeGeneral);
+                $resourceType->setType((string) $xml->resourceType);
+                $metadata->setResourceType($resourceType);
+        }
+
+        /**
+         * Get alternate identifiers
+         */
+        if (isset($xml->alternateIdentifiers)) {
+            foreach ($xml->alternateIdentifiers->alternateIdentifier as $alternateIdentifierElement) {
+                $alternateIdentifier = new AlternateIdentifier();
+                $alternateIdentifier->setType((string) $alternateIdentifierElement->attributes()->alternateIdentifierType);
+                $alternateIdentifier->setIdentifier((string) $alternateIdentifierElement);
+                $metadata->addAlternateIdentifier($alternateIdentifier);
+            }
+        }
+        /**
+         * Get alternate identifiers
+         */
+        if (isset($xml->relatedIdentifiers)) {
+            foreach ($xml->relatedIdentifiers->relatedIdentifier as $relatedIdentifierElement) {
+                $relatedIdentifier = new RelatedIdentifier();
+                $relatedIdentifier->setRelatedIdentifierType((string) $relatedIdentifierElement->attributes()->relatedIdentifierType);
+                $relatedIdentifier->setRelationType((string) $relatedIdentifierElement->attributes()->relationType);
+                $relatedIdentifier->setIdentifier((string) $relatedIdentifierElement);
+                $metadata->addRelatedIdentifier($relatedIdentifier);
+            }
+        }
+
+        /**
+         * Get sizes
+         */
+        if (isset($xml->sizes)) {
+            foreach ($xml->sizes->size as $sizeElement) {
+                $metadata->addSize(new Size((string) $sizeElement));
+            }
+        }
+
+        /**
+         * Get formats
+         */
+        if (isset($xml->formats)) {
+            foreach ($xml->formats->format as $formatElement) {
+                $metadata->addFormat(new Format((string) $formatElement));
+            }
+        }
+
+        /**
+         * Get rights
+         */
+        if (isset($xml->rights)) {
+            $metadata->setRights((string) $xml->rights);
+        }
+
+        /**
+         * Get version
+         */
+        if (isset($xml->version)) {
+            $metadata->setVersion((string) $xml->version);
+        }
+
+        /**
+         * Get descriptions
+         */
+        if (isset($xml->descriptions)) {
+            foreach ($xml->descriptions->description as $descriptionElement) {
+                $description = new Description();
+                $description->setDescription((string) $descriptionElement);
+                $description->setType((string) $descriptionElement->attributes()->descriptionType);
+                $metadata->addDescription($description);
+            }
+        }
+
+       return $metadata;
     }
 }
