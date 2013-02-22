@@ -49,7 +49,6 @@ class Date
         throw new \InvalidArgumentException("Not a valid date. It must be in the format of YYYY or YYYY-MM-DD or any other format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)");
     }
 
-
     public function getDate()
     {
         return $this->date;

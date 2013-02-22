@@ -20,7 +20,7 @@ class Contributor
 {
     private $name;
     private $type;
-    private $nameIdentifiers = array();
+    private $nameIdentifier;
     /**
      * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-contributorType-v1.1.xsd for valid
      * contriutor types
@@ -67,15 +67,15 @@ class Contributor
         return $this->type;
     }
 
-    public function addNameIdentifier(NameIdentifier $nameIdentifier)
+    public function setNameIdentifier(NameIdentifier $nameIdentifier)
     {
-        $this->nameIdentifiers[] = $nameIdentifier;
+        $this->nameIdentifier = $nameIdentifier;
 
         return $this;
     }
 
-    public function getNameIdentifiers()
+    public function getNameIdentifier()
     {
-        return $this->nameIdentifiers;
+        return $this->nameIdentifier;
     }
 }

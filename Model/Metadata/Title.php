@@ -20,7 +20,7 @@ class Title
     private $title;
     private $type;
 
-    static public function instantiate()
+    public static function getInstance()
     {
         return new self();
     }

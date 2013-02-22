@@ -20,9 +20,9 @@ use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
 class Creator
 {
     private $name;
-    private $nameIdentifiers = array();
+    private $nameIdentifier;
 
-    static public function instantiate()
+    public static function instantiate()
     {
         return new self();
     }
@@ -41,15 +41,15 @@ class Creator
         return $this->name;
     }
 
-    public function addNameIdentifier(NameIdentifier $nameIdentifier)
+    public function setNameIdentifier(NameIdentifier $nameIdentifier)
     {
-        $this->nameIdentifiers[] = $nameIdentifier;
+        $this->nameIdentifier = $nameIdentifier;
 
         return $this;
     }
 
-    public function getNameIdentifiers()
+    public function getNameIdentifier()
     {
-        return $this->nameIdentifiers;
+        return $this->nameIdentifier;
     }
 }

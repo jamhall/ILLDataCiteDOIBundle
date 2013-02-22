@@ -238,6 +238,8 @@ class Metadata
     public function setResourceType(ResourceType $resourceType)
     {
         $this->resourceType = $resourceType;
+
+        return $this;
     }
 
     public function getResourceType()
@@ -248,6 +250,19 @@ class Metadata
     public function addTitle(Title $title)
     {
         $this->titles[] = $title;
+
+        return $this;
+    }
+
+    public function addTitles(array $titles = array())
+    {
+        foreach ($titles as $title) {
+            if (true === $title instanceof Title) {
+                $this->titles[] = $title;
+            } else {
+                 throw new \InvalidArgumentException("Invalid class type. All classes in the array must be an instance of Title");
+            }
+        }
 
         return $this;
     }

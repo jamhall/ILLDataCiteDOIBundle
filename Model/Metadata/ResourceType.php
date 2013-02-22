@@ -38,7 +38,7 @@ class ResourceType
 
     public function setType($type)
     {
-        if(null === $this->resourceType) {
+        if (null === $this->resourceType) {
             throw new \InvalidArgumentException(sprintf("Please set the type first. Valid types are: %s", json_encode(self::$RESOURCE_TYPES)));
         }
 
