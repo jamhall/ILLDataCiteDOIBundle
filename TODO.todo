@@ -1,0 +1,7 @@
+Metadata tasks:
+ ☐ Delete metadata (not deleted but gets marked as inactive)
+ ☐ Create metadata (serialize object and then make an API call)
+ ☐ Update metadata (serialize object and then make an API call)
+DOI tasks:
+ ☐ Create DOI
+ ☐ Update DOI url
