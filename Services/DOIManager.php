@@ -14,9 +14,10 @@ use \Versionable\Prospect\Request\Request;
 use \Versionable\Prospect\Url\Url;
 use \Versionable\Prospect\Client\Client;
 use \Versionable\Prospect\Header\Collection;
-
+use \Versionable\Prospect\Parameter\Parameter;
 use ILL\DataCiteDOIBundle\Http\Response;
 use ILL\DataCiteDOIBundle\Model\DOI;
+use ILL\DataCiteDOIBundle\Model\Metadata;
 use Symfony\Component\Validator\Validator;
 
 /**
@@ -35,7 +36,7 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
             // check the response is valid
             if ($response->isValid()) {
                 $this->doi = new DOI();
-                $this->doi->setId($id)
+                $this->doi->setIdentifier($id)
                           ->setUrl($response->getContent());
 
                 return $this->doi;
@@ -50,22 +51,20 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
         $errors = $this->validator->validate($doi);
         $request = new Request(new Url($this->adapter->getDoiPostUri()));
         $request->setMethod("POST");
-        $parameters = new \Versionable\Prospect\Parameter\Collection();
-        $parameters->add(new \Versionable\Prospect\Parameter\Parameter('doi', 'TEST-2-1'));
-        $parameters->add(new \Versionable\Prospect\Parameter\Parameter('url', 'http://example.com'));
-        $request->setParameters($parameters);
+        $parameters = $request->getParameters();
+        $parameters->add(new Parameter('doi', $doi->getIdentifier()));
+        $parameters->add(new Parameter('url', $doi->getUrl()));
+        //$request->setParameters($parameters);
         $client = new Client($this->adapter->getAdapter());
         $response = $client->send($request, new Response());
         try {
             // check the response is valid
             if ($response->isValid()) {
-                $this->doi = new DOI();
-                $this->doi->setId($id)
-                          ->setUrl($response->getContent());
 
-                return $this->doi;
+                return $doi;
             }
         } catch (\Exception $e) {
+
             return null;
         }
     }
