@@ -56,5 +56,14 @@ interface MetadataManagerInterface
      * @param  string  $id
      * @return boolean
      */
-    public function delete($id);
+    public function delete(Metadata $metadata);
+
+    /**
+     * Delete metadata for a DOI
+     * This request marks a dataset as 'inactive'.
+     * To activate it again, POST new metadata or set the isActive-flag in the user interface.
+     * @param  string  $id
+     * @return boolean
+     */
+    public function deleteById($id);
 }
