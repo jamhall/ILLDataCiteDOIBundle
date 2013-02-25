@@ -65,21 +65,21 @@ $metadata->setIdentifier("10.1594/WDCC/CCSRNIES_SRES_B2")
                                            ->setDescription('The current xml-example for a DataCite record is the official example from the documentation.<br/>Please look on datacite.org to find the newest versions of sample data and schemas.'));
 ```
 
-To create the metadata:
+### Upload the metadata to datacite
 
 ``` php
 $mdm = $container->get("ill_data_cite_doi.metadata_manager");
 $mdm->create($metadata);
 ```
 
-To update the metadata using the same object(the version is updated automatically by the API):
+### To update the metadata using the same object (the metadata version is updated automatically by the API)
 
 ``` php
 $mdm = $container->get("ill_data_cite_doi.metadata_manager");
 $mdm->update($metadata);
 ```
 
-To find metadata for a DOI and update it:
+### To find metadata for a DOI and update it
 
 ```php
 $mdm = $container->get("ill_data_cite_doi.metadata_manager");
