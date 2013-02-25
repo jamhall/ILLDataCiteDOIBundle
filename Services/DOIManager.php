@@ -13,11 +13,9 @@ namespace ILL\DataCiteDOIBundle\Services;
 use \Versionable\Prospect\Request\Request;
 use \Versionable\Prospect\Url\Url;
 use \Versionable\Prospect\Client\Client;
-use \Versionable\Prospect\Header\Collection;
 use \Versionable\Prospect\Parameter\Parameter;
 use ILL\DataCiteDOIBundle\Http\Response;
 use ILL\DataCiteDOIBundle\Model\DOI;
-use ILL\DataCiteDOIBundle\Model\Metadata;
 use Symfony\Component\Validator\Validator;
 
 /**

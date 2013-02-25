@@ -51,6 +51,7 @@ class MetadataManager extends AbstractManager implements MetadataManagerInterfac
             }
         } catch (\Exception $e) {
             #throw new \Exception($e->getMessage());
+
             return false;
         }
     }
