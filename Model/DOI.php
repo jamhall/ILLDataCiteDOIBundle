@@ -23,7 +23,7 @@ class DOI
      * @var string
      * @Assert\Regex(pattern="/^[-_a-zA-Z0-9.:\+\\]+$/", message="The following characters are only allowed in a DOI name: 0-9, a-z, A-Z, dash, dot, underscore, plus, colon and slash")
      */
-    protected $id;
+    protected $identifier;
 
     /**
      * The URL for the DOI
@@ -33,9 +33,9 @@ class DOI
      */
     protected $url;
 
-    public function setId($id)
+    public function setIdentifier($identifier)
     {
-        $this->id = $id;
+        $this->identifier = $identifier;
 
         return $this;
     }
@@ -45,9 +45,9 @@ class DOI
      *
      * @return string
      */
-    public function getId()
+    public function getIdentifier()
     {
-        return $this->id;
+        return $this->identifier;
     }
 
     public function setUrl($url)
