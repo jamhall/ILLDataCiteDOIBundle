@@ -8,15 +8,21 @@
         <parameter key="ill_data_cite_doi.manager.class">ILL\DataCiteDOIBundle\Services\DOIManager</parameter>
         <parameter key="ill_data_cite_doi.metadata_manager.class">ILL\DataCiteDOIBundle\Services\MetadataManager</parameter>
         <parameter key="ill_data_cite_doi.metadata_serializer.class">ILL\DataCiteDOIBundle\Services\Serializer\MetadataSerializer</parameter>
-
-
     </parameters>
 
     <services>
-
         <service id="ill_data_cite_doi.manager" class="%ill_data_cite_doi.manager.class%" />
         <service id="ill_data_cite_doi.metadata_manager" class="%ill_data_cite_doi.metadata_manager.class%" />
         <service id="ill_data_cite_doi.metadata_serializer" class="%ill_data_cite_doi.metadata_serializer.class%" />
-
+        <service id="ill_data_cite_doi.logger" class="%monolog.logger.class%">
+            <argument>doi</argument>
+            <call method="pushHandler">
+                <argument type="service" id="ill_data_cite_doi.logger_handler" />
+            </call>
+        </service>
+        <service id="ill_data_cite_doi.logger_handler" class="%monolog.handler.stream.class%">
+            <argument>%kernel.logs_dir%/%kernel.environment%.doi.log</argument>
+            <argument>200</argument>
+        </service>
     </services>
 </container>
