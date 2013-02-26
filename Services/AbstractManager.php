@@ -9,7 +9,6 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Services;
-use Symfony\Component\Validator\Validator;
 use ILL\DataCiteDOIBundle\Http\Adapter\CurlAdapter;
 
 /**
@@ -17,7 +16,8 @@ use ILL\DataCiteDOIBundle\Http\Adapter\CurlAdapter;
  */
 abstract class AbstractManager
 {
-    protected $adapter = null;
+    protected $adapter;
+    protected $logger;
     /**
      * @var array $defaults Array of default options
      */
@@ -31,10 +31,10 @@ abstract class AbstractManager
         'proxy' => false
     );
 
-    public function __construct(array $options = array(), Validator $validator)
+    public function __construct(array $options = array(), $logger)
     {
         $this->defaults = array_merge($this->defaults, $options);
         $this->adapter = new CurlAdapter($this->defaults);
-        $this->validator = $validator;
+        $this->logger = $logger;
     }
 }
