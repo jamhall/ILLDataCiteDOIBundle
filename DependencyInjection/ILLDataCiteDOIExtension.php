@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * @author Jamie Hall <hall@ill.eu>
+ * @author Mr. Jamie Hall <hall@ill.eu>
  */
 class ILLDataCiteDOIExtension extends Extension
 {
