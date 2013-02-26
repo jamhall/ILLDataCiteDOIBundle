@@ -16,9 +16,6 @@
         "symfony/framework-bundle": ">=2.1,<2.2-dev",
         "versionable/prospect": "1.0.*@dev"
     },
-    "require-dev": {
-        "symfony/validator": "2.1.*"
-    },
     "autoload": {
         "psr-0": { "ILL\\DataCiteDOIBundle": "" }
     },
