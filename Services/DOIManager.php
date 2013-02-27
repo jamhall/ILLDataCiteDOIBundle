@@ -11,10 +11,10 @@
 namespace ILL\DataCiteDOIBundle\Services;
 
 use \Versionable\Prospect\Request\Request;
+use \Versionable\Prospect\Response\Response;
 use \Versionable\Prospect\Url\Url;
 use \Versionable\Prospect\Client\Client;
 use \Versionable\Prospect\Parameter\Parameter;
-use ILL\DataCiteDOIBundle\Http\Response;
 use ILL\DataCiteDOIBundle\Model\DOI;
 
 /**
@@ -25,13 +25,7 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
     public function find($id)
     {
         // expected response codes
-        $codes = array("200"=>"OK",
-                       "204"=>"No content",
-                       "401"=>"Unauthorized",
-                       "403"=>"Login problem or dataset belongs to another party",
-                       "404"=>"Not found",
-                       "410"=>"Requested dataset was marked inactive (using DELETE method)",
-                       "500"=>"500 Internal Server Error");
+        $codes = $this->getResponseCodes("ill.datacitedoibundle.api.doi.get");
         try {
             $request = new Request(new Url($this->adapter->getDoiGetUri($id)));
             $client = new Client($this->adapter->getAdapter());
@@ -40,58 +34,103 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
             if (array_key_exists($response->getCode(), $codes)) {
                 // we have a successful response
                 if (200 == $response->getCode()) {
-                    $this->logger->info(sprintf("The DOI with the identifier of %s was retrieved", $id));
+                    $this->logger->info(sprintf("The DOI with the identifier of %s was retrieved", $id),
+                                        array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
                     $doi = new DOI();
                     $doi->setIdentifier($id)
                         ->setUrl($response->getContent());
 
                     return $doi;
                 } else {
-                    $this->logger->err(sprintf("The DOI with the identifier of %s could not be retrieved. Server returned response code: %s %s", $id, $response->getCode(), $codes[$response->getCode()]));
+                    $this->logger->info(sprintf("The DOI with the identifier of %s could not be retrieved", $id),
+                                        array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
                 }
             } else {
-                $this->logger->err(sprintf("Unexpected response code of %s with content of '%s' for the requested identifier of %s", $response->getCode(), $response->getContent(), $id));
+                $this->logger->err(sprintf("Unexpected response code for the retrieval of the identifier %s", $id),
+                                            array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$response::$valid_codes[$response->getCode()]))));
+
             }
-
-            return null;
-
         } catch (\Exception $e) {
             $this->logger->err($e->getMessage());
-
-            return null;
         }
+
+        return null;
     }
 
     public function create(DOI $doi)
     {
-        $request = new Request(new Url($this->adapter->getDoiPostUri()));
-        $request->setMethod("POST");
-        $parameters = $request->getParameters();
-        $parameters->add(new Parameter('doi', $doi->getIdentifier()));
-        $parameters->add(new Parameter('url', $doi->getUrl()));
-        $client = new Client($this->adapter->getAdapter());
-        $response = $client->send($request, new Response());
+        // expected response codes
+        $codes = $this->getResponseCodes("ill.datacitedoibundle.api.doi.post");
         try {
+            $request = new Request(new Url($this->adapter->getDoiPostUri()));
+            $request->setMethod("POST");
+            $parameters = $request->getParameters();
+            $parameters->add(new Parameter('doi', $doi->getIdentifier()));
+            $parameters->add(new Parameter('url', $doi->getUrl()));
+            $client = new Client($this->adapter->getAdapter());
+            $response = $client->send($request, new Response());
             // check the response is valid
-            if ($response->isValid()) {
-                $this->logger->info(sprintf("The DOI with the identifier of %s and URL of %s was created successfully.", $doi->getIdentifier(), $doi->getUrl()));
+            if (array_key_exists($response->getCode(), $codes)) {
+                // we have a successful response
+                if (201 == $response->getCode()) {
+                    $this->logger->info(sprintf("The DOI with the identifier of %s was created", $doi->getIdentifier()),
+                                        array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
 
-                return $doi;
+                    return $doi;
+                } else {
+                    $this->logger->info(sprintf("The DOI with the identifier of %s could not be created", $doi->getIdentifier()),
+                                        array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
+                }
+            } else {
+                $this->logger->err(sprintf("Unexpected response code for the retrieval of the identifier %s", $id),
+                                            array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$response::$valid_codes[$response->getCode()]))));
+
             }
         } catch (\Exception $e) {
-            $this->logger->err(sprintf("The DOI with the identifier of %s and URL of %s could not be created: %s.", $doi->getIdentifier(), $doi->getUrl(), $e->getMessage()));
-
-            return null;
+            $this->logger->err($e->getMessage());
         }
+
+        return null;
     }
 
     public function exists($id)
     {
-
+        return $this->find($id) ? true : false;
     }
 
     public function update(DOI $doi)
     {
+        // expected response codes
+        $codes = $this->getResponseCodes("ill.datacitedoibundle.api.doi.post");
+        try {
+            $request = new Request(new Url($this->adapter->getDoiPostUri()));
+            $request->setMethod("POST");
+            $parameters = $request->getParameters();
+            $parameters->add(new Parameter('doi', $doi->getIdentifier()));
+            $parameters->add(new Parameter('url', $doi->getUrl()));
+            $client = new Client($this->adapter->getAdapter());
+            $response = $client->send($request, new Response());
+            // check the response is valid
+            if (array_key_exists($response->getCode(), $codes)) {
+                // we have a successful response
+                if (201 == $response->getCode()) {
+                    $this->logger->info(sprintf("The DOI with the identifier of %s was updated with the new URL of %s", $doi->getIdentifier(), $doi->getResponse()),
+                                        array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
 
+                    return $doi;
+                } else {
+                    $this->logger->info(sprintf("The DOI with the identifier of %s could not be updated", $doi->getIdentifier()),
+                                        array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
+                }
+            } else {
+                $this->logger->err(sprintf("Unexpected response code for the updating of the identifier %s", $id),
+                                            array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$response::$valid_codes[$response->getCode()]))));
+
+            }
+        } catch (\Exception $e) {
+            $this->logger->err($e->getMessage());
+        }
+
+        return null;
     }
 }
