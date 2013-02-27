@@ -14,7 +14,7 @@ This bundle has only been **tested with Symfony 2.1**. If you would like it to w
 
 ## Documentation
 
-The bulk of the documentation is stored in the `Resources/doc/index.md`
+The bulk of the documentation is stored in the [Resources/doc/index.md](Resources/doc/index.md)
 
 ## Installation
 
@@ -79,4 +79,4 @@ License
 
 This bundle is under the MIT license. See the complete license in the bundle:
 
-    Resources/meta/LICENSE
+    [Resources/meta/LICENSE](Resources/meta/LICENSE)
