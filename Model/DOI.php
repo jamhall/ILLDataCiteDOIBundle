@@ -10,10 +10,9 @@
 
 namespace ILL\DataCiteDOIBundle\Model;
 
-use Symfony\Component\Validator\Constraints as Assert;
 /*
  * This class represents a DOI
- * @author Jamie Hall <hall@ill.eu>
+ * @author Mr. Jamie Hall <hall@ill.eu>
  */
 class DOI
 {
@@ -21,10 +20,12 @@ class DOI
      * The identifier
      *
      * @var string
-     * @Assert\Regex(pattern="/^[-_a-zA-Z0-9.:\+\\]+$/", message="The following characters are only allowed in a DOI name: 0-9, a-z, A-Z, dash, dot, underscore, plus, colon and slash")
+     * Assert\Regex(pattern="/^[-_a-zA-Z0-9.:\+\\]+$/", message="The following characters are only allowed in a DOI name: 0-9, a-z, A-Z, dash, dot, underscore, plus, colon and slash")
      */
     protected $identifier;
 
+    protected $metadata;
+    protected $metadataReference;
     /**
      * The URL for the DOI
      *
@@ -66,4 +67,14 @@ class DOI
     {
         return $this->url;
     }
+
+    /**
+     * Get the metadata of the DOI
+     * @return object Metadata
+     */
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
+
 }
