@@ -1,6 +1,9 @@
 ILLDataCiteDOIBundle
 ====================
 
+[![knpbundles.com](http://knpbundles.com/ILLGrenoble/ILLDataCiteDOIBundle/badge-short)](http://knpbundles.com/ILLGrenoble/ILLDataCiteDOIBundle)
+
+
 A symfony 2 bundle for communicating with the [mds.datacite.org](https://mds.datacite.org/) API to mint DOIs and register associated metadata.
 
 **Note** 
