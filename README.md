@@ -1,6 +1,9 @@
 ILLDataCiteDOIBundle
 ====================
 
+[![knpbundles.com](http://knpbundles.com/ILLGrenoble/ILLDataCiteDOIBundle/badge-short)](http://knpbundles.com/ILLGrenoble/ILLDataCiteDOIBundle)
+
+
 A symfony 2 bundle for communicating with the [mds.datacite.org](https://mds.datacite.org/) API to mint DOIs and register associated metadata.
 
 **Note** 
@@ -11,7 +14,7 @@ This bundle has only been **tested with Symfony 2.1**. If you would like it to w
 
 ## Documentation
 
-The bulk of the documentation is stored in the `Resources/doc/index.md`
+The bulk of the documentation is stored in the [Resources/doc/index.md](Resources/doc/index.md)
 
 ## Installation
 
@@ -74,6 +77,4 @@ ill_data_cite_doi:
 License
 -------
 
-This bundle is under the MIT license. See the complete license in the bundle:
-
-    Resources/meta/LICENSE
+This bundle is under the MIT license. The license is stored in [Resources/meta/LICENSE](Resources/meta/LICENSE)
