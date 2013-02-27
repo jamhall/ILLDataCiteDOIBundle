@@ -42,7 +42,7 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
 
                     return $doi;
                 } else {
-                    $this->logger->info(sprintf("The DOI with the identifier of %s could not be retrieved", $id),
+                    $this->logger->err(sprintf("The DOI with the identifier of %s could not be retrieved", $id),
                                         array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
                 }
             } else {
@@ -78,7 +78,7 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
 
                     return $doi;
                 } else {
-                    $this->logger->info(sprintf("The DOI with the identifier of %s could not be created", $doi->getIdentifier()),
+                    $this->logger->err(sprintf("The DOI with the identifier of %s could not be created", $doi->getIdentifier()),
                                         array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
                 }
             } else {
@@ -114,12 +114,12 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
             if (array_key_exists($response->getCode(), $codes)) {
                 // we have a successful response
                 if (201 == $response->getCode()) {
-                    $this->logger->info(sprintf("The DOI with the identifier of %s was updated with the new URL of %s", $doi->getIdentifier(), $doi->getResponse()),
+                    $this->logger->info(sprintf("The DOI with the identifier of %s was updated with the new URL of %s", $doi->getIdentifier(), $doi->getUrl()),
                                         array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
 
                     return $doi;
                 } else {
-                    $this->logger->info(sprintf("The DOI with the identifier of %s could not be updated", $doi->getIdentifier()),
+                    $this->logger->err(sprintf("The DOI with the identifier of %s could not be updated", $doi->getIdentifier()),
                                         array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
                 }
             } else {
