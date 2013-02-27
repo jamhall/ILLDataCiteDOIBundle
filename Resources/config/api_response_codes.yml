@@ -1,0 +1,63 @@
+# API methods expected response codes
+# This request returns an URL associated with a given DOI.
+ill.datacitedoibundle.api.doi.get:
+    codes:
+        200: "OK (operation successful)"
+        204: "No content (DOI is known to MDS, but is not resolvable (might be due to handle's latency)"
+        401: "Unauthorized (no login)"
+        403: "Forbidden (login problem or dataset belongs to another party)"
+        404: "Not found (DOI does not exist in our database)"
+        410: "Gone (Requested dataset was marked inactive (using DELETE method))"
+        500: "Internal Server Error (server internal error, try later and if problem persists please contact us)"
+# POST will mint new DOI if specified DOI doesn't exist. This method will attempt to update URL if you specify existing DOI.
+# Standard domains and quota restrictions check will be performed. A Datacentre's doiQuotaUsed will be increased by 1.
+# A new record in Datasets will be created.
+ill.datacitedoibundle.api.doi.post:
+    codes:
+        201: "Created (operation successful)"
+        400: "Bad request (request body must be exactly two lines: DOI and URL; , wrong domain, wrong prefix)"
+        401: "Unauthorized (no login)"
+        403: "Forbidden (login problem, quota exceeded)"
+        412: "Precondition failed (metadata must be uploaded first)"
+        500: "Internal Server Error (server internal error, try later and if problem persists please contact us)"
+# This request returns the most recent version of metadata associated with a given DOI.
+ill.datacitedoibundle.api.metadata.get:
+    codes:
+        200: "OK (operation successful)"
+        401: "Unauthorized (no login)"
+        403: "Forbidden (login problem or dataset belongs to another party)"
+        404: "Not found (DOI does not exist in our database)"
+        410: "Gone (Requested dataset was marked inactive (using DELETE method))"
+        500: "Internal Server Error (server internal error, try later and if problem persists please contact us)"
+# This request stores new version of metadata. The request body must contain valid XML.
+ill.datacitedoibundle.api.metadata.post:
+    codes:
+        201: "Created (operation successful)"
+        400: "Bad request (invalid XML, wrong domain, wrong prefix)"
+        401: "Unauthorized (no login)"
+        403: "Forbidden (login problem, quota exceeded)"
+        500: "Internal Server Error (server internal error, try later and if problem persists please contact us)"
+# This request marks a dataset as 'inactive'. To activate it again, POST new metadata or set the isActive-flag in the user interface.
+ill.datacitedoibundle.api.metadata.delete:
+    codes:
+        200: "OK (operation successful, dataset deactivated)"
+        401: "Unauthorized (no login)"
+        403: "Forbidden (login problem or dataset belongs to another party)"
+        404: "Not found (DOI does not exist in our database)"
+        500: "Internal Server Error (server internal error, try later and if problem persists please contact us)"
+# This request returns list of pairs of media type and URLs associated with a given DOI.
+ill.datacitedoibundle.api.media.get:
+    codes:
+        200: "OK (operation successful)"
+        401: "Unauthorized (no login)"
+        403: "Forbidden (login problem or dataset belongs to another party)"
+        404: "Not found (No media attached to the DOI or DOI does not exist in our database)"
+        500: "Internal Server Error (server internal error, try later and if problem persists please contact us)"
+# POST will add/update media type/urls pairs to a DOI. Standard domain restrictions check will be performed.
+ill.datacitedoibundle.api.media.get:
+    codes:
+        200: "OK (operation successful, dataset deactivated)"
+        400: "Bad request (one or more of the specified mime-types or urls are invalid (e.g. non supported mime-type, not allowed url domain, etc.)"
+        401: "Unauthorized (no login)"
+        403: "Forbidden (login problem)"
+        500: "Internal Server Error (server internal error, try later and if problem persists please contact us)"
