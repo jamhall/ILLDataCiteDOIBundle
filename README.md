@@ -77,6 +77,4 @@ ill_data_cite_doi:
 License
 -------
 
-This bundle is under the MIT license. See the complete license in the bundle:
-
-    [Resources/meta/LICENSE](Resources/meta/LICENSE)
+This bundle is under the MIT license. The license is stored in [Resources/meta/LICENSE](Resources/meta/LICENSE)
