@@ -8,7 +8,6 @@
 * @License  MIT License
 */
 
-
 namespace ILL\DataCiteDOIBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -58,7 +57,7 @@ class MetadataDeleteCommand extends Command
                 $output->writeln(sprintf("Found the metadata for the identifier: <info>%s</info>", $identifier));
                 $dialog = $this->getDialogHelper();
                 if ($dialog->askConfirmation($output, $dialog->getQuestion('Are you sure you want to delete the metadata (you can reactivate it in the DataCite user interface)?', 'yes', '?'), true)) {
-                    if($metadataManager->delete($metadata)) {
+                    if ($metadataManager->delete($metadata)) {
                         $output->writeln(sprintf("Deleted metadata for the identifier: <info>%s</info>", $identifier));
                     } else {
                         $output->writeln(sprintf("Couldn't delete the metadata for the identifier: <error>%s</error>", $identifier));
