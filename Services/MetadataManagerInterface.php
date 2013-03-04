@@ -29,11 +29,10 @@ interface MetadataManagerInterface
 
     /**
      * Update Metadata for a DOI
-     * @param  DOI      $doi
      * @param  Metadata $metadata
      * @return object   Metadata
      */
-    public function update(DOI $doi, Metadata $metadata);
+    public function update(Metadata $metadata);
 
     /**
      * Find metadata for a DOI
@@ -43,17 +42,10 @@ interface MetadataManagerInterface
     public function find($id);
 
     /**
-     * Check if metadata exists for a DOI
-     * @param  string  $id
-     * @return boolean
-     */
-    public function exists($id);
-
-    /**
      * Delete metadata for a DOI
      * This request marks a dataset as 'inactive'.
      * To activate it again, POST new metadata or set the isActive-flag in the user interface.
-     * @param  string  $id
+     * @param  Metadata $metadata
      * @return boolean
      */
     public function delete(Metadata $metadata);

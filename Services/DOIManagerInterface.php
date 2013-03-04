@@ -39,11 +39,4 @@ interface DOIManagerInterface
      * @return object DOI
      */
     public function find($id);
-
-    /**
-     * Check if an identifier exists
-     * @param  string  $id
-     * @return boolean
-     */
-    public function exists($id);
 }

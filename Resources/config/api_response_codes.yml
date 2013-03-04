@@ -54,9 +54,9 @@ ill.datacitedoibundle.api.media.get:
         404: "Not found (No media attached to the DOI or DOI does not exist in our database)"
         500: "Internal Server Error (server internal error, try later and if problem persists please contact us)"
 # POST will add/update media type/urls pairs to a DOI. Standard domain restrictions check will be performed.
-ill.datacitedoibundle.api.media.get:
+ill.datacitedoibundle.api.media.post:
     codes:
-        200: "OK (operation successful, dataset deactivated)"
+        200: "OK (operation successful"
         400: "Bad request (one or more of the specified mime-types or urls are invalid (e.g. non supported mime-type, not allowed url domain, etc.)"
         401: "Unauthorized (no login)"
         403: "Forbidden (login problem)"

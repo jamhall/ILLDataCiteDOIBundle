@@ -92,7 +92,7 @@ abstract class AbstractAdapter
 		return $this->prefix;
 	}
 
-	public function setProxy(array $settings = array()) 
+	public function setProxy(array $settings = array())
 	{
 		$this->proxy = $settings;
 	}
@@ -116,7 +116,7 @@ abstract class AbstractAdapter
 
 	public function getMediaGetPostUri($doi)
 	{
-		return sprintf("%s/media/%s", self::DATACITE_API_ENDPOINT, $doi);
+		return sprintf("%s/media/%s/%s", self::DATACITE_API_ENDPOINT, $this->prefix, $doi);
 	}
 
 }

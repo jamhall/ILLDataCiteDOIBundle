@@ -33,7 +33,7 @@ class MetadataCreateBasicCommand extends Command
             ->addArgument(
                 'identifier',
                 InputArgument::REQUIRED,
-                'An identifier?'
+                'An identifier'
             )
             ->addArgument(
                 'creator',

@@ -38,5 +38,6 @@ class ILLDataCiteDOIExtension extends Extension
         // inject the logger and bundle configuration values into the services
         $container->getDefinition("ill_data_cite_doi.manager")->setArguments(array($config, $logger));
         $container->getDefinition("ill_data_cite_doi.metadata_manager")->setArguments(array($config, $logger));
+        $container->getDefinition("ill_data_cite_doi.media_manager")->setArguments(array($config, $logger));
     }
 }

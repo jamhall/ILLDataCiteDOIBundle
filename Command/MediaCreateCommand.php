@@ -14,21 +14,32 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use ILL\DataCiteDOIBundle\Model\Media;
 
 /**
  * @author Mr. Jamie Hall <hall@ill.eu>
  */
-class DOIFindCommand extends Command
+class MediaCreateCommand extends Command
 {
     protected function configure()
     {
         $this
-            ->setName('doi:find')
-            ->setDescription('Find a DOI')
+            ->setName('doi:media:create')
+            ->setDescription('Create media for a DOI')
             ->addArgument(
                 'id',
                 InputArgument::REQUIRED,
                 'The DOI id?'
+            )
+            ->addArgument(
+                'mimeType',
+                InputArgument::REQUIRED,
+                'The mime type for the media?'
+            )
+            ->addArgument(
+                'url',
+                InputArgument::REQUIRED,
+                'The url for the media?'
             )
         ;
     }
@@ -40,7 +51,14 @@ class DOIFindCommand extends Command
         $id = $input->getArgument('id');
         $doi = $doiManager->find($id);
         if ($doi) {
-            $output->writeln(sprintf("The identifier of <info>%s</info> has the URL of <info>%s</info>", $doi->getIdentifier(), $doi->getUrl()));
+            $output->writeln(sprintf("The DOI with the identifier of <info>%s</info> was found", $doi->getIdentifier()));
+            $mediaManager = $container->get("ill_data_cite_doi.media_manager");
+            // create the media object
+            $media = new Media();
+            $media->setMimeType($input->getArgument('mimeType'))
+                  ->setUrl($input->getArgument('url'));
+            $mediaManager->create($doi, $media);
+
         } else {
             $output->writeln(sprintf("Couldn't find DOI with the identifier of: <error>%s</error>", $id));
         }
