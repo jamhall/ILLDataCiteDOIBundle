@@ -62,9 +62,6 @@ class MediaManager extends AbstractManager
                     $this->logger->err(sprintf("Unexpected response code for the creation of media for the DOI of %s", $doi->getIdentifier()),
                                         array("parameters"=>array("mime-type"=>$media->getMimeType(), "url"=>$media->getUrl()),
                                               "response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
-                $this->logger->err(sprintf("Unexpected response code for the creation of the metadata the identifier of %s", $metadata->getIdentifier()),
-                                            array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$response::$valid_codes[$response->getCode()]))));
-
             }
         } catch (\Exception $e) {
             $this->logger->err($e->getMessage());
