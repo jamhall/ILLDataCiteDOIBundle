@@ -19,6 +19,23 @@ In order to upload metadata to the API, it needs to be in an XML format which co
 
 This bundle works by serializing your POPOs (plain old php objects) into XML for the API and deserializes XML returned from the API into POPOs.
 
+We offer a  command to get started right away with uploading basic metadata (i.e. minimum requirements to satisfy a request) to datacite. 
+
+The command is:
+
+```
+Usage:
+ doi:metadata:create-basic identifier creator title publisher publicationYear
+
+Arguments:
+ identifier       An identifier
+ creator          A creator
+ title            A title
+ publisher        A publisher
+ publicationYear  A publication year
+```
+
+
 ### Create metadata
 
 To create some metadata, we need to instantiate a`Metadata` model object I'll use this [example](http://schema.datacite.org/meta/kernel-2.2/example/datacite-metadata-sample-v2.2.xml) as it uses every attribute outlined in the schema.
