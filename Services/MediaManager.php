@@ -39,8 +39,6 @@ class MediaManager extends AbstractManager
 
             // Disable 100-continue header
             $headers->add(new HeaderCustom("Expect"));
-
-            // fill body with XML metadata
             $request->setBody(sprintf("%s=%s", $media->getMimeType(), $media->getUrl()));
             $client = new Client($this->adapter->getAdapter());
             $response = $client->send($request, new Response());

@@ -82,7 +82,7 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
                                         array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
                 }
             } else {
-                $this->logger->err(sprintf("Unexpected response code for the retrieval of the identifier %s", $id),
+                $this->logger->err(sprintf("Unexpected response code for the retrieval of the identifier %s", $doi->getIdentifier()),
                                             array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$response::$valid_codes[$response->getCode()]))));
 
             }
@@ -123,7 +123,7 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
                                         array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
                 }
             } else {
-                $this->logger->err(sprintf("Unexpected response code for the updating of the identifier %s", $id),
+                $this->logger->err(sprintf("Unexpected response code for the updating of the identifier %s", $doi->getIdentifier()),
                                             array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$response::$valid_codes[$response->getCode()]))));
 
             }

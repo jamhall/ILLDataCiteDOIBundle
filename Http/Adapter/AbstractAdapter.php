@@ -69,7 +69,7 @@ abstract class AbstractAdapter
 
 	public function getTestMode()
 	{
-		return $this->testMode();
+		return $this->testMode;
 	}
 
 	public function setTest($test)
