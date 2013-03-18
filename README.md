@@ -1,6 +1,8 @@
 ILLDataCiteDOIBundle
 ====================
 
+At the moment this bundle is not stable. It is being actively developed.
+
 [![knpbundles.com](http://knpbundles.com/ILLGrenoble/ILLDataCiteDOIBundle/badge-short)](http://knpbundles.com/ILLGrenoble/ILLDataCiteDOIBundle)
 
 
