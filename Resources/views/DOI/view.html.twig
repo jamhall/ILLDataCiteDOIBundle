@@ -1,0 +1,338 @@
+{% extends 'ILLDataCiteDOIBundle::base.html.twig' %}
+{% block title %}DOI Administration{% endblock %}
+{% block header %}DOI Administration{% endblock %}
+{% block body %}
+    <div class="row-fluid">
+		<div class="span12">
+		    <h1>{{ doi.doi }}</h1>
+		    <hr>
+		    <ul class="breadcrumb">
+			    <li><a href="#">DOIs</a> <span class="divider">/</span></li>
+			    <li class="active"><a href="#">{{ doi.doi }}</a> <span class="divider">/</span></li>
+		    </ul>
+		    <ul class="nav nav-tabs">
+			    <li>
+			    <a href="#">Details</a>
+			    </li>
+				 <li class="dropdown active">
+				<a class="dropdown-toggle"
+				data-toggle="dropdown"
+				href="#">
+				Metadata
+				<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+	                 <li><a href="#">Update metadata</a></li>
+	                 <li><a href="#">Mark metadata as inactive</a></li>
+	                 <li><a href="#">View XML</a></li>
+				</ul>
+			</li>
+			    <li><a href="#">Media</a></li>
+		    </ul>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+			    <div class="alert alert-success">
+			    <p>The last update for this metadata was made {{ doi.updated.format("d-m-Y") }}</p>
+				</div>
+            <h3 class="title">Details</h3>
+    		<table class="table table-striped metadata">
+    			<tbody>
+    				<tr>
+    					<td>Publisher</td><td>{{ metadata.publisher }}</td>
+    				</tr>
+    				<tr>
+    					<td>Publication year</td><td>{{ metadata.publicationYear }}</td>
+    				</tr>
+    				<tr>
+    					<td>Language</td><td>{{ metadata.language }}</td>
+    				</tr>
+    				<tr>
+    					<td>Rights</td><td>{{ metadata.rights }}</td>
+    				</tr>
+    			</tbody>
+    		</table>
+    	</div>
+    </div>
+    <div class="row-fluid">
+    	<div class="span6">
+            <h3 class="title">Creators</h3>
+    		<div class="alert alert-info">
+    			There are a total of <b>{{ metadata.creators | length }}</b> creators
+    		</div>
+    		<table class="table table-striped">
+    			<thead>
+    				<tr>
+    					<th>Name</th>
+    					<th>Name identifier</th>
+    					<th>Name identifier scheme</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				{% for creator in metadata.creators %}
+    					<tr>
+    						<td>{{ creator.name }}</td>
+    						<td>{{ creator.nameIdentifier ? creator.nameIdentifier.identifier : "-"}}</td>
+    						<td>{{ creator.nameIdentifier ? creator.nameIdentifier.scheme : "-"}}</td>
+    					</tr>
+    				{% endfor %}
+    			</tbody>
+    		</table>
+    	</div>
+    	<div class="span6">
+            <h3 class="title">Titles</h3>
+    		<div class="alert alert-info">
+    			There are a total of <b>{{ metadata.titles | length }}</b> titles
+    		</div>
+    		<table class="table table-striped">
+    			<thead>
+    				<tr>
+    					<th>Title</th>
+    					<th>Type</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				{% for title in metadata.titles %}
+    					<tr>
+    						<td>{{ title.title }}</td>
+    						<td>{{ title.type ? title.type : "-"}}</td>
+    					</tr>
+    				{% endfor %}
+    			</tbody>
+    		</table>
+    	</div>
+    </div>
+    <div class="row-fluid">
+    	<div class="span6">
+    		<h3 class="title">Subjects</h3>
+    		<div class="alert alert-info">
+    			There are a total of <b>{{ metadata.subjects | length }}</b> subjects
+    		</div>
+    		<table class="table">
+    			<thead>
+    				<tr>
+    					<th>Subject</th>
+    					<th>Scheme</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				{% for subject in metadata.subjects %}
+    					<tr>
+    						<td>{{ subject.subject }}</td>
+    						<td>{{ subject.scheme ? subject.scheme : "-"}}</td>
+    					</tr>
+    				{% endfor %}
+    			</tbody>
+    		</table>
+    	</div>
+      	<div class="span6">
+    		<h3 class="title">Contributors</h3>
+    		{% if metadata.contributors %}
+    		<div class="alert alert-info">
+    			There are a total of <b>{{ metadata.contributors | length }}</b> contributors
+    		</div>
+    		<table class="table">
+    			<thead>
+    				<tr>
+    					<th>Name</th>
+    					<th>Type</th>
+    					<th>Name identifier</th>
+    					<th>Name identifier scheme</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				{% for contributor in metadata.contributors %}
+    					<tr>
+    						<td>{{ contributor.name }}</td>
+    						<td>{{ contributor.type }}</td>
+    						<td>{{ contributor.nameIdentifier ? contributor.nameIdentifier.identifier : "-"}}</td>
+    						<td>{{ contributor.nameIdentifier ? contributor.nameIdentifier.scheme : "-"}}</td>
+    					</tr>
+    				{% endfor %}
+    			</tbody>
+    		</table>
+    		{% else %}
+    			<div class="alert alert-error">
+    				<p>There are no contributors</p>
+    			</div>
+    		{% endif %}
+    	</div>
+    </div>
+    <div class="row-fluid">
+    	<div class="span4">
+    		{% if metadata.dates %}
+    		<h3 class="title">Dates</h3>
+    		<div class="alert alert-info">
+    			There are a total of <b>{{ metadata.dates | length }}</b> dates
+    		</div>
+    		<table class="table">
+    			<thead>
+    				<tr>
+    					<th>Date</th>
+    					<th>Type</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				{% for date in metadata.dates %}
+    					<tr>
+    						<td>{{ date.date }}</td>
+    						<td>{{ date.type ? date.type : "-"}}</td>
+    					</tr>
+    				{% endfor %}
+    			</tbody>
+    		</table>
+    		{% else %}
+    			<div class="alert alert-error">
+    				<p>There are no dates</p>
+    			</div>
+    		{% endif %}
+    	</div>
+      	<div class="span4">
+    		<h3 class="title">Sizes</h3>
+    		{% if metadata.sizes %}
+    		<div class="alert alert-info">
+    			There are a total of <b>{{ metadata.sizes | length }}</b> sizes
+    		</div>
+    		<table class="table">
+    			<thead>
+    				<tr>
+    					<th>Size</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				{% for size in metadata.sizes %}
+    					<tr>
+    						<td>{{ size.size }}</td>
+    					</tr>
+    				{% endfor %}
+    			</tbody>
+    		</table>
+    		{% else %}
+    			<div class="alert alert-error">
+    				<p>There are no sizes</p>
+    			</div>
+    		{% endif %}
+    	</div>
+      	<div class="span4">
+    		<h3 class="title">Formats</h3>
+    		{% if metadata.formats %}
+    		<div class="alert alert-info">
+    			There are a total of <b>{{ metadata.formats | length }}</b> formats
+    		</div>
+    		<table class="table">
+    			<thead>
+    				<tr>
+    					<th>Format</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				{% for format in metadata.formats %}
+    					<tr>
+    						<td>{{ format.format }}</td>
+    					</tr>
+    				{% endfor %}
+    			</tbody>
+    		</table>
+    		{% else %}
+    			<div class="alert alert-error">
+    				<p>There are no formats</p>
+    			</div>
+    		{% endif %}
+    	</div>
+    </div>
+
+
+   <div class="row-fluid">
+    	<div class="span4">
+    		{% if metadata.alternateIdentifiers %}
+    		<h3 class="title">Alternate identifiers</h3>
+    		<div class="alert alert-info">
+    			There are a total of <b>{{ metadata.alternateIdentifiers | length }}</b> alternate identifiers
+    		</div>
+    		<table class="table">
+    			<thead>
+    				<tr>
+    					<th>Alternate identifier</th>
+    					<th>Type</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				{% for alternateIdentifier in metadata.alternateIdentifiers %}
+    					<tr>
+    						<td>{{ alternateIdentifier.identifier }}</td>
+    						<td>{{ alternateIdentifier.type }}</td>
+    					</tr>
+    				{% endfor %}
+    			</tbody>
+    		</table>
+    		{% else %}
+    			<div class="alert alert-error">
+    				<p>There are no alternate identifiers</p>
+    			</div>
+    		{% endif %}
+    	</div>
+    	<div class="span4">
+    		{% if metadata.relatedIdentifiers %}
+    		<h3 class="title">Related identifiers</h3>
+    		<div class="alert alert-info">
+    			There are a total of <b>{{ metadata.relatedIdentifiers | length }}</b> related identifiers
+    		</div>
+    		<table class="table">
+    			<thead>
+    				<tr>
+    					<th>Related identifier</th>
+    					<th>Related identifier type</th>
+    					<th>Relation type</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				{% for relatedIdentifier in metadata.relatedIdentifiers %}
+    					<tr>
+    						<td>{{ relatedIdentifier.identifier }}</td>
+    						<td>{{ relatedIdentifier.relatedIdentifierType }}</td>
+    						<td>{{ relatedIdentifier.relationType }}</td>
+    					</tr>
+    				{% endfor %}
+    			</tbody>
+    		</table>
+    		{% else %}
+    			<div class="alert alert-error">
+    				<p>There are no related identifiers</p>
+    			</div>
+    		{% endif %}
+    	</div>
+      	<div class="span4">
+    		<h3 class="title">Descriptions</h3>
+    		{% if metadata.descriptions %}
+    		<div class="alert alert-info">
+    			There are a total of <b>{{ metadata.descriptions | length }}</b> descriptions
+    		</div>
+    		<table class="table">
+    			<thead>
+    				<tr>
+    					<th>Description</th>
+    					<th>Type</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				{% for description in metadata.descriptions %}
+    					<tr>
+    						<td>{{ description.description }}</td>
+    						<td>{{ description.type ? description.type : "-"}}</td>
+    					</tr>
+    				{% endfor %}
+    			</tbody>
+    		</table>
+    		{% else %}
+    			<div class="alert alert-error">
+    				<p>There are no descriptions</p>
+    			</div>
+    		{% endif %}
+    	</div>
+    </div>
+
+
+        </div>
+    </div>
+{% endblock %}
