@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use ILL\DataCiteDOIBundle\Form\Type\MetadataType;
+use ILL\DataCiteDOIBundle\Model\Metadata;
+use ILL\DataCiteDOIBundle\Model\Metadata\Title;
 
 class MetadataController extends Controller
 {
@@ -25,6 +28,19 @@ class MetadataController extends Controller
      */
     public function createAction(Request $request)
     {
+        $metadata = new Metadata();
+        $metadata->addTitle(new Title());
+        $metadata->addTitle(new Title());
 
+        $form = $this->createForm(new MetadataType(), $metadata);
+
+        if ($request->getMethod()=='POST') {
+            $form->bindRequest($request);
+            if($form->isValid()) {
+                var_dump($metadata);
+            }
+        }
+
+        return array("form"=>$form->createView());
     }
 }

@@ -2,9 +2,6 @@
 {% block title %}DOI Administration{% endblock %}
 {% block header %}DOI Administration{% endblock %}
 {% block body %}
-<style type="text/css">
-
-</style>
     <div class="row-fluid">
 		<div class="span12">
 		    <h1>Register new metadata</h1>
@@ -15,29 +12,41 @@
 		    </ul>
         </div>
     </div>
-    <form action='/someServerSideHandler'>
-        <div class="alert alert-info">
-            <p>You have <span data-bind='text: titles().length'>&nbsp;</span> title(s)</p>
+    <div class="row-fluid">
+        <div class="span12">
+            <form action="{{ path('ill_datacitedoi_metadata_create') }}" class="form-horizontal" method="get" {{ form_enctype(form) }}>
+                <div class="alert alert-info">
+                    <p>You have <span data-bind='text: titles().length'>&nbsp;</span> title(s)</p>
+                </div>
+                 <div class="control-group" data-bind="validationElement: publicationYear">
+                    <label class="control-label" for="publicationYear">Publication year</label>
+                    <div class="controls">
+                        <input type="text"  class="input-small" id="publicationYear"  data-bind="value: publicationYear, valueUpdate: 'afterkeydown'" />
+                        <p class="help-inline"data-bind="if: publicationYear.isModified() && !publicationYear.isValid(), text: publicationYear.error, attr: { title: publicationYear.error }"></p>
+                    </div>
+                </div>
+                <table class="table table-striped" data-bind='visible: titles().length > 0'>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th />
+                        </tr>
+                    </thead>
+                    <tbody data-bind='foreach: titles'>
+                        <tr class="titles">
+                            <td class="span6"><input class='required span6' type="text" data-bind='value: title' /></td>
+                            <td><select data-bind="options: $parent.availableTitleTypes, optionsValue: 'id',  optionsText: 'value', optionsCaption: 'Select a title...', value: type"></select></td>
+                            <td><a href='#' class="btn btn-danger" data-bind='click: $parent.removeTitle'>Remove title</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn" data-bind='click: addTitle'>Add title</button>
+                <button data-bind='enable: titles().length > 0, click: save' type='submit'>KO submit</button>
+            </form>
         </div>
-        <table class="table table-striped" data-bind='visible: titles().length > 0'>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Type</th>
-                    <th />
-                </tr>
-            </thead>
-            <tbody data-bind='foreach: titles'>
-                <tr>
-                    <td class="span6"><input class='required span6' type="text" data-bind='value: title' /></td>
-                    <td><select data-bind="options: type"></select></td>
-                    <td><a href='#' class="btn btn-danger" data-bind='click: $parent.removeTitle'>Remove title</a></td>
-                </tr>
-            </tbody>
-        </table>
-        <button class="btn" data-bind='click: addTitle'>Add title</button>
-        <button data-bind='enable: titles().length > 0' type='submit'>Submit</button>
-    </form>
+    </div>
+
 
 </div>
 {% endblock %}
@@ -46,6 +55,7 @@
 {% javascripts
 
         'bundles/illdatacitedoi/js/knockout-2.2.1.js'
+        'bundles/illdatacitedoi/js/knockout.validation.js'
         'bundles/illdatacitedoi/js/metadata/create.js'
 %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
