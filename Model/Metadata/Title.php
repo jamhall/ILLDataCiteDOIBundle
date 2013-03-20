@@ -20,11 +20,6 @@ class Title
     private $title;
     private $type;
 
-    public static function getInstance()
-    {
-        return new self();
-    }
-
     /**
      * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-titleType-v1.0.xsd for valid
      * title types

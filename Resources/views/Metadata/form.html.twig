@@ -1,0 +1,58 @@
+<div class="control-group" data-bind="validationElement: identifier">
+    <label class="control-label" for="identifier">Identifier</label>
+    <div class="controls">
+        <input type="text"  class="input-xsmall" id="identifier" style="text-transform: uppercase" data-toggle="popover" data-placement="top" data-content="This field is required. The identifier must only contain alphanumeric, hyphens or periods" title="Identifier" data-bind="value: identifier, valueUpdate: 'afterkeydown'" />
+        <p class="help-inline" data-bind="if: identifier.isModified() && !identifier.isValid(), text: identifier.error, attr: { title: identifier.error }"></p>
+    </div>
+</div>
+ <div class="control-group" data-bind="validationElement: publicationYear">
+    <label class="control-label" for="publicationYear">Publication year</label>
+    <div class="controls">
+        <input type="text"  class="input-small" id="publicationYear"  data-bind="value: publicationYear, valueUpdate: 'afterkeydown'" />
+        <p class="help-inline" data-bind="if: publicationYear.isModified() && !publicationYear.isValid(), text: publicationYear.error, attr: { title: publicationYear.error }"></p>
+    </div>
+</div>
+ <div class="control-group">
+    <label class="control-label" for="publisher">Publisher</label>
+    <div class="controls">
+        <p>Institut Laue-Langevin</p>
+    </div>
+</div>
+ <div class="control-group">
+    <label class="control-label" for="language">Language</label>
+    <div class="controls">
+        <input type="text"  class="input-small" id="language"  data-bind="value: language" />
+    </div>
+</div>
+ <div class="control-group">
+    <label class="control-label" for="rights">Rights</label>
+    <div class="controls">
+        <input type="text"  class="input-xxlarge" id="rights"  data-bind="value: rights" />
+    </div>
+</div>
+<fieldset class="details">
+<legend>Titles</legend>
+<div class="alert alert-info">
+    <p>You have <span data-bind='text: titles().length'>&nbsp;</span> title(s)</p>
+</div>
+<table class="table table-striped" data-bind='visible: titles().length > 0'>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Type</th>
+            <th />
+        </tr>
+    </thead>
+    <tbody data-bind='foreach: titles'>
+        <tr class="titles">
+            <td style="width: 50%"><textarea class='required' style="width: 95%; height: 50px" type="text" data-bind='value: title'></textarea></td>
+            <td style="width: 20%"><select style="vertical-align: -20px" data-bind="options: $parent.availableTitleTypes, optionsValue: 'id',  optionsText: 'value', optionsCaption: '-', value: type"></select></td>
+            <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeTitle'>Remove title</a></td>
+        </tr>
+    </tbody>
+</table>
+<button class="btn" data-bind='click: addTitle'>Add another title</button>
+</fieldset>
+ <div class="control-group well">
+    <button data-bind='enable: titles().length > 0, click: save' class="btn btn-large btn-block btn-primary" type='submit'>Update the metadata</button>
+</div>
