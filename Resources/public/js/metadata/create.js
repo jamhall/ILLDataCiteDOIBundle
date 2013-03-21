@@ -54,7 +54,7 @@ var viewModel = function() {
                 }
             });
         $.ajax({
-            url: 'http://localhost:8000/app_dev.php/doi/23/metadata/edit.json',
+            url:  $("form[id='metadataForm']").data("url"),
             contentType: 'application/json',
             type: "POST",
             dataType: 'json',

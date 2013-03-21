@@ -56,7 +56,6 @@ class DOI
      */
     private $updated;
 
-
     /**
      * Get id
      *
@@ -70,7 +69,7 @@ class DOI
     /**
      * Set DOI
      *
-     * @param string $doi
+     * @param  string $doi
      * @return doi
      */
     public function setDoi($doi)
@@ -93,7 +92,7 @@ class DOI
     /**
      * Set objectId
      *
-     * @param string $objectId
+     * @param  string $objectId
      * @return DOI
      */
     public function setObjectId($objectId)
@@ -116,7 +115,7 @@ class DOI
     /**
      * Set type
      *
-     * @param string $type
+     * @param  string $type
      * @return DOI
      */
     public function setType($type)
@@ -139,7 +138,7 @@ class DOI
     /**
      * Set created
      *
-     * @param \DateTime $created
+     * @param  \DateTime $created
      * @return DOI
      */
     public function setCreated($created)
@@ -162,7 +161,7 @@ class DOI
     /**
      * Set updated
      *
-     * @param \DateTime $updated
+     * @param  \DateTime $updated
      * @return DOI
      */
     public function setUpdated($updated)

@@ -16,21 +16,22 @@ use \Versionable\Prospect\Adapter\Curl;
  */
 class CurlAdapter extends AbstractAdapter
 {
-	public function __construct(array $config = array())
-	{
-		parent::initialise($config);
-	}
+    public function __construct(array $config = array())
+    {
+        parent::initialise($config);
+    }
 
-	// return a curl adapter
-	public function getAdapter()
-	{
-		$curl = new Curl();
-		if($this->proxy) {
-		    $curl->setOption(CURLOPT_PROXY, $this->proxy['host']);
-		   	$curl->setOption(CURLOPT_PROXYPORT, $this->proxy['port']);
-		}
-		$curl->setOption(CURLOPT_USERPWD, sprintf("%s:%s", $this->username, $this->password));
-	    $curl->setOption(CURLOPT_SSLVERSION, parent::DATACITE_SSL_VERSION);
-	    return $curl;
-	}
+    // return a curl adapter
+    public function getAdapter()
+    {
+        $curl = new Curl();
+        if ($this->proxy) {
+            $curl->setOption(CURLOPT_PROXY, $this->proxy['host']);
+               $curl->setOption(CURLOPT_PROXYPORT, $this->proxy['port']);
+        }
+        $curl->setOption(CURLOPT_USERPWD, sprintf("%s:%s", $this->username, $this->password));
+        $curl->setOption(CURLOPT_SSLVERSION, parent::DATACITE_SSL_VERSION);
+
+        return $curl;
+    }
 }

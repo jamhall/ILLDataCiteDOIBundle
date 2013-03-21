@@ -15,11 +15,11 @@ class MetadataType extends AbstractType
         $builder->add('publicationYear');
         $builder->add('language');
 
-		$builder->add('titles', 'collection', array(
-		    'type'   => new TitleType(),
-		    'allow_add'  => true,
-		    'allow_delete' => true
-		));
+        $builder->add('titles', 'collection', array(
+            'type'   => new TitleType(),
+            'allow_add'  => true,
+            'allow_delete' => true
+        ));
     }
 
     public function getName()

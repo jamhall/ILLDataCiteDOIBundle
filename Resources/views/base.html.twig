@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}{% endblock %}</title>
+        {% block stylesheets %}
         {% stylesheets filter='cssrewrite'
             'bundles/illdatacitedoi/css/bootstrap.css'
             'bundles/illdatacitedoi/css/bootstrap-responsive.min.css'
@@ -10,6 +11,7 @@
         %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
         {% endstylesheets %}
+        {% endblock stylesheets %}
         <link rel="icon" type="image/x-icon" href="favicon.ico" />
     </head>
     <body>

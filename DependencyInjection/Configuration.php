@@ -37,7 +37,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode("prefix")->isRequired()->cannotBeEmpty()->end()
                     /*
                      * if set to true, a special test prefix of 10.5072 will be used. This test prefix is available to all
-                     * data centres. The test DOIs with this prefix will behave like an other DOI, e.g. they can be normally resolved. 
+                     * data centres. The test DOIs with this prefix will behave like an other DOI, e.g. they can be normally resolved.
                      * They will not be exposed by upcoming services like search and OAI, though. Periodically, all of these test
                      * datasets are purged from the system
                      */
