@@ -15,7 +15,6 @@
         <link rel="icon" type="image/x-icon" href="favicon.ico" />
     </head>
     <body>
-
         <div class="header">
             <div class="container-fluid">
                 <div class="row-fluid">
@@ -27,7 +26,7 @@
             <div class="navbar navbar-static-top">
                 <div class="navbar-inner">
                     <ul class="nav">
-                        <li><a href="#">My DOIs</a></li>
+                        <li><a href="{{ path("ill_datacitedoi_doi_index")}}">DOIs</a></li>
                         <li><a href="#">Register new DOI</a></li>
                     </ul>
                     <ul class="nav pull-right">
@@ -37,22 +36,6 @@
             </div>
         </div>
         <div class="container-fluid" style="padding-bottom: 20px; min-height: 800px">
-            <!--<div class="row-fluid">
-                <div class="span12">
-                    <div class="navbar">
-                        <div class="navbar-inner">
-                            <a class="brand" href="#">DOI Administration</a>
-                            <ul class="nav">
-                                <li><a href="#">My DOIs</a></li>
-                                <li><a href="#">Create new DOI</a></li>
-                            </ul>
-                            <ul class="nav pull-right">
-                                <li><a href="#">Administration</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
         {% block body %}{% endblock %}
         </div>
         {% block javascripts %}
