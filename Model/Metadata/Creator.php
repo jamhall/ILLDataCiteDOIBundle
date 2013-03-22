@@ -22,11 +22,6 @@ class Creator
     private $name;
     private $nameIdentifier;
 
-    public static function instantiate()
-    {
-        return new self();
-    }
-
     public function setName($name)
     {
         if (NonEmptyStringValidator::isValid("name", $name)) {
