@@ -26,10 +26,18 @@
         </div>
     </div>
     <div class="row-fluid">
-        <div class="span12">
+        <div class="span9">
             <form action="{{ path('ill_datacitedoi_metadata_create') }}" data-bind="with: metadata" id="metadataForm" data-url="{{ path('ill_datacitedoi_metadata_view', { 'id' : doi.id , '_format': 'json' }) }}" class="form-horizontal" method="get">
                 {% include 'ILLDataCiteDOIBundle:Metadata:form.html.twig' %}
             </form>
+        </div>
+        <div class="span3">
+            <ul class="nav nav-list">
+                <li class="nav-header">Help</li>
+                <li>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ut enim sem. Curabitur sagittis aliquam nisi, eu viverra dolor malesuada vitae. Proin consectetur, ligula ut pretium pulvinar, leo nibh vulputate purus, id luctus libero libero id magna. In eu porta turpis. Aenean gravida facilisis feugiat. In hac habitasse platea dictumst. In metus nibh, dapibus et egestas sit amet, convallis eu nisi. Ut vitae mi ac erat pretium porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida vulputate lorem. Nam nunc tortor, elementum id porta ac, ornare in leo. Pellentesque elementum cursus congue. Duis ultricies, risus sit amet congue venenatis, libero odio lobortis urna, a faucibus mauris lacus non massa.</p>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

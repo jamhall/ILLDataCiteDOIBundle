@@ -12,11 +12,11 @@ $(function () {
 				        backdrop: true,
 				        keyboard: true
 				    }).css({
-				       'width': function () { 
-				           return ($(document).width() * .9) + 'px';  
+				       'width': function () {
+				           return ($(document).width() * .9) + 'px';
 				       },
-				       'margin-left': function () { 
-				           return -($(this).width() / 2); 
+				       'margin-left': function () {
+				           return -($(this).width() / 2);
 				       }
 				});
             },

@@ -19,7 +19,7 @@
                          <li><a href="{{ path("ill_datacitedoi_metadata_view", { "id" : doi.id}) }}">View metadata</a></li>
     	                 <li><a href="{{ path("ill_datacitedoi_metadata_edit", { "id" : doi.id}) }}">Update metadata</a></li>
     	                 <li><a href="#">Mark metadata as inactive</a></li>
-    	                 <li><a href="#myModal" id="xml" data-url="{{ path("ill_datacitedoi_metadata_view", { "id" : doi.id, "_format": "xml"}) }}">View XML</a></li>
+    	                 <li><a href="#xmlModal" id="xml" data-url="{{ path("ill_datacitedoi_metadata_view", { "id" : doi.id, "_format": "xml"}) }}">View XML</a></li>
     				</ul>
 			     </li>
 		    </ul>
@@ -346,7 +346,7 @@
     {{ parent() }}
 {% javascripts
         'bundles/illdatacitedoi/js/vkbeautify.js'
-        'bundles/illdatacitedoi/google-code-prettify/prettify.js'
+        'bundles/illdatacitedoi/js/google-code-prettify/prettify.js'
         'bundles/illdatacitedoi/js/metadata/view.js'
 %}
         <script src="{{ asset_url }}" type="text/javascript"></script>

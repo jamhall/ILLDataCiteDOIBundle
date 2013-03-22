@@ -15,7 +15,7 @@
  <div class="control-group">
     <label class="control-label" for="publisher">Publisher</label>
     <div class="controls">
-        <p>Institut Laue-Langevin</p>
+        <input type="text"  class="input-xsmall" id="publisher"  data-bind="value: publisher" />
     </div>
 </div>
  <div class="control-group">
@@ -30,28 +30,122 @@
         <input type="text"  class="input-xxlarge" id="rights"  data-bind="value: rights" />
     </div>
 </div>
-<fieldset class="details">
-<legend>Titles</legend>
-<div class="alert alert-info">
-    <p>You have <span data-bind='text: titles().length'>&nbsp;</span> title(s)</p>
+ <div class="control-group">
+    <label class="control-label" for="resourceType">Resource type</label>
+    <div class="controls">
+        <input type="text"  class="input-xsmall" id="resourceType"  data-bind='value: resourceType().type' /><br>
+        <select style="vertical-align: -20px" data-bind="options: resourceTypes, optionsValue: 'id',  optionsText: 'value', optionsCaption: '-', value: resourceType().resourceType"></select>
+    </div>
 </div>
-<table class="table table-striped" data-bind='visible: titles().length > 0'>
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Type</th>
-            <th />
-        </tr>
-    </thead>
-    <tbody data-bind='foreach: titles'>
-        <tr class="titles">
-            <td style="width: 50%"><textarea class='required' style="width: 95%; height: 50px" type="text" data-bind='value: title'></textarea></td>
-            <td style="width: 20%"><select style="vertical-align: -20px" data-bind="options: $parent.availableTitleTypes, optionsValue: 'id',  optionsText: 'value', optionsCaption: '-', value: type"></select></td>
-            <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeTitle'>Remove title</a></td>
-        </tr>
-    </tbody>
-</table>
-<button class="btn" data-bind='click: addTitle'>Add another title</button>
+<fieldset class="details">
+    <legend>Contributors</legend>
+    <div class="alert alert-info">
+        <p>You have <span data-bind='text: contributors().length'>&nbsp;</span> contributor(s)</p>
+    </div>
+    <table class="table table-striped" data-bind='visible: contributors().length > 0'>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Name identifier</th>
+                <th>Name identifier scheme</th>
+                <th />
+            </tr>
+        </thead>
+        <tbody data-bind='foreach: contributors'>
+            <tr class="titles">
+                <td style="width: 20%">
+                    <input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind="value: name, validationElement: name, valueUpdate: 'afterkeydown'">
+                    <span class="label label-important" data-bind="if: name.isModified() && !name.isValid(), text: name.error, attr: { title: name.error }"></span>
+                </td>
+                <td style="width: 15%"><select style="vertical-align: -20px" data-bind="options: $parent.contributorTypes, optionsValue: 'id',  optionsText: 'value', value: type"></select></td>
+                <td style="width: 15%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.identifier'></td>
+                <td style="width: 15%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.scheme'></td>
+                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeContributor'>Remove contributor</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn" data-bind='click: addContributor'>Add contributor</button>
+</fieldset>
+<fieldset class="details">
+    <legend>Creators</legend>
+    <div class="alert alert-info">
+        <p>You have <span data-bind='text: creators().length'>&nbsp;</span> creator(s)</p>
+    </div>
+    <table class="table table-striped" data-bind='visible: creators().length > 0'>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Name identifier</th>
+                <th>Name identifier scheme</th>
+                <th />
+            </tr>
+        </thead>
+        <tbody data-bind='foreach: creators'>
+            <tr class="titles">
+                <td style="width: 30%">
+                    <input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind="value: name, validationElement: name, valueUpdate: 'afterkeydown'">
+                    <span class="label label-important" data-bind="if: name.isModified() && !name.isValid(), text: name.error, attr: { title: name.error }"></span>
+                </td>
+                <td style="width: 25%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.identifier'></td>
+                <td style="width: 25%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.scheme'></td>
+                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeCreator'>Remove creator</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn" data-bind='click: addCreator'>Add creator</button>
+</fieldset>
+<fieldset class="details">
+    <legend>Subjects</legend>
+    <div class="alert alert-info">
+        <p>You have <span data-bind='text: subjects().length'>&nbsp;</span> subject(s)</p>
+    </div>
+    <table class="table table-striped" data-bind='visible: subjects().length > 0'>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Scheme</th>
+                <th />
+            </tr>
+        </thead>
+        <tbody data-bind='foreach: subjects'>
+            <tr class="titles">
+                <td style="width: 50%">
+                    <textarea class='required' style="width: 95%; height: 50px" data-bind="value: subject, valueUpdate: 'afterkeydown'"></textarea>
+                    <span class="label label-important" data-bind="if: subject.isModified() && !subject.isValid(), text: subject.error, attr: { title: subject.error }"></span>
+                </td>
+                <td style="width: 30%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: scheme'></td>
+                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeSubject'>Remove subject</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn" data-bind='click: addSubject'>Add subject</button>
+</fieldset>
+<fieldset class="details">
+    <legend>Titles</legend>
+    <div class="alert alert-info">
+        <p>You have <span data-bind='text: titles().length'>&nbsp;</span> title(s)</p>
+    </div>
+    <table class="table table-striped" data-bind='visible: titles().length > 0'>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th />
+            </tr>
+        </thead>
+        <tbody data-bind='foreach: titles'>
+            <tr class="titles">
+                <td style="width: 50%">
+                    <textarea class='required' style="width: 95%; height: 50px" data-bind="value: title, valueUpdate: 'afterkeydown'"></textarea>
+                    <span class="label label-important" data-bind="if: title.isModified() && !title.isValid(), text: title.error, attr: { title: title.error }"></span>
+                </td>
+                <td style="width: 20%"><select style="vertical-align: -20px" data-bind="options: $parent.titleTypes, optionsValue: 'id',  optionsText: 'value', optionsCaption: '-', value: type"></select></td>
+                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeTitle'>Remove title</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn" data-bind='click: addTitle'>Add title</button>
 </fieldset>
  <div class="control-group well">
     <button data-bind='enable: titles().length > 0, click: save' class="btn btn-large btn-block btn-primary" type='submit'>Update the metadata</button>
