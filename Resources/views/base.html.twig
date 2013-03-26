@@ -18,8 +18,13 @@
         <div class="header">
             <div class="container-fluid">
                 <div class="row-fluid">
-                    <div class="span12 title">
-                        <h1>{% block header %} {% endblock %} <img src="http://cdn1.iconfinder.com/data/icons/iconset-addictive-flavour/png/splash_beta_lightblue.png" style="float: right"></h1>
+                    {% if logo %}
+                    <div class="span3">
+                        <img src="{{ logo }}">
+                    </div>
+                    {% endif %}
+                    <div class="{{ logo ?  "span9" : "span12" }} title">
+                        <h1>{% block header %} {% endblock %}</h1>
                     </div>
                 </div>
             </div>

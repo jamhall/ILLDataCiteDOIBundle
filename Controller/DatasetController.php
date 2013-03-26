@@ -13,6 +13,10 @@ namespace ILL\DataCiteDOIBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Exception\NotValidCurrentPageException;
 
 class DatasetController extends Controller
 {
@@ -20,11 +24,25 @@ class DatasetController extends Controller
      * @Route("/datasets")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $doiRepository = $this->getDoctrine()->getRepository("ILLDataCiteDOIBundle:DOI");
+        $em = $this->getDoctrine()->getEntityManager();
 
-        return array("dois"=>$doiRepository->findBy(array(), array("created"=>"DESC")));
+        $queryBuilder = $em->createQueryBuilder()->select('d')
+                                                 ->from('ILLDataCiteDOIBundle:DOI', 'd');
+
+        $page = ($request->query->has('page')) ? $request->query->get('page') : 1;
+
+        $dois = new Pagerfanta(new DoctrineORMAdapter($queryBuilder));
+        $dois->setMaxPerPage(2);
+
+        try {
+            $dois->setCurrentPage($page);
+        } catch(NotValidCurrentPageException $e) {
+            throw $this->createNotFoundException("Page not found");
+        }
+
+        return array("dois"=>$dois);
     }
 
     /**
