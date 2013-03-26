@@ -20,7 +20,9 @@
                 <div class="row-fluid">
                     {% if logo %}
                     <div class="span3">
-                        <img src="{{ logo }}">
+                        <a href="{{ path('ill_datacitedoi_dataset_index') }}">
+                            <img src="{{ logo }}">
+                        </a>
                     </div>
                     {% endif %}
                     <div class="{{ logo ?  "span9" : "span12" }} title">
@@ -31,8 +33,8 @@
             <div class="navbar navbar-static-top">
                 <div class="navbar-inner">
                     <ul class="nav">
-                        <li><a href="{{ path("ill_datacitedoi_dataset_index")}}">Datasets</a></li>
-                        <li><a href="{{ path("ill_datacitedoi_dataset_register")}}">Register new dataset</a></li>
+                        <li><a href="{{ path('ill_datacitedoi_dataset_index') }}">Datasets</a></li>
+                        <li><a href="{{ path('ill_datacitedoi_dataset_register') }}">Register new dataset</a></li>
                     </ul>
                 </div>
             </div>
