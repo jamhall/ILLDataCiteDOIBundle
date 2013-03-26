@@ -33,7 +33,9 @@
  <div class="control-group">
     <label class="control-label" for="resourceType">Resource type</label>
     <div class="controls">
-        <input type="text"  class="input-xsmall" id="resourceType"  data-bind='value: resourceType().type' /><br>
+        <input type="text"  class="input-xsmall" id="resourceType"  data-bind="value: resourceType().type, valueUpdate: 'afterkeydown'" />
+        <span class="label label-important" data-bind="if: resourceType().type.isModified() && !resourceType().type.isValid(), text: resourceType().type.error, attr: { title: resourceType().type.error }"></span>
+        <br>
         <select style="vertical-align: -20px" data-bind="options: resourceTypes, optionsValue: 'id',  optionsText: 'value', optionsCaption: '-', value: resourceType().resourceType"></select>
     </div>
 </div>

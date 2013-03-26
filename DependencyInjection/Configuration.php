@@ -56,7 +56,7 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('password')->defaultValue(null)->end()
                         ->end()
                     ->end()
-                    ->scalarNode('domain')->isRequired()->cannotBeEmpty()->end()
+                    ->scalarNode('domains')->isRequired()->cannotBeEmpty()->end()
                     ->arrayNode('identifier_types')
                         ->prototype('array')
                             ->children()

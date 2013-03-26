@@ -23,7 +23,7 @@ use ILL\DataCiteDOIBundle\Model\Metadata;
 class MetadataController extends Controller
 {
     /**
-     * @Route("/dois/{id}/metadata/edit")
+     * @Route("/datasets/{id}/metadata/edit")
      * @Template()
      */
     public function editAction($id)
@@ -39,16 +39,20 @@ class MetadataController extends Controller
     }
 
     /**
-     * @Route("/metadata/create")
-     * @Template()
+     * @Route("/datasets/metadata/config.json")
      */
-    public function createAction(Request $request)
+    public function configAction(Request $request)
     {
-        return array();
+        $dm = $this->container->get("ill_data_cite_doi.manager");
+        $config = $dm->getConfiguration();
+        return new Response(json_encode(array("identifier_types" => $config['identifier_types'],
+                                              "domains" => $config['domains']
+                                             )
+                           ));
     }
 
     /**
-     * @Route("/dois/{id}/metadata.{_format}",defaults={"_format"="html"}, requirements={"_format"="html|json|xml"}))
+     * @Route("/datasets/{id}/metadata.{_format}",defaults={"_format"="html"}, requirements={"_format"="html|json|xml"}))
      * @Template()
      */
     public function viewAction($id, Request $request)

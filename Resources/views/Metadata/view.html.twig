@@ -8,11 +8,11 @@
 		    <hr>
 		    <ul class="breadcrumb">
 			    <li><a href="#">DOIs</a> <span class="divider">/</span></li>
-			    <li><a href="{{ path("ill_datacitedoi_doi_view", { "id" : doi.id}) }}">{{ doi.doi }}</a> <span class="divider">/</span></li>
+			    <li><a href="{{ path("ill_datacitedoi_dataset_view", { "id" : doi.id}) }}">{{ doi.doi }}</a> <span class="divider">/</span></li>
                  <li class="active">Metadata</li>
 		    </ul>
 		    <ul class="nav nav-tabs">
-			    <li><a href="{{ path("ill_datacitedoi_doi_view", { "id" : doi.id}) }}">Details</a></li>
+			    <li><a href="{{ path("ill_datacitedoi_dataset_view", { "id" : doi.id}) }}">Details</a></li>
 				<li class="dropdown active">
 				    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Metadata<b class="caret"></b></a>
     				<ul class="dropdown-menu">

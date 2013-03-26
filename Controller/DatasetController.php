@@ -14,10 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class DOIController extends Controller
+class DatasetController extends Controller
 {
     /**
-     * @Route("/dois")
+     * @Route("/datasets")
      * @Template()
      */
     public function indexAction()
@@ -28,7 +28,7 @@ class DOIController extends Controller
     }
 
     /**
-     * @Route("/dois/{id}")
+     * @Route("/datasets/{id}",requirements={ "id" : "\d+"})
      * @Template()
      */
     public function viewAction($id)
@@ -45,4 +45,16 @@ class DOIController extends Controller
 
         return array("doi"=>$doi, "metadata"=>$metadata);
     }
+
+    /**
+     * @Route("/datasets/register")
+     * @Template()
+     */
+    public function registerAction()
+    {
+        $doiRepository = $this->getDoctrine()->getRepository("ILLDataCiteDOIBundle:DOI");
+
+        return array("dois"=>$doiRepository->findBy(array(), array("created"=>"DESC")));
+    }
+
 }

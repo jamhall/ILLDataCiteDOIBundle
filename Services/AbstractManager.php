@@ -64,4 +64,9 @@ abstract class AbstractManager
             throw new \Exception(sprintf("The method %s was not found in the codes yaml file", $method));
         }
     }
+
+    public function getConfiguration()
+    {
+        return $this->defaults;
+    }
 }

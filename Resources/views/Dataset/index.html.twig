@@ -1,10 +1,10 @@
 {% extends 'ILLDataCiteDOIBundle::base.html.twig' %}
-{% block title %}DOI Administration{% endblock %}
+{% block title %}DOI Administration - Datasets{% endblock %}
 {% block header %}DOI Administration{% endblock %}
 {% block body %}
 <div class="row-fluid">
     <div class="span12">
-      <h1>All DOIs</h1>
+      <h1>All datasets</h1>
       <hr>
       {% if dois %}
 		<div class="alert alert-info">
@@ -23,7 +23,7 @@
 				{% for doi in dois %}
 					<tr>
 						<td>{{ doi.id }}</td>
-						<td><a href="{{ path('ill_datacitedoi_doi_view', { 'id' : doi.id }) }}">{{ doi.doi }}</a></td>
+						<td><a href="{{ path('ill_datacitedoi_dataset_view', { 'id' : doi.id }) }}">{{ doi.doi }}</a></td>
 						<td>{{ doi.created.format("d-m-Y")}}</td>
 						<td>{{ doi.updated ? doi.updated.format("d-m-Y") : "-"}}</td>
 					</tr>

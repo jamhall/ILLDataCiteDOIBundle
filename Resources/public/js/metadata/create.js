@@ -32,7 +32,7 @@ var Contributor = function(name, type, nameIdentifier) {
 };
 
 var ResourceType = function(type, resourceType) {
-    this.type = ko.observable(type);
+    this.type = ko.observable(type).extend({ required: true });
     this.resourceType = ko.observable(resourceType);
 };
 
