@@ -1,9 +1,0 @@
-Metadata tasks:
- ☐ Delete metadata (not deleted but gets marked as inactive)
- ☐ Create metadata (serialize object and then make an API call)
- ☐ Update metadata (serialize object and then make an API call)
- ☐ Add expected response codes to each method in the manager
-DOI tasks:
- ☐ Create DOI
- ☐ Update DOI url
- ☐ Add expected response codes to each method in the manager
