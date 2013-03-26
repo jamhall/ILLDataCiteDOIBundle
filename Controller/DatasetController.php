@@ -38,7 +38,7 @@ class DatasetController extends Controller
 
         try {
             $dois->setCurrentPage($page);
-        } catch(NotValidCurrentPageException $e) {
+        } catch (NotValidCurrentPageException $e) {
             throw $this->createNotFoundException("Page not found");
         }
 

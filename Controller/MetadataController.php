@@ -45,6 +45,7 @@ class MetadataController extends Controller
     {
         $dm = $this->container->get("ill_data_cite_doi.manager");
         $config = $dm->getConfiguration();
+
         return new Response(json_encode(array("identifier_types" => $config['identifier_types'],
                                               "domains" => $config['domains']
                                              )
