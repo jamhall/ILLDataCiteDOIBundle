@@ -1,26 +1,23 @@
 <?php
+/*
+* This file is part of the ILLDataCiteDOIBundle package.
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*
+* @License  MIT License
+*/
 
 namespace ILL\DataCiteDOIBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DOI
- *
- * @ORM\Table(name="DOI")
- * @ORM\Entity(repositoryClass="ILL\DataCiteDOIBundle\Repository\DOIRepository")
+ * @ORM\MappedSuperclass
+ * @ORM\HasLifecycleCallbacks
  */
-class DOI
+abstract class DOI
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      *

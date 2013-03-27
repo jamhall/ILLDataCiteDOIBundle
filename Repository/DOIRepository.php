@@ -1,26 +1,37 @@
 <?php
+/*
+* This file is part of the ILLDataCiteDOIBundle package.
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*
+* @License  MIT License
+*/
 
 namespace ILL\DataCiteDOIBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
 
 class DOIRepository extends EntityRepository
 {
     /**
-     * Get a proposal by its DOI
-     * @param  string $proposalNumber
-     * @return DOI
+     * Get all DOIs
+     * @param  boolean asPaginator
+     * @return DOIs
      */
-    public function getProposal($proposalNumber)
+
+    public function findAll($asPaginator = false)
     {
-        $doi = $this->getEntityManager()
-                 ->createQuery("SELECT d FROM ILLDOIBundle:DOI d WHERE d.objectId = :proposalNumber AND d.type = :type")
-                 ->setParameter("proposalNumber", $proposalNumber)
-                 ->setParameter("type", "PROPOSAL");
-        try {
-            return $doi->getSingleResult();
-        } catch (\Doctrine\ORM\NoResultException $e) {
-            return null;
+        $query = $this->createQueryBuilder('d')
+                        ->orderBy('d.created', 'DESC')
+                        ->getQuery();
+
+        if ($asPaginator) {
+            return new Pagerfanta(new DoctrineORMAdapter($query));
+        } else {
+            return $query->execute();
         }
     }
 }

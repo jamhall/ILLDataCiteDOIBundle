@@ -28,8 +28,8 @@ class MetadataController extends Controller
      */
     public function editAction($id)
     {
-        $doiRepository = $this->getDoctrine()->getRepository("ILLDataCiteDOIBundle:DOI");
-        $doi = $doiRepository->findOneById($id);
+        $doiRepo = $this->container->get("ill_data_cite_doi.doctrine.repository.doi");
+        $doi = $doiRepo->findOneById($id);
 
         if (false == $doi) {
             throw $this->createNotFoundException(sprintf("Couldn't find the DOI with the id of %s", $id));
@@ -58,8 +58,8 @@ class MetadataController extends Controller
      */
     public function viewAction($id, Request $request)
     {
-        $doiRepository = $this->getDoctrine()->getRepository("ILLDataCiteDOIBundle:DOI");
-        $doi = $doiRepository->findOneById($id);
+        $doiRepo = $this->container->get("ill_data_cite_doi.doctrine.repository.doi");
+        $doi = $doiRepo->findOneById($id);
 
         if (false == $doi) {
             throw $this->createNotFoundException(sprintf("Couldn't find the DOI with the id of %s", $id));
