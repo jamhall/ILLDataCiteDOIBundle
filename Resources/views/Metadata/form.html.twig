@@ -63,11 +63,11 @@
                 <td style="width: 15%"><select style="vertical-align: -20px" data-bind="options: $parent.contributorTypes, optionsValue: 'id',  optionsText: 'value', value: type"></select></td>
                 <td style="width: 15%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.identifier'></td>
                 <td style="width: 15%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.scheme'></td>
-                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeContributor'>Remove contributor</a></td>
+                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeContributor'><i class="icon-white icon-trash"></i> Remove contributor</a></td>
             </tr>
         </tbody>
     </table>
-    <button class="btn" data-bind='click: addContributor'>Add contributor</button>
+    <button class="btn" data-bind='click: addContributor'><i class="icon-plus"></i> Add contributor</button>
 </fieldset>
 <fieldset class="details">
     <legend>Creators</legend>
@@ -91,11 +91,11 @@
                 </td>
                 <td style="width: 25%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.identifier'></td>
                 <td style="width: 25%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.scheme'></td>
-                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeCreator'>Remove creator</a></td>
+                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeCreator'><i class="icon-white icon-trash"></i> Remove creator</a></td>
             </tr>
         </tbody>
     </table>
-    <button class="btn" data-bind='click: addCreator'>Add creator</button>
+    <button class="btn" data-bind='click: addCreator'><i class="icon-plus"></i> Add creator</button>
 </fieldset>
 <fieldset class="details">
     <legend>Subjects</legend>
@@ -117,11 +117,11 @@
                     <span class="label label-important" data-bind="if: subject.isModified() && !subject.isValid(), text: subject.error, attr: { title: subject.error }"></span>
                 </td>
                 <td style="width: 30%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: scheme'></td>
-                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeSubject'>Remove subject</a></td>
+                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeSubject'><i class="icon-white icon-trash"></i> Remove subject</a></td>
             </tr>
         </tbody>
     </table>
-    <button class="btn" data-bind='click: addSubject'>Add subject</button>
+    <button class="btn" data-bind='click: addSubject'><i class="icon-plus"></i> Add subject</button>
 </fieldset>
 <fieldset class="details">
     <legend>Titles</legend>
@@ -143,11 +143,11 @@
                     <span class="label label-important" data-bind="if: title.isModified() && !title.isValid(), text: title.error, attr: { title: title.error }"></span>
                 </td>
                 <td style="width: 20%"><select style="vertical-align: -20px" data-bind="options: $parent.titleTypes, optionsValue: 'id',  optionsText: 'value', optionsCaption: '-', value: type"></select></td>
-                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeTitle'>Remove title</a></td>
+                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeTitle'><i class="icon-white icon-trash"></i> Remove title</a></td>
             </tr>
         </tbody>
     </table>
-    <button class="btn" data-bind='click: addTitle'>Add title</button>
+    <button class="btn" data-bind='click: addTitle'><i class="icon-plus"></i> Add title</button>
 </fieldset>
  <div class="control-group well">
     <button data-bind='enable: titles().length > 0, click: save' class="btn btn-large btn-block btn-primary" type='submit'>Update the metadata</button>
