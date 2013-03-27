@@ -80,3 +80,8 @@ License
 -------
 
 This bundle is under the MIT license. The license is stored in [Resources/meta/LICENSE](Resources/meta/LICENSE)
+
+Authors
+-------
+
+Mr. Jamie Hall - Technical Projects group at Institut Laue-Langevin.
