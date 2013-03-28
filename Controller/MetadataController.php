@@ -26,7 +26,7 @@ class MetadataController extends Controller
      * @Route("/datasets/{id}/metadata/edit")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction($id, Request $request)
     {
         $doiRepo = $this->container->get("ill_data_cite_doi.doctrine.repository.doi");
         $doi = $doiRepo->findOneById($id);
@@ -35,6 +35,15 @@ class MetadataController extends Controller
             throw $this->createNotFoundException(sprintf("Couldn't find the DOI with the id of %s", $id));
         }
 
+        // ajax request
+        if($request->isXmlHttpRequest()) {
+            $serializer = \JMS\Serializer\SerializerBuilder::create()->setDebug(false)->build();
+            $metadata = $serializer->deserialize($request->getContent(), 'ILL\DataCiteDOIBundle\Model\Metadata', 'json');
+
+            $response = new Response($serializer->serialize($metadata, 'json'));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
         return array("doi"=>$doi);
     }
 

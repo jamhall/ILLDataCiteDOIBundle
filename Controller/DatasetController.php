@@ -63,9 +63,7 @@ class DatasetController extends Controller
      */
     public function registerAction()
     {
-        $doiRepository = $this->getDoctrine()->getRepository("ILLDataCiteDOIBundle:DOI");
-
-        return array("dois"=>$doiRepository->findBy(array(), array("created"=>"DESC")));
+        return array();
     }
 
 }
