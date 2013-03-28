@@ -129,6 +129,7 @@ class Metadata
      * The institution or person responsible for collecting, creating, or otherwise contributing to the development of the dataset.
      *
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Contributor>")
+     * @Assert\Valid()
      */
     private $contributors = array();
 

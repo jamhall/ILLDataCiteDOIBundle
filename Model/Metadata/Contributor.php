@@ -33,15 +33,23 @@ class Contributor
      * contriutor types
      *
      * @Type("string")
-     * @Assert\Choice(choices = {"DataCollector,
+     * @Assert\Choice(choices = {"ContactPerson",
+     *                           "DataCollector",
      *                           "DataManager",
+     *                           "Distributor",
      *                           "Editor",
+     *                           "Funder",
      *                           "HostingInstitution",
+     *                           "Producer",
      *                           "ProjectLeader",
      *                           "ProjectMember",
      *                           "RegistrationAgency",
      *                           "RegistrationAuthority",
+     *                           "RelatedPerson",
+     *                           "RightsHolder",
      *                           "Researcher",
+     *                           "Sponsor",
+     *                           "Supervisor",
      *                           "WorkPackageLeader"}, message = "Invalid contributor type")
      */
     private $type;
