@@ -60,10 +60,18 @@
                     <input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind="value: name, validationElement: name, valueUpdate: 'afterkeydown'">
                     <span class="label label-important" data-bind="if: name.isModified() && !name.isValid(), text: name.error, attr: { title: name.error }"></span>
                 </td>
-                <td style="width: 15%"><select style="vertical-align: -20px" data-bind="options: $parent.contributorTypes, optionsValue: 'id',  optionsText: 'value', value: type"></select></td>
-                <td style="width: 15%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.identifier'></td>
-                <td style="width: 15%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.scheme'></td>
-                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeContributor'><i class="icon-white icon-trash"></i> Remove contributor</a></td>
+                <td style="width: 15%">
+                    <select style="vertical-align: -20px" data-bind="options: $parent.contributorTypes, optionsValue: 'id',  optionsText: 'value', value: type"></select>
+                </td>
+                <td style="width: 15%">
+                    <input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.identifier'>
+                </td>
+                <td style="width: 15%">
+                    <input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.scheme'>
+                </td>
+                <td>
+                    <a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeContributor'><i class="icon-white icon-trash"></i> Remove contributor</a>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -86,12 +94,36 @@
         <tbody data-bind='foreach: creators'>
             <tr class="titles">
                 <td style="width: 30%">
-                    <input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind="value: name, validationElement: name, valueUpdate: 'afterkeydown'">
-                    <span class="label label-important" data-bind="if: name.isModified() && !name.isValid(), text: name.error, attr: { title: name.error }"></span>
+                    <input class='required' type="text" style="width: 95%; vertical-align: -20px"
+                           data-bind="value: name,
+                                      validationElement: name,
+                                      valueUpdate: 'afterkeydown'">
+                    <span class="label label-important"
+                          data-bind="if: name.isModified() && !name.isValid(),
+                                     text: name.error,
+                                     attr: { title: name.error }"></span>
                 </td>
-                <td style="width: 25%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.identifier'></td>
-                <td style="width: 25%"><input class='required' type="text" style="width: 95%; vertical-align: -20px" data-bind='value: nameIdentifier.scheme'></td>
-                <td><a style="vertical-align: -20px" href='#' class="btn btn-danger" data-bind='click: removeCreator'><i class="icon-white icon-trash"></i> Remove creator</a></td>
+                <td style="width: 25%">
+                    <input class='required' type="text" style="width: 95%; vertical-align: -20px"
+                           data-bind="validationElement: nameIdentifier.identifier,
+                                      value: nameIdentifier.identifier,
+                                      valueUpdate: 'afterkeydown'">
+                    <span class="label label-important"
+                          data-bind="if: nameIdentifier.identifier.isModified()
+                                         && !nameIdentifier.identifier.isValid(),
+                                     text: nameIdentifier.identifier.error">
+                    </span>
+                </td>
+                <td style="width: 25%">
+                    <input class='required' type="text" style="width: 95%; vertical-align: -20px"
+                           data-bind='value: nameIdentifier.scheme'>
+                </td>
+                <td>
+                    <a style="vertical-align: -20px" href='#' class="btn btn-danger"
+                       data-bind='click: removeCreator'>
+                        <i class="icon-white icon-trash"></i> Remove creator
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -16,7 +16,22 @@ var Subject = function(subject, scheme) {
 
 var NameIdentifier = function(identifier, scheme)
 {
-    this.identifier = ko.observable(identifier);
+    this.identifier = ko.observable(identifier).extend({
+        validation: {
+            validator: function (val, someOtherVal) {
+                if(val == null || val == "") {
+                    //console.log("Zero!");
+                    return true;
+                }
+                if(scheme == null) {
+                    return false;
+                }
+                return true;
+            },
+            message: 'Please fill in both fields',
+            params: scheme
+        }
+    });
     this.scheme = ko.observable(scheme);
 };
 
@@ -28,7 +43,7 @@ var Creator = function(name, nameIdentifier) {
 var Contributor = function(name, type, nameIdentifier) {
     this.name = ko.observable(name).extend({ required: true });
     this.type = ko.observable(type);
-    this.nameIdentifier = nameIdentifier;
+    this.nameIdentifier = ko.observable(nameIdentifier);
 };
 
 var ResourceType = function(type, resourceType) {
@@ -86,6 +101,9 @@ var Metadata = function() {
     self.creators = ko.observableArray();
     self.contributors = ko.observableArray();
     self.resourceType = ko.observable(new ResourceType('', ''));
+    self.toJson = function(){
+        console.log("Hell");
+    };
 };
 
 var viewModel = function() {
@@ -184,7 +202,7 @@ var viewModel = function() {
                         }
                     }
 
-                    console.log(ko.toJSON(self.metadata.resourceType));
+                    //console.log(ko.toJSON(self.metadata.contributors));
 
                 }
             },
@@ -194,7 +212,7 @@ var viewModel = function() {
         });
     };
     self.save = function(form) {
-        $.blockUI({
+       /* $.blockUI({
             timeout: 3000,
             message: "<span style='font-size:18pt'>You must have at least one title</span>",
             css: {
@@ -206,10 +224,47 @@ var viewModel = function() {
                 opacity: .5,
                 color: '#fff'
             }
-        });
+        }); */
 
         //ko.utils.postJson($("form")[0], self.titles);
-       console.log("Could now transmit to server: " + ko.toJSON(self.metadata.creators));
+        self.metadata.toJSON = function() {
+            var copy = ko.toJS(this);
+            delete copy.contributorTypes;
+            delete copy.resourceTypes;
+            delete copy.titleTypes;
+
+            /**
+             * Remove redundant data
+             */
+            for (var i = 0, j = copy.contributors.length; i < j; i++){
+                if(copy.contributors[i].nameIdentifier.identifier == null && copy.contributors[i].nameIdentifier.scheme == null) {
+                    delete copy.contributors[i].nameIdentifier;
+                }
+            }
+            for (var i = 0, j = copy.creators.length; i < j; i++){
+                if(copy.creators[i].nameIdentifier.identifier == null && copy.creators[i].nameIdentifier.scheme == null) {
+                    delete copy.creators[i].nameIdentifier;
+                }
+            }
+
+            if(copy.language == null || copy.language == "") {
+                delete copy.language;
+            }
+
+            delete copy.resourceType;
+            return copy;
+        }
+
+        $.ajax({
+            url:  $("form[id='metadataForm']").attr("action"),
+            contentType: 'application/json',
+            type: "POST",
+            data: ko.toJSON(self.metadata),
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+            }
+        });
         // To actually transmit to server as a regular form post, write this: ko.utils.postJson($("form")[0], self.gifts);
     };
 
