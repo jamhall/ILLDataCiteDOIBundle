@@ -9,6 +9,7 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Technical format of the resource. Use file extension or MIME type where possible.
@@ -18,6 +19,10 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class Format
 {
+
+    /**
+     * @Type("string")
+     */
     private $format;
 
     public function __construct($format = null)

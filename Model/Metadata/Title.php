@@ -9,6 +9,8 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * A name or title by which a resource is known.
@@ -17,12 +19,20 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class Title
 {
+    /**
+     * @Type("string")
+     */
     private $title;
+
+    /**
+     * @Type("string")
+     */
     private $type;
 
     /**
      * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-titleType-v1.0.xsd for valid
      * title types
+     * @Exclude()
      */
     private static $TYPES = array("AlternativeTitle", "Subtitle", "TranslatedTitle");
 

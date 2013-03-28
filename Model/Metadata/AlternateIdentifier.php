@@ -9,6 +9,7 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * An identifier other than the primary identifier applied to the resource being registered.
@@ -18,7 +19,14 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class AlternateIdentifier
 {
+    /**
+     * @Type("string")
+     */
     private $identifier;
+
+    /**
+     * @Type("string")
+     */
     private $type = null;
 
     public function setIdentifier($identifier)

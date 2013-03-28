@@ -10,6 +10,7 @@
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use ILL\DataCiteDOIBundle\Model\Metadata\Validator\NonEmptyStringValidator;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * The name identifier for a creator
@@ -18,7 +19,15 @@ use ILL\DataCiteDOIBundle\Model\Metadata\Validator\NonEmptyStringValidator;
  */
 class NameIdentifier
 {
+
+    /**
+     * @Type("string")
+     */
     private $scheme = null;
+
+    /**
+     * @Type("string")
+     */
     private $identifier;
 
     public function setIdentifier($identifier)

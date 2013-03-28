@@ -9,6 +9,9 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * The type of a resource. You may enter an additional free text description.
@@ -17,12 +20,21 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class ResourceType
 {
+    /**
+     * @Type("string")
+     */
     private $type;
+
+    /**
+     * @SerializedName("resourceType")
+     * @Type("string")
+     */
     private $resourceType;
 
     /**
      * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-resourceType-v1.0.xsd for valid
      * general types
+     * @Exclude()
      */
     private static $RESOURCE_TYPES = array("Collection",
                                  "Dataset",

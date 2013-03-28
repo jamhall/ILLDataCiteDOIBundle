@@ -9,6 +9,8 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
@@ -16,12 +18,20 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class Description
 {
+    /**
+     * @Type("string")
+     */
     private $description;
+
+    /**
+     * @Type("string")
+     */
     private $type;
 
     /**
      * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-descriptionType-v1.1.xsd for valid
      * description types
+     * @Exclude()
      */
     private static $TYPES = array("Abstract", "TableOfContents", "Other");
 

@@ -9,6 +9,8 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * Year when the data is made publicly available.
@@ -18,7 +20,14 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class Date
 {
+    /**
+     * @Type("string")
+     */
     private $date;
+
+    /**
+     * @Type("string")
+     */
     private $type;
 
    /**
@@ -26,6 +35,8 @@ class Date
     * To indicate the end of an embargo period. use Available.
     * To indicate the start of an embargo period, use Submitted or Accepted, as appropriate.
     * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-dateType-v1.1.xsd for valid date types
+    *
+    * @Exclude()
     */
     private static $TYPES = array("Accepted",
                         "Available",

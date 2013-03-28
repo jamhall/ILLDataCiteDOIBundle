@@ -9,6 +9,7 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Subject, keywords, classification codes, or key phrases describing the resource.
@@ -17,7 +18,14 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class Subject
 {
+    /**
+     * @Type("string")
+     */
     private $subject;
+
+    /**
+     * @Type("string")
+     */
     private $scheme;
 
     public function setSubject($subject)

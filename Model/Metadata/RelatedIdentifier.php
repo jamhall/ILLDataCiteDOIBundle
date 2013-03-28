@@ -9,6 +9,9 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * Identifiers of related resources. Use this property to indicate subsets of properties, as appropriate.
@@ -17,13 +20,27 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class RelatedIdentifier
 {
+    /**
+     * @Type("string")
+     */
     private $identifier;
+
+    /**
+     * @SerializedName("relationType")
+     * @Type("string")
+     */
     private $relationType;
+
+    /**
+     * @SerializedName("relatedIdentifierType")
+     * @Type("string")
+     */
     private $relatedIdentifierType;
 
     /**
      * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-relationType-v1.1.xsd for valid
      * relation types
+     * @Exclude()
      */
     private static $RELATION_TYPES = array("IsCitedBy",
                                             "Cites",
@@ -47,6 +64,7 @@ class RelatedIdentifier
     /**
      * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-relatedIdentifierType-v1.1.xsd for valid
      * related identifier types
+     * @Exclude()
      */
     private static $RELATED_IDENTIFIER_TYPES = array("ARK",
                                                     "DOI",

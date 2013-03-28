@@ -11,6 +11,9 @@
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use ILL\DataCiteDOIBundle\Model\Metadata\Validator\NonEmptyStringValidator;
 use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\SerializedName;
+
 /**
  * The main researchers involved working on the data, or the authors of the publication in
  * priority order. May be a corporate/institutional or personal name.
@@ -19,7 +22,15 @@ use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
  */
 class Creator
 {
+    /**
+     * @Type("string")
+     */
     private $name;
+
+    /**
+     * @SerializedName("nameIdentifier")
+     * @Type("ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier")
+     */
     private $nameIdentifier;
 
     public function setName($name)

@@ -11,6 +11,9 @@
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use ILL\DataCiteDOIBundle\Model\Metadata\Validator\NonEmptyStringValidator;
 use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\Exclude;
 /**
  * The institution or person responsible for collecting, creating, or otherwise contributing to the developement of the dataset.
  * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
@@ -18,12 +21,26 @@ use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
  */
 class Contributor
 {
+    /**
+     * @Type("string")
+     */
     private $name;
+
+    /**
+     * @Type("string")
+     */
     private $type;
+
+    /**
+     * @SerializedName("nameIdentifier")
+     * @Type("ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier")
+     */
     private $nameIdentifier;
+
     /**
      * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-contributorType-v1.1.xsd for valid
      * contriutor types
+     * @Exclude()
      */
     private static $TYPES = array("ContactPerson",
         "DataCollector",

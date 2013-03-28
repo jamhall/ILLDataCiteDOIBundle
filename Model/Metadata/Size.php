@@ -9,6 +9,7 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Unstructures size information about the resource
@@ -18,6 +19,9 @@ namespace ILL\DataCiteDOIBundle\Model\Metadata;
  */
 class Size
 {
+    /**
+     * @Type("string")
+     */
     private $size;
 
     public function __construct($size = null)
