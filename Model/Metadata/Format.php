@@ -10,6 +10,7 @@
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use JMS\Serializer\Annotation\Type;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Technical format of the resource. Use file extension or MIME type where possible.
@@ -22,6 +23,8 @@ class Format
 
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $format;
 
@@ -34,13 +37,9 @@ class Format
 
     public function setFormat($format)
     {
-        if (null === $format) {
-            throw new \InvalidArgumentException("Format cannot be empty");
-        } else {
-            $this->format= $format;
+        $this->format= $format;
 
-            return $this;
-        }
+        return $this;
     }
 
     public function getFormat()

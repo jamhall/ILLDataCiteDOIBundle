@@ -11,7 +11,7 @@
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\Exclude;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Identifiers of related resources. Use this property to indicate subsets of properties, as appropriate.
@@ -22,69 +22,65 @@ class RelatedIdentifier
 {
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $identifier;
 
     /**
+     * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-relationType-v1.1.xsd for valid
+     * relation types
+     *
      * @SerializedName("relationType")
      * @Type("string")
+     * @Assert\Choice(choices = { "IsCitedBy,
+     *                            "Cites",
+     *                            "IsSupplementedTo",
+     *                            "IsSupplementedBy",
+     *                            "IsContinuedBy",
+     *                            "Continues",
+     *                            "IsNewVersionOf",
+     *                            "IsPreviousVersionOf",
+     *                            "IsPartOf",
+     *                            "HasPart",
+     *                            "IsReferencedBy",
+     *                            "References",
+     *                            "IsDocumentedBy",
+     *                            "Documents",
+     *                            "IsCompiledBy",
+     *                            "Compiles",
+     *                            "IsVariantFormOf",
+     *                            "IsOriginalFormOf"
+     *                          },
+     *                message = "Invalid relation type"
+     *               )
      */
     private $relationType;
 
     /**
      * @SerializedName("relatedIdentifierType")
      * @Type("string")
+     * @Assert\Choice(choices = { "ARK,
+     *                            "DOI",
+     *                            "EAN13",
+     *                            "EISSN",
+     *                            "Handle",
+     *                            "ISBN",
+     *                            "ISSN",
+     *                            "ISTC",
+     *                            "LISSN",
+     *                            "LSID",
+     *                            "PURL",
+     *                            "UPC",
+     *                            "URN"
+     *                          },
+     *                message = "Invalid relation type"
+     *               )
      */
     private $relatedIdentifierType;
 
-    /**
-     * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-relationType-v1.1.xsd for valid
-     * relation types
-     * @Exclude()
-     */
-    private static $RELATION_TYPES = array("IsCitedBy",
-                                            "Cites",
-                                            "IsSupplementedTo",
-                                            "IsSupplementedBy",
-                                            "IsContinuedBy",
-                                            "Continues",
-                                            "IsNewVersionOf",
-                                            "IsPreviousVersionOf",
-                                            "IsPartOf",
-                                            "HasPart",
-                                            "IsReferencedBy",
-                                            "References",
-                                            "IsDocumentedBy",
-                                            "Documents",
-                                            "IsCompiledBy",
-                                            "Compiles",
-                                            "IsVariantFormOf",
-                                            "IsOriginalFormOf");
-
-    /**
-     * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-relatedIdentifierType-v1.1.xsd for valid
-     * related identifier types
-     * @Exclude()
-     */
-    private static $RELATED_IDENTIFIER_TYPES = array("ARK",
-                                                    "DOI",
-                                                    "EAN13",
-                                                    "EISSN",
-                                                    "Handle",
-                                                    "ISBN",
-                                                    "ISSN",
-                                                    "ISTC",
-                                                    "LISSN",
-                                                    "LSID",
-                                                    "PURL",
-                                                    "UPC",
-                                                    "URN");
-
     public function setIdentifier($identifier)
     {
-        if (null === $this->relationType || null === $this->relatedIdentifierType) {
-            throw new \InvalidArgumentException("Please set the relation type and the related identifier type before setting the identifier");
-        }
         $this->identifier = $identifier;
 
         return $this;
@@ -97,13 +93,9 @@ class RelatedIdentifier
 
     public function setRelationType($relationType)
     {
-        if (in_array($relationType, self::$RELATION_TYPES)) {
-            $this->relationType = $relationType;
+        $this->relationType = $relationType;
 
-            return $this;
-        } else {
-            throw new \InvalidArgumentException(sprintf("Not a valid relation type. Valid relation types are: %s", json_encode(self::$RELATION_TYPES)));
-        }
+        return $this;
     }
 
     public function getRelationType()
@@ -113,13 +105,9 @@ class RelatedIdentifier
 
     public function setRelatedIdentifierType($relatedIdentifierType)
     {
-        if (in_array($relatedIdentifierType, self::$RELATED_IDENTIFIER_TYPES)) {
-            $this->relatedIdentifierType = $relatedIdentifierType;
+        $this->relatedIdentifierType = $relatedIdentifierType;
 
-            return $this;
-        } else {
-            throw new \InvalidArgumentException(sprintf("Not a valid related identifier type. Valid related identifier types are: %s", json_encode(self::$RELATED_IDENTIFIER_TYPES)));
-        }
+        return $this;
     }
 
     public function getRelatedIdentifierType()

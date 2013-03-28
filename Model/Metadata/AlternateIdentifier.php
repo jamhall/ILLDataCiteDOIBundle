@@ -10,7 +10,7 @@
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use JMS\Serializer\Annotation\Type;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * An identifier other than the primary identifier applied to the resource being registered.
  * This may be any alphanumeric string which is unique within its domain of issue. The format is open
@@ -21,19 +21,20 @@ class AlternateIdentifier
 {
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $identifier;
 
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $type = null;
 
     public function setIdentifier($identifier)
     {
-        if (null === $this->type) {
-            throw new \InvalidArgumentException("Please set the type before setting the identifier");
-        }
         $this->identifier = $identifier;
 
         return $this;

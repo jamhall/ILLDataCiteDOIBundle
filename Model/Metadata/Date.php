@@ -10,7 +10,7 @@
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use JMS\Serializer\Annotation\Type;
-use JMS\Serializer\Annotation\Exclude;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Year when the data is made publicly available.
@@ -22,42 +22,44 @@ class Date
 {
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *     pattern="/(\d{4})|(\d{4}-\d{2})|(\d{4}-\d{2}-\d{2})|(\d{4}-\d{2}-\d{2}T\d{2}(:\d{2}){1,2}[-+]\d{2}:\d{2})/",
+     *     match=false,
+     *     message="Not a valid date. It must be in the format of YYYY or YYYY-MM-DD or any other format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)"
+     * )
      */
     private $date;
 
     /**
+     * The type of date. To indicate a date period, provide two dates, specifying the StartDate and the EndDate.
+     * To indicate the end of an embargo period. use Available.
+     * To indicate the start of an embargo period, use Submitted or Accepted, as appropriate.
+     * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-dateType-v1.1.xsd for valid date types
+     *
      * @Type("string")
+     * @Assert\Choice(choices = { "Accepted,
+     *                            "Available",
+     *                            "Copyrighted",
+     *                            "Created",
+     *                            "EndDate",
+     *                            "Issued",
+     *                            "StartDate",
+     *                            "Submitted",
+     *                            "Updated",
+     *                            "Valid"
+     *                          },
+     *                message = "Invalid date type"
+     *               )
      */
     private $type;
 
-   /**
-    * The type of date. To indicate a date period, provide two dates, specifying the StartDate and the EndDate.
-    * To indicate the end of an embargo period. use Available.
-    * To indicate the start of an embargo period, use Submitted or Accepted, as appropriate.
-    * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-dateType-v1.1.xsd for valid date types
-    *
-    * @Exclude()
-    */
-    private static $TYPES = array("Accepted",
-                        "Available",
-                        "Copyrighted",
-                        "Created",
-                        "EndDate",
-                        "Issued",
-                        "StartDate",
-                        "Submitted",
-                        "Updated",
-                        "Valid");
-
     public function setDate($date)
     {
-        // check if date matches a format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)
-        if (preg_match('/(\d{4})|(\d{4}-\d{2})|(\d{4}-\d{2}-\d{2})|(\d{4}-\d{2}-\d{2}T\d{2}(:\d{2}){1,2}[-+]\d{2}:\d{2})/', $date)) {
-            $this->date = $date;
+        $this->date = $date;
 
-            return $this;
-        }
-        throw new \InvalidArgumentException("Not a valid date. It must be in the format of YYYY or YYYY-MM-DD or any other format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)");
+        return $this;
     }
 
     public function getDate()
@@ -67,13 +69,9 @@ class Date
 
     public function setType($type)
     {
-        if (in_array($type, self::$TYPES)) {
-            $this->type = $type;
+        $this->type = $type;
 
-            return $this;
-        } else {
-            throw new \InvalidArgumentException(sprintf("Not a valid type. Valid types are: %s", json_encode(self::TYPES)));
-        }
+        return $this;
     }
 
     public function getType()

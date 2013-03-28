@@ -9,11 +9,11 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
-use ILL\DataCiteDOIBundle\Model\Metadata\Validator\NonEmptyStringValidator;
 use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\Exclude;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * The institution or person responsible for collecting, creating, or otherwise contributing to the developement of the dataset.
  * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
@@ -23,11 +23,26 @@ class Contributor
 {
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
+     * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-contributorType-v1.1.xsd for valid
+     * contriutor types
+     *
      * @Type("string")
+     * @Assert\Choice(choices = {"DataCollector,
+     *                           "DataManager",
+     *                           "Editor",
+     *                           "HostingInstitution",
+     *                           "ProjectLeader",
+     *                           "ProjectMember",
+     *                           "RegistrationAgency",
+     *                           "RegistrationAuthority",
+     *                           "Researcher",
+     *                           "WorkPackageLeader"}, message = "Invalid contributor type")
      */
     private $type;
 
@@ -37,28 +52,9 @@ class Contributor
      */
     private $nameIdentifier;
 
-    /**
-     * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-contributorType-v1.1.xsd for valid
-     * contriutor types
-     * @Exclude()
-     */
-    private static $TYPES = array("ContactPerson",
-        "DataCollector",
-        "DataManager",
-        "Editor",
-        "HostingInstitution",
-        "ProjectLeader",
-        "ProjectMember",
-        "RegistrationAgency",
-        "RegistrationAuthority",
-        "Researcher",
-        "WorkPackageLeader");
-
     public function setName($name)
     {
-        if (NonEmptyStringValidator::isValid("name", $name)) {
-            $this->name = $name;
-        }
+        $this->name = $name;
 
         return $this;
     }
@@ -70,13 +66,9 @@ class Contributor
 
     public function setType($type)
     {
-        if (in_array($type, self::$TYPES)) {
-            $this->type = $type;
+        $this->type = $type;
 
-            return $this;
-        } else {
-            throw new \InvalidArgumentException(sprintf("Not a valid type. Valid types are: %s", json_encode(self::$TYPES)));
-        }
+        return $this;
     }
 
     public function getType()

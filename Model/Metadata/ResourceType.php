@@ -11,7 +11,7 @@
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\Exclude;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * The type of a resource. You may enter an additional free text description.
@@ -22,41 +22,36 @@ class ResourceType
 {
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $type;
 
     /**
+     * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-resourceType-v1.0.xsd for valid
+     * general types
+     *
      * @SerializedName("resourceType")
      * @Type("string")
+     * @Assert\Choice(choices = { "Collection,
+     *                            "Dataset",
+     *                            "Event",
+     *                            "Film",
+     *                            "Image",
+     *                            "InteractiveResource",
+     *                            "PhysicalObject",
+     *                            "Service",
+     *                            "Software",
+     *                            "Sound",
+     *                            "Text"
+     *                          },
+     *                message = "Invalid resource type"
+     *               )
      */
     private $resourceType;
 
-    /**
-     * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-resourceType-v1.0.xsd for valid
-     * general types
-     * @Exclude()
-     */
-    private static $RESOURCE_TYPES = array("Collection",
-                                 "Dataset",
-                                 "Event",
-                                 "Film",
-                                 "Image",
-                                 "InteractiveResource",
-                                 "PhysicalObject",
-                                 "Service",
-                                 "Software",
-                                 "Sound",
-                                 "Text");
-
     public function setType($type)
     {
-        if (null === $this->resourceType) {
-            throw new \InvalidArgumentException(sprintf("Please set the type first. Valid types are: %s", json_encode(self::$RESOURCE_TYPES)));
-        }
-
-        if (null === $type) {
-            throw new \InvalidArgumentException("Type cannot be null");
-        }
         $this->type = $type;
 
         return $this;
@@ -69,13 +64,9 @@ class ResourceType
 
     public function setResourceType($resourceType)
     {
-        if (in_array($resourceType, self::$RESOURCE_TYPES)) {
-            $this->resourceType = $resourceType;
+        $this->resourceType = $resourceType;
 
-            return $this;
-        } else {
-            throw new \InvalidArgumentException(sprintf("Not a valid resource type. Valid types are: %s", json_encode(self::$RESOURCE_TYPES)));
-        }
+        return $this;
     }
 
     public function getResourceType()

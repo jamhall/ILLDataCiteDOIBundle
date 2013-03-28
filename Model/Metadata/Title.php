@@ -10,7 +10,7 @@
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use JMS\Serializer\Annotation\Type;
-use JMS\Serializer\Annotation\Exclude;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * A name or title by which a resource is known.
@@ -26,15 +26,14 @@ class Title
 
     /**
      * @Type("string")
+     * @Assert\Choice(choices = { "AlternativeTitle,
+     *                            "Subtitle",
+     *                            "TranslatedTitle"
+     *                          },
+     *                message = "Invalid title type"
+     *               )
      */
     private $type;
-
-    /**
-     * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-titleType-v1.0.xsd for valid
-     * title types
-     * @Exclude()
-     */
-    private static $TYPES = array("AlternativeTitle", "Subtitle", "TranslatedTitle");
 
     public function setTitle($title)
     {
@@ -50,13 +49,9 @@ class Title
 
     public function setType($type)
     {
-        if (in_array($type, self::$TYPES)) {
-            $this->type = $type;
+        $this->type = $type;
 
-            return $this;
-        } else {
-            throw new \InvalidArgumentException(sprintf("Not a valid type. Valid types are: %s", json_encode(self::$TYPES)));
-        }
+        return $this;
     }
 
     public function getType()

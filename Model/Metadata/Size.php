@@ -10,6 +10,7 @@
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use JMS\Serializer\Annotation\Type;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Unstructures size information about the resource
@@ -21,6 +22,8 @@ class Size
 {
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $size;
 
@@ -33,13 +36,9 @@ class Size
 
     public function setSize($size)
     {
-        if (null === $size) {
-            throw new \InvalidArgumentException("Size cannot be empty");
-        } else {
-            $this->size = $size;
+        $this->size = $size;
 
-            return $this;
-        }
+        return $this;
     }
 
     public function getSize()

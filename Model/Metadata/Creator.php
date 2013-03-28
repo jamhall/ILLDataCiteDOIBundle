@@ -9,10 +9,10 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
-use ILL\DataCiteDOIBundle\Model\Metadata\Validator\NonEmptyStringValidator;
 use ILL\DataCiteDOIBundle\Model\Metadata\NameIdentifier;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * The main researchers involved working on the data, or the authors of the publication in
@@ -24,6 +24,8 @@ class Creator
 {
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -35,9 +37,7 @@ class Creator
 
     public function setName($name)
     {
-        if (NonEmptyStringValidator::isValid("name", $name)) {
-            $this->name = $name;
-        }
+        $this->name = $name;
 
         return $this;
     }

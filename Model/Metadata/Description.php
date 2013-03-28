@@ -10,7 +10,7 @@
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use JMS\Serializer\Annotation\Type;
-use JMS\Serializer\Annotation\Exclude;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
@@ -20,20 +20,24 @@ class Description
 {
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $description;
 
     /**
-     * @Type("string")
-     */
-    private $type;
-
-    /**
      * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-descriptionType-v1.1.xsd for valid
      * description types
-     * @Exclude()
+     *
+     * @Type("string")
+     * @Assert\Choice(choices = { "Abstract",
+     *                            "TableOfContents",
+     *                            "Other"
+     *                          },
+     *                message = "Invalid description type"
+     *               )
      */
-    private static $TYPES = array("Abstract", "TableOfContents", "Other");
+    private $type;
 
     public function setDescription($description)
     {
@@ -49,13 +53,9 @@ class Description
 
     public function setType($type)
     {
-        if (in_array($type, self::$TYPES)) {
-            $this->type = $type;
+        $this->type = $type;
 
-            return $this;
-        } else {
-            throw new \InvalidArgumentException(sprintf("Not a valid type. Valid types are: %s", json_encode(self::$TYPES)));
-        }
+        return $this;
     }
 
     public function getType()

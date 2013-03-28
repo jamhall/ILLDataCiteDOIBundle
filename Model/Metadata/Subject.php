@@ -10,6 +10,7 @@
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
 use JMS\Serializer\Annotation\Type;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Subject, keywords, classification codes, or key phrases describing the resource.
@@ -20,23 +21,23 @@ class Subject
 {
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $subject;
 
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $scheme;
 
     public function setSubject($subject)
     {
-        if (null === $subject) {
-            throw new \InvalidArgumentException("Subject cannot be empty");
-        } else {
-            $this->subject= $subject;;
+        $this->subject= $subject;;
 
-            return $this;
-        }
+        return $this;
     }
 
     public function getSubject()

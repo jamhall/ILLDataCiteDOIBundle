@@ -9,8 +9,8 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Model\Metadata;
-use ILL\DataCiteDOIBundle\Model\Metadata\Validator\NonEmptyStringValidator;
 use JMS\Serializer\Annotation\Type;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * The name identifier for a creator
@@ -22,23 +22,21 @@ class NameIdentifier
 
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $scheme = null;
 
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $identifier;
 
     public function setIdentifier($identifier)
     {
-        if (null === $this->scheme) {
-            throw new \InvalidArgumentException("Please set the scheme before setting the identifier");
-        } else {
-            if (NonEmptyStringValidator::isValid("identifier", $identifier)) {
-                $this->identifier = $identifier;
-            }
-        }
+        $this->identifier = $identifier;
 
         return $this;
     }
@@ -50,9 +48,7 @@ class NameIdentifier
 
     public function setScheme($scheme)
     {
-        if (NonEmptyStringValidator::isValid("scheme", $scheme)) {
-            $this->scheme = $scheme;
-        }
+        $this->scheme = $scheme;
 
         return $this;
     }
