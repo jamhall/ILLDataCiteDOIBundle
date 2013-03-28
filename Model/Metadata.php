@@ -24,6 +24,7 @@ use ILL\DataCiteDOIBundle\Model\Metadata\Subject;
 use ILL\DataCiteDOIBundle\Model\Metadata\Title;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This class represents a metadata data structure. It conforms to the metadata schema which can
@@ -38,6 +39,8 @@ class Metadata
      * A persistent identifier that identifies a resource.
      *
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $identifier;
 
@@ -65,6 +68,8 @@ class Metadata
      * This property will be used to formulate the citation, so consider the prominence of the role.
      *
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $publisher;
 
@@ -73,6 +78,8 @@ class Metadata
      * @var string
      * @SerializedName("publicationYear")
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $publicationYear;
 
@@ -94,6 +101,10 @@ class Metadata
      * A name or title by which a resource is known.
      *
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Title>")
+     * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "Must specify at least one title",
+     * )
      */
     private $titles = array();
 
@@ -102,6 +113,10 @@ class Metadata
      * May be a corporate/institutional or personal name.
      *
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Creator>")
+     * @Assert\Count(
+     *      min = "1",
+     *      minMessage = "Must specify at least one creator",
+     * )
      */
     private $creators = array();
 
