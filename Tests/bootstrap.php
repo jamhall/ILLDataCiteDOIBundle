@@ -1,6 +1,5 @@
 <?php
 
-
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
 call_user_func(function() {

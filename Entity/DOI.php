@@ -11,7 +11,7 @@
 namespace ILL\DataCiteDOIBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
@@ -41,7 +41,7 @@ abstract class DOI
 
     /**
      * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="CREATION_DATE", type="datetime")
      */
     private $created;
@@ -49,6 +49,7 @@ abstract class DOI
     /**
      * @var \DateTime
      *
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="LAST_UPDATE", type="datetime")
      */
     private $updated;

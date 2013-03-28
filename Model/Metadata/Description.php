@@ -31,6 +31,7 @@ class Description
      *
      * @Type("string")
      * @Assert\Choice(choices = { "Abstract",
+     *                            "SeriesInformation",
      *                            "TableOfContents",
      *                            "Other"
      *                          },

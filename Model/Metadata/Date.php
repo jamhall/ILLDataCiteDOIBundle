@@ -24,11 +24,6 @@ class Date
      * @Type("string")
      * @Assert\NotNull()
      * @Assert\NotBlank()
-     * @Assert\Regex(
-     *     pattern="/(\d{4})|(\d{4}-\d{2})|(\d{4}-\d{2}-\d{2})|(\d{4}-\d{2}-\d{2}T\d{2}(:\d{2}){1,2}[-+]\d{2}:\d{2})/",
-     *     match=false,
-     *     message="Not a valid date. It must be in the format of YYYY or YYYY-MM-DD or any other format described in W3CDTF (http://www.w3.org/TR/NOTE-datetime)"
-     * )
      */
     private $date;
 
@@ -39,7 +34,7 @@ class Date
      * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-dateType-v1.1.xsd for valid date types
      *
      * @Type("string")
-     * @Assert\Choice(choices = { "Accepted,
+     * @Assert\Choice(choices = { "Accepted",
      *                            "Available",
      *                            "Copyrighted",
      *                            "Created",

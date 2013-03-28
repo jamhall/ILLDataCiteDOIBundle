@@ -32,6 +32,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Please also read the documentation for the metadata schema found here:
  * http://schema.datacite.org/meta/kernel-2.2/index.html
  * @author Jamie Hall <hall@ill.eu>
+ *
+ * @Assert\Callback(methods={"getTitles"})
  */
 class Metadata
 {
@@ -93,6 +95,7 @@ class Metadata
     /**
      * The general type of the resource from a controlled list.
      * @SerializedName("resourceType")
+     * @Assert\Valid()
      * @Type("ILL\DataCiteDOIBundle\Model\Metadata\ResourceType")
      */
     private $resourceType;
@@ -101,9 +104,10 @@ class Metadata
      * A name or title by which a resource is known.
      *
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Title>")
+     * @Assert\Valid()
      * @Assert\Count(
      *      min = "1",
-     *      minMessage = "Must specify at least one title",
+     *      minMessage = "Must specify at least one title"
      * )
      */
     private $titles = array();
@@ -112,10 +116,11 @@ class Metadata
      * The main researchers involved working on the data, or the authors of the publication in priority order.
      * May be a corporate/institutional or personal name.
      *
+     * @Assert\Valid()
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Creator>")
      * @Assert\Count(
      *      min = "1",
-     *      minMessage = "Must specify at least one creator",
+     *      minMessage = "Must specify at least one creator"
      * )
      */
     private $creators = array();
@@ -130,6 +135,7 @@ class Metadata
     /**
      * Subject, keywords, classification codes, or key phrases describing the resource.
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Subject>")
+     * @Assert\Valid()
      */
     private $subjects = array();
 
@@ -137,6 +143,7 @@ class Metadata
      * Different dates relevant to the work.
      *
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Date>")
+     * @Assert\Valid()
      */
     private $dates = array();
 
@@ -146,6 +153,7 @@ class Metadata
      *
      * @SerializedName("alternateIdentifiers")
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\AlternateIdentifier>")
+     * @Assert\Valid()
      */
     private $alternateIdentifiers = array();
 
@@ -153,6 +161,7 @@ class Metadata
      * Identifiers of related resources. Use this property to indicate subsets of properties, as appropriate.
      * @SerializedName("relatedIdentifiers")
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\RelatedIdentifier>")
+     * @Assert\Valid()
      */
     private $relatedIdentifiers = array();
 
@@ -160,6 +169,7 @@ class Metadata
      * Unstructures size information about the resource.
      *
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Size>")
+     * @Assert\Valid()
      */
     private $sizes = array();
 
@@ -167,6 +177,7 @@ class Metadata
      * Technical format of the resource. Use file extension or MIME type where possible.
      *
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Format>")
+     * @Assert\Valid()
      */
     private $formats = array();
 
@@ -174,6 +185,7 @@ class Metadata
      * Descriptions of the resource
      *
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Description>")
+     * @Assert\Valid()
      */
     private $descriptions = array();
 
@@ -257,9 +269,6 @@ class Metadata
 
     public function setLanguage($language)
     {
-        if (3 !== strlen($language)) {
-            throw new \InvalidArgumentException("The language must be a three letter code");
-        }
         $this->language = $language;
 
         return $this;

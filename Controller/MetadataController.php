@@ -36,14 +36,16 @@ class MetadataController extends Controller
         }
 
         // ajax request
-        if($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $serializer = \JMS\Serializer\SerializerBuilder::create()->setDebug(false)->build();
             $metadata = $serializer->deserialize($request->getContent(), 'ILL\DataCiteDOIBundle\Model\Metadata', 'json');
 
             $response = new Response($serializer->serialize($metadata, 'json'));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
+
         return array("doi"=>$doi);
     }
 

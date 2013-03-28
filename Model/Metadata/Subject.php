@@ -28,8 +28,6 @@ class Subject
 
     /**
      * @Type("string")
-     * @Assert\NotNull()
-     * @Assert\NotBlank()
      */
     private $scheme;
 

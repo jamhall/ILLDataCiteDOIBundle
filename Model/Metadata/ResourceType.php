@@ -22,8 +22,6 @@ class ResourceType
 {
     /**
      * @Type("string")
-     * @Assert\NotNull()
-     * @Assert\NotBlank()
      */
     private $type;
 
@@ -33,12 +31,13 @@ class ResourceType
      *
      * @SerializedName("resourceType")
      * @Type("string")
-     * @Assert\Choice(choices = { "Collection,
+     * @Assert\Choice(choices = { "Collection",
      *                            "Dataset",
      *                            "Event",
      *                            "Film",
      *                            "Image",
      *                            "InteractiveResource",
+     *                            "Model",
      *                            "PhysicalObject",
      *                            "Service",
      *                            "Software",

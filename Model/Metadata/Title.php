@@ -21,12 +21,14 @@ class Title
 {
     /**
      * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $title;
 
     /**
      * @Type("string")
-     * @Assert\Choice(choices = { "AlternativeTitle,
+     * @Assert\Choice(choices = { "AlternativeTitle",
      *                            "Subtitle",
      *                            "TranslatedTitle"
      *                          },
@@ -49,9 +51,10 @@ class Title
 
     public function setType($type)
     {
-        $this->type = $type;
+            $this->type = $type;
 
-        return $this;
+            return $this;
+
     }
 
     public function getType()

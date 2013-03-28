@@ -33,7 +33,7 @@ class RelatedIdentifier
      *
      * @SerializedName("relationType")
      * @Type("string")
-     * @Assert\Choice(choices = { "IsCitedBy,
+     * @Assert\Choice(choices = { "IsCitedBy",
      *                            "Cites",
      *                            "IsSupplementedTo",
      *                            "IsSupplementedBy",
@@ -60,7 +60,7 @@ class RelatedIdentifier
     /**
      * @SerializedName("relatedIdentifierType")
      * @Type("string")
-     * @Assert\Choice(choices = { "ARK,
+     * @Assert\Choice(choices = { "ARK",
      *                            "DOI",
      *                            "EAN13",
      *                            "EISSN",
@@ -72,6 +72,7 @@ class RelatedIdentifier
      *                            "LSID",
      *                            "PURL",
      *                            "UPC",
+     *                            "URL",
      *                            "URN"
      *                          },
      *                message = "Invalid relation type"
