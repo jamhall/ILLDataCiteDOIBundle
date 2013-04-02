@@ -65,15 +65,24 @@ public function registerBundles()
 ### Step 2: Configure your application's config.yml
 ``` yaml
 ill_data_cite_doi:
-   username: YourDataCiteUsername
-   password: YourDataCiteUsername
-   prefix:   YourDataCitePrefix
-   // enable for testing the creation of DOIs and metadata using a special test prefix(They will not be exposed by upcoming services like search and OAI)
-   test: true
-   // configure a proxy (if you're going through one for curl requests)
-   proxy:
-      host: example.com
-      port: 8080
+   username: DataCiteMDSUsername
+   password: DataCiteMDSPassword
+   prefix:   YourFacilityPrefix
+   proxy: ~
+   # Entity class representating your DOI database table
+   doi_class: ILL\DateCiteDOITestBundle\Entity\DOI
+   # valid domains for registering a DOI to an URL
+   domains: "/^(.*)\.ill\.fr/"
+   # identifier types patterns that a DOI must match
+   identifier_types:
+        - { type: ARTICLE, pattern: "/^ILL-ARTICLE-[A-Za-z0-9\-.\_]+/" }
+        - { type: BOOK, pattern: "/^ILL-BOOK-[A-Za-z0-9\-.\_]+/" }
+        - { type: REPORT, pattern: "/^ILL-ARTICLE-[A-Za-z0-9\-.\_]+/" }
+        - { type: DATA, pattern: "/^ILL-DATA-\d+-\d+-\d+)/" }
+        - { type: PROCEEDINGS, pattern: "/^ILL-PROCEEDINGS-[A-Za-z0-9\-.\_]+/" }
+twig:
+    globals:
+        logo : http://example.com/images/logo.gif
 ```
 
 License
