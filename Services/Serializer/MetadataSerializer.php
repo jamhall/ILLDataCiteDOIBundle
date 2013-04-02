@@ -433,7 +433,7 @@ class MetadataSerializer
         if (isset($xml->descriptions)) {
             foreach ($xml->descriptions->description as $descriptionElement) {
                 $description = new Description();
-                $description->setDescription((string) $descriptionElement);
+                $description->setDescription(trim((string) $descriptionElement));
                 $description->setType((string) $descriptionElement->attributes()->descriptionType);
                 $metadata->addDescription($description);
             }

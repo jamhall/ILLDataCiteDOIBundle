@@ -1,4 +1,13 @@
 <?php
+/*
+* This file is part of the ILLDataCiteDOIBundle package.
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+*
+* @License  MIT License
+*/
+
 namespace ILL\DataCiteDOIBundle\Tests\Metadata;
 use Symfony\Component\Validator\Validation;
 use ILL\DataCiteDOIBundle\Services\Serializer\MetadataSerializer;
@@ -57,7 +66,6 @@ class MetadataValidationTest extends \PHPUnit_Framework_TestCase
         $metadata = MetadataSerializer::unserialize($xml);
         $validator = Validation::createValidatorBuilder()->enableAnnotationMapping()->getValidator();
         $errors = $validator->validate($metadata);
-        var_dump($errors);
         $this->assertEquals(0, count($errors));
     }
 }

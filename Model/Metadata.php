@@ -82,7 +82,7 @@ class Metadata
      * @Assert\NotBlank()
      * @Assert\Regex(
      *     pattern="/^\d{4}$/",
-     *     match=false,
+     *     match=true,
      *     message="Not a valid year"
      * )
      */
