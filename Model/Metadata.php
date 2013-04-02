@@ -31,9 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * be found here: http://schema.datacite.org/meta/kernel-2.1/metadata.xsd
  * Please also read the documentation for the metadata schema found here:
  * http://schema.datacite.org/meta/kernel-2.2/index.html
- * @author Jamie Hall <hall@ill.eu>
- *
- * @Assert\Callback(methods={"getTitles"})
+ * @author Mr. Jamie Hall <hall@ill.eu>
  */
 class Metadata
 {
@@ -82,6 +80,11 @@ class Metadata
      * @Type("string")
      * @Assert\NotNull()
      * @Assert\NotBlank()
+     * @Assert\Regex(
+     *     pattern="/^\d{4}$/",
+     *     match=false,
+     *     message="Not a valid year"
+     * )
      */
     private $publicationYear;
 
@@ -199,13 +202,9 @@ class Metadata
 
     public function setIdentifier($identifier)
     {
-        // check if a valid year
-        if (preg_match('/^[[1][0][\.]]*/' , $identifier)) {
-            $this->identifier = $identifier;
+        $this->identifier = $identifier;
 
-            return $this;
-        }
-        throw new \InvalidArgumentException("Not a valid identifier. DOI must start with '10.'");
+        return $this;
     }
 
     public function getIdentifier()
@@ -239,9 +238,6 @@ class Metadata
 
     public function setPublisher($publisher)
     {
-        if (null === $publisher) {
-            throw new \InvalidArgumentException("The publisher cannot be null");
-        }
         $this->publisher = $publisher;
 
         return $this;
@@ -254,13 +250,9 @@ class Metadata
 
     public function setPublicationYear($publicationYear)
     {
-        // check if a valid year
-        if (preg_match('/^\d{4}$/' , $publicationYear)) {
-            $this->publicationYear = $publicationYear;
+        $this->publicationYear = $publicationYear;
 
-            return $this;
-        }
-        throw new \InvalidArgumentException("Not a valid year. It must be of the format: YYYY");
+        return $this;
     }
 
     public function getPublicationYear()
@@ -295,19 +287,6 @@ class Metadata
     public function addTitle(Title $title)
     {
         $this->titles[] = $title;
-
-        return $this;
-    }
-
-    public function addTitles(array $titles = array())
-    {
-        foreach ($titles as $title) {
-            if (true === $title instanceof Title) {
-                $this->titles[] = $title;
-            } else {
-                 throw new \InvalidArgumentException("Invalid class type. All classes in the array must be an instance of Title");
-            }
-        }
 
         return $this;
     }
