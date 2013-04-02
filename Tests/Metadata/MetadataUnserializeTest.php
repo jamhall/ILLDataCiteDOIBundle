@@ -9,7 +9,6 @@
 */
 
 namespace ILL\DataCiteDOIBundle\Tests\Metadata;
-use Symfony\Component\Validator\Validation;
 use ILL\DataCiteDOIBundle\Services\Serializer\MetadataSerializer;
 use ILL\DataCiteDOIBundle\Model\Metadata;
 use ILL\DataCiteDOIBundle\Model\Metadata\AlternateIdentifier;
@@ -76,7 +75,8 @@ class MetadataUnserializeTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function testUnserialize() {
+    public function testUnserialize()
+    {
         $xml = file_get_contents(__DIR__ . "/Resources/datacite-metadata-sample-v2.2.xml");
         $serializedMetadata = MetadataSerializer::unserialize($xml);
         /**
