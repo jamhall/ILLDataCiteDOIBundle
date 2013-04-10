@@ -35,18 +35,6 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('username')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('password')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode("prefix")->isRequired()->cannotBeEmpty()->end()
-                    /*
-                     * if set to true, a special test prefix of 10.5072 will be used. This test prefix is available to all
-                     * data centres. The test DOIs with this prefix will behave like any other DOI, e.g. they can be normally resolved.
-                     * They will not be exposed by upcoming services like search and OAI, though. Periodically, all of these test
-                     * datasets are purged from the system
-                     */
-                    ->scalarNode("test")->defaultValue(false)->end()
-                    /*
-                     * if set to true a request will not change the database nor will the DOI handle be registered or updated
-                     * A query parameter of testMode=true is added to every request
-                     */
-                    ->scalarNode('testMode')->defaultValue(false)->end()
                     // allow the use of a proxy for cURL requests
                     ->arrayNode('proxy')
                         ->children()
@@ -57,8 +45,16 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                     ->scalarNode('doi_class')->isRequired()->cannotBeEmpty()->end()
-                    ->scalarNode('domains')->isRequired()->cannotBeEmpty()->end()
-                    ->arrayNode('identifier_types')
+                    ->arrayNode('domains')
+                        ->isRequired()
+                        ->requiresAtLeastOneElement()
+                        ->prototype('array')
+                            ->children()
+                              ->scalarNode('domain')->isRequired()->cannotBeEmpty()->end()
+                              ->scalarNode('description')->isRequired()->cannotBeEmpty()->end()
+                            ->end()
+                        ->end()
+                    ->end()                    ->arrayNode('identifier_types')
                         ->prototype('array')
                             ->children()
                               ->scalarNode('type')->isRequired()->cannotBeEmpty()->end()
