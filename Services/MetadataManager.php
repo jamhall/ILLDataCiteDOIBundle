@@ -35,7 +35,7 @@ class MetadataManager extends AbstractManager implements MetadataManagerInterfac
             $request->setMethod("POST");
             $headers = $request->getHeaders();
 
-            // Set the content type (use latest version)
+            // Set the content type
             $headers->add(new ContentType('application/xml;charset=UTF-8'));
 
             // Disable 100-continue header
@@ -78,7 +78,7 @@ class MetadataManager extends AbstractManager implements MetadataManagerInterfac
             $request->setMethod("POST");
             $headers = $request->getHeaders();
 
-            // Set the content type (use latest version)
+            // Set the content type
             $headers->add(new ContentType('application/xml;charset=UTF-8'));
 
             // Disable 100-continue header
@@ -180,5 +180,10 @@ class MetadataManager extends AbstractManager implements MetadataManagerInterfac
     public function deleteById($id)
     {
 
+    }
+
+    public function isValid(Metadata $metadata)
+    {
+        return false;
     }
 }

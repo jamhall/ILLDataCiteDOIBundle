@@ -58,4 +58,11 @@ interface MetadataManagerInterface
      * @return boolean
      */
     public function deleteById($id);
+
+    /**
+     * Check metadata object is valid
+     * @param  Metadata metadata
+     * @return boolean
+     */
+    public function isValid(Metadata $metadata);
 }

@@ -34,8 +34,10 @@ abstract class AbstractManager
         'prefix'    => null,
         'test'      => false,
         'testMode'  => false,
-        'adapter'   => null,
-        'proxy' => false
+        'proxy' => false,
+        'domains' => false,
+        'identifier_types'=> false
+
     );
 
     public function __construct(array $options = array(), $logger)
