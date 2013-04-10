@@ -20,6 +20,7 @@ abstract class AbstractManager
 {
     protected $adapter;
     protected $logger;
+    protected $validator;
     /**
      * YAML object of expected API methods response codes
      * @var [type]
@@ -40,11 +41,12 @@ abstract class AbstractManager
 
     );
 
-    public function __construct(array $options = array(), $logger)
+    public function __construct(array $options = array(), $logger, $validator)
     {
         $this->defaults = array_merge($this->defaults, $options);
         $this->adapter = new CurlAdapter($this->defaults);
         $this->logger = $logger;
+        $this->validator = $validator;
         self::$responseCodes = $this->loadResponseCodes();
     }
 

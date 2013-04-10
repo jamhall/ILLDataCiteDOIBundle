@@ -25,6 +25,7 @@ use ILL\DataCiteDOIBundle\Model\Metadata\Title;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
+use ILL\DataCiteDOIBundle\Validator\Constraints as DataCiteAssert;
 
 /**
  * This class represents a metadata data structure. It conforms to the metadata schema which can

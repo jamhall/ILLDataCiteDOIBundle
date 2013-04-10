@@ -20,6 +20,9 @@ use \Versionable\Prospect\Header\Custom as HeaderCustom;
 use Versionable\Prospect\Header\ContentType;
 use \Versionable\Prospect\Response\Response;
 use ILL\DataCiteDOIBundle\Services\Serializer\MetadataSerializer;
+//use Symfony\Component\Validator\Constraints as Assert;
+use ILL\DataCiteDOIBundle\Validator\Constraints as DataCiteAssert;
+
 /**
  * @author Jamie Hall <hall@ill.eu>
  */
@@ -184,6 +187,11 @@ class MetadataManager extends AbstractManager implements MetadataManagerInterfac
 
     public function isValid(Metadata $metadata)
     {
-        return false;
+        $errors = $this->validator->validateValue($metadata->getIdentifier(), new DataCiteAssert\MetadataIdentifier($this->defaults['prefix']));
+        if (count($errors) > 0) {
+            return $errors;
+        } else {
+            return $this->validator->validate($metadata);
+        }
     }
 }
