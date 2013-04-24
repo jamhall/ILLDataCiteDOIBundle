@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "symfony/framework-bundle": ">=2.1,<2.2-dev",
+        "symfony/framework-bundle": ">=2.1",
         "versionable/prospect": "1.0.*@dev",
 	"white-october/pagerfanta-bundle": "dev-master",
         "stof/doctrine-extensions-bundle": "dev-master",
