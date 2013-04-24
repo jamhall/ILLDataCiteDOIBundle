@@ -39,7 +39,7 @@ class ILLDataCiteDOIExtension extends Extension
         $container->getDefinition("ill_data_cite_doi.manager")->setArguments(array($config, $logger, $validator));
         $container->getDefinition("ill_data_cite_doi.metadata_manager")->setArguments(array($config, $logger, $validator));
         $container->getDefinition("ill_data_cite_doi.media_manager")->setArguments(array($config, $logger, $validator));
-        $container->getDefinition("ill_data_cite_doi.validator.metadata_identifier")->setArguments($config['prefix']);
+        #$container->getDefinition("ill_data_cite_doi.validator.metadata_identifier")->setArguments($config['prefix']);
         $container->setParameter('ill_data_cite_doi.doctrine.entity.doi.class', $config['doi_class']);
     }
 }
