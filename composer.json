@@ -15,7 +15,7 @@
         "php": ">=5.3.2",
         "symfony/framework-bundle": ">=2.1,<2.2-dev",
         "versionable/prospect": "1.0.*@dev",
-        "white-october/pagerfanta-bundle": "dev-master",
+	"white-october/pagerfanta-bundle": "1.0.*@dev"
         "stof/doctrine-extensions-bundle": "dev-master",
         "jms/serializer": "dev-master"
     },
