@@ -17,7 +17,7 @@
         "versionable/prospect": "1.0.*@dev",
 	"white-october/pagerfanta-bundle": "1.0.*@dev",
         "stof/doctrine-extensions-bundle": "dev-master",
-        "jms/serializer": "dev-master"
+	"jms/serializer-bundle": "0.12.*@dev"    
     },
     "require-dev": {
     	"symfony/finder": "2.1.*",
