@@ -33,9 +33,9 @@ class MetadataSerializer
      * XML namespaces and XML schemas
      */
     const W3_XML_NAMESPACE = "http://www.w3.org/2000/xmlns/";
-    const DATACITE_KERNEL_RESOURCE_NAMESPACE = "http://datacite.org/schema/kernel-2.1";
+    const DATACITE_KERNEL_RESOURCE_NAMESPACE = "http://datacite.org/schema/kernel-2.2";
     const W3_XML_SCHEMA_NAMESPACE = "http://www.w3.org/2001/XMLSchema-instance";
-    const DATACITE_METADATA_XML_SCHEMA = "http://schema.datacite.org/meta/kernel-2.1/metadata.xsd";
+    const DATACITE_METADATA_XML_SCHEMA = "http://schema.datacite.org/meta/kernel-2.2/metadata.xsd";
 
     /**
      * Serialize metadata model into XML for the API
@@ -85,8 +85,10 @@ class MetadataSerializer
         $titlesElement = $xml->createElement('titles');
         $root->appendChild($titlesElement);
         foreach ($metadata->getTitles() as $title) {
-            $titleElement = $xml->createElement("title", $title->getTitle());
-            if ($title->getType()) {
+            $titleElement = $xml->createElement("title");
+            $titleElement->appendChild(
+                $xml->createTextNode($title->getTitle()));
+        if ($title->getType()) {
                 $titleElement->setAttribute("titleType", $title->getType());
             }
             $titlesElement->appendChild($titleElement);
