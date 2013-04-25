@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * The institution or person responsible for collecting, creating, or otherwise contributing to the developement of the dataset.
- * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
+ * Please see http://schema.datacite.org/meta/kernel-2.2/metadata.xsd for more detail.
  * @author Jamie Hall <hall@ill.eu>
  */
 class Contributor
@@ -29,7 +29,7 @@ class Contributor
     private $name;
 
     /**
-     * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-contributorType-v1.1.xsd for valid
+     * Please see http://schema.datacite.org/meta/kernel-2.2/include/datacite-contributorType-v2.xsd for valid
      * contriutor types
      *
      * @Type("string")

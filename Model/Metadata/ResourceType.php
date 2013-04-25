@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * The type of a resource. You may enter an additional free text description.
- * Please see http://schema.datacite.org/meta/kernel-2.0/metadata.xsd for more detail.
+ * Please see http://schema.datacite.org/meta/kernel-2.2/metadata.xsd for more detail.
  * @author Jamie Hall <hall@ill.eu>
  */
 class ResourceType
@@ -26,7 +26,7 @@ class ResourceType
     private $type;
 
     /**
-     * Please see http://schema.datacite.org/meta/kernel-2.0/include/datacite-resourceType-v1.0.xsd for valid
+     * Please see http://schema.datacite.org/meta/kernel-2.2/include/datacite-resourceType-v2.xsd for valid
      * general types
      *
      * @SerializedName("resourceType")

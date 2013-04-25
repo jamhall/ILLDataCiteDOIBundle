@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Identifiers of related resources. Use this property to indicate subsets of properties, as appropriate.
- * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
+ * Please see http://schema.datacite.org/meta/kernel-2.2/metadata.xsd for more detail.
  * @author Jamie Hall <hall@ill.eu>
  */
 class RelatedIdentifier
@@ -28,7 +28,7 @@ class RelatedIdentifier
     private $identifier;
 
     /**
-     * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-relationType-v1.1.xsd for valid
+     * Please see http://schema.datacite.org/meta/kernel-2.2/include/datacite-relationType-v2.xsd for valid
      * relation types
      *
      * @SerializedName("relationType")

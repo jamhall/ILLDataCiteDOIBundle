@@ -29,7 +29,7 @@ use ILL\DataCiteDOIBundle\Validator\Constraints as DataCiteAssert;
 
 /**
  * This class represents a metadata data structure. It conforms to the metadata schema which can
- * be found here: http://schema.datacite.org/meta/kernel-2.1/metadata.xsd
+ * be found here: http://schema.datacite.org/meta/kernel-2.2/metadata.xsd
  * Please also read the documentation for the metadata schema found here:
  * http://schema.datacite.org/meta/kernel-2.2/index.html
  * @author Mr. Jamie Hall <hall@ill.eu>

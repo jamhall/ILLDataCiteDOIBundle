@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Year when the data is made publicly available.
  * If an embargo period has been in effect, use the date when the embargo period ends.
- * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
+ * Please see http://schema.datacite.org/meta/kernel-2.2/metadata.xsd for more detail.
  * @author Jamie Hall <hall@ill.eu>
  */
 class Date
@@ -31,7 +31,7 @@ class Date
      * The type of date. To indicate a date period, provide two dates, specifying the StartDate and the EndDate.
      * To indicate the end of an embargo period. use Available.
      * To indicate the start of an embargo period, use Submitted or Accepted, as appropriate.
-     * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-dateType-v1.1.xsd for valid date types
+     * Please see http://schema.datacite.org/meta/kernel-2.2/include/datacite-dateType-v2.xsd for valid date types
      *
      * @Type("string")
      * @Assert\Choice(choices = { "Accepted",

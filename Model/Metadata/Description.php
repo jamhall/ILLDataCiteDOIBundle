@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation\Type;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
+ * Please see http://schema.datacite.org/meta/kernel-2.2/metadata.xsd for more detail.
  * @author Jamie Hall <hall@ill.eu>
  */
 class Description
@@ -26,7 +26,7 @@ class Description
     private $description;
 
     /**
-     * Please see http://schema.datacite.org/meta/kernel-2.1/include/datacite-descriptionType-v1.1.xsd for valid
+     * Please see http://schema.datacite.org/meta/kernel-2.2/include/datacite-descriptionType-v2.xsd for valid
      * description types
      *
      * @Type("string")

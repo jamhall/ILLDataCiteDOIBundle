@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Technical format of the resource. Use file extension or MIME type where possible.
  * If an embargo period has been in effect, use the date when the embargo period ends.
- * Please see http://schema.datacite.org/meta/kernel-2.1/metadata.xsd for more detail.
+ * Please see http://schema.datacite.org/meta/kernel-2.2/metadata.xsd for more detail.
  * @author Jamie Hall <hall@ill.eu>
  */
 class Format

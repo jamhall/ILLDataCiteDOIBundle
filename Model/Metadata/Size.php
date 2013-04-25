@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Unstructures size information about the resource
  * If an embargo period has been in effect, use the date when the embargo period ends.
- * Please see http://schema.datacite.org/meta/kernel-2.0/metadata.xsd for more detail.
+ * Please see http://schema.datacite.org/meta/kernel-2.2/metadata.xsd for more detail.
  * @author Jamie Hall <hall@ill.eu>
  */
 class Size
