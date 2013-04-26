@@ -27,7 +27,7 @@ class DatasetController extends Controller
         $doiRepo = $this->container->get("ill_data_cite_doi.doctrine.repository.doi");
         $dois = $doiRepo->findAll(true);
         $page = ($request->query->has('page')) ? $request->query->get('page') : 1;
-        $dois->setMaxPerPage(2);
+        $dois->setMaxPerPage(50);
 
         try {
             $dois->setCurrentPage($page);
@@ -46,15 +46,12 @@ class DatasetController extends Controller
     {
         $doiRepo = $this->container->get("ill_data_cite_doi.doctrine.repository.doi");
         $doi = $doiRepo->findOneById($id);
-
+        $dm = $this->container->get("ill_data_cite_doi.manager");
         if (false == $doi) {
             throw $this->createNotFoundException(sprintf("Couldn't find the DOI with the id of %s", $id));
         }
 
-        $metadataManager = $this->container->get("ill_data_cite_doi.metadata_manager");
-        $metadata = $metadataManager->find($doi->getDOI());
-
-        return array("doi"=>$doi, "metadata"=>$metadata);
+        return array("doi"=>$doi, "url"=>$dm->find($doi->getDOI()));
     }
 
     /**
