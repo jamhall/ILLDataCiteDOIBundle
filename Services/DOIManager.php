@@ -16,6 +16,7 @@ use \Versionable\Prospect\Url\Url;
 use \Versionable\Prospect\Client\Client;
 use \Versionable\Prospect\Parameter\Parameter;
 use ILL\DataCiteDOIBundle\Model\DOI;
+use Versionable\Prospect\Header\ContentType;
 
 /**
  * @author Jamie Hall <hall@ill.eu>
@@ -64,9 +65,9 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
         try {
             $request = new Request(new Url($this->adapter->getDoiPostUri()));
             $request->setMethod("POST");
-            $parameters = $request->getParameters();
-            $parameters->add(new Parameter('doi', $doi->getIdentifier()));
-            $parameters->add(new Parameter('url', $doi->getUrl()));
+        $request->setBody(sprintf("doi=%s\nurl=%s", $doi->getIdentifier(), $doi->getUrl()));
+        $headers = $request->getHeaders();
+            $headers->add(new ContentType('text/plain;charset=UTF-8'));
             $client = new Client($this->adapter->getAdapter());
             $response = $client->send($request, new Response());
             // check the response is valid
