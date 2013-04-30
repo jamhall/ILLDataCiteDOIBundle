@@ -21,7 +21,6 @@ class DOIRepository extends EntityRepository
      * @param  boolean asPaginator
      * @return DOIs
      */
-
     public function findAll($asPaginator = false)
     {
         $query = $this->createQueryBuilder('d')
