@@ -17,15 +17,21 @@ namespace ILL\DataCiteDOIBundle\Model;
 class DOI
 {
     /**
-     * The identifier
+     * The prefix for the DOI
      *
      * @var string
-     * Assert\Regex(pattern="/^[-_a-zA-Z0-9.:\+\\]+$/", message="The following characters are only allowed in a DOI name: 0-9, a-z, A-Z, dash, dot, underscore, plus, colon and slash")
+     * @Assert\NotNull()
      */
-    protected $identifier;
+    protected $prefix;
 
-    protected $metadata;
-    protected $metadataReference;
+    /**
+     * The suffix for the DOI
+     *
+     * @var string
+     * @Assert\NotNull()
+     */
+    protected $suffix;
+
     /**
      * The URL for the DOI
      *
@@ -42,15 +48,18 @@ class DOI
     }
 
     /**
-     * Gets the id
+     * Get identifier of a DOI by concatenating the prefix and suffix
      *
-     * @return string
+     * @return integer
      */
     public function getIdentifier()
     {
-        return $this->identifier;
+        return sprintf("%s/%s", $this->prefix, $this->suffix);
     }
 
+    /**
+     * Sets the URL
+     */
     public function setUrl($url)
     {
         $this->url = $url;
@@ -69,12 +78,42 @@ class DOI
     }
 
     /**
-     * Get the metadata of the DOI
-     * @return object Metadata
+     * Sets the prefix
      */
-    public function getMetadata()
+    public function setPrefix($prefix)
     {
-        return $this->metadata;
+        $this->prefix = $prefix;
+
+        return $this;
     }
 
+    /**
+     * Gets the prefix for the DOI
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * Sets the suffix
+     */
+    public function setSuffix($suffix)
+    {
+        $this->suffix = $suffix;
+
+        return $this;
+    }
+
+    /**
+     * Gets the suffix for the DOI
+     *
+     * @return string
+     */
+    public function getSuffix()
+    {
+        return $this->suffix;
+    }
 }
