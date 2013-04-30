@@ -37,8 +37,8 @@ abstract class AbstractManager
         'testMode'  => false,
         'proxy' => false,
         'domains' => false,
-        'identifier_types'=> false
-
+        'identifier_types'=> false,
+        'prefixes' => false
     );
 
     public function __construct(array $options = array(), $logger, $validator)

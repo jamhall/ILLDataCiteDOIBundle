@@ -37,8 +37,11 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
                 if (200 == $response->getCode()) {
                     $this->logger->info(sprintf("The DOI with the identifier of %s was retrieved", $id),
                                         array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
+                    $pattern = '/^(\d+\.\d+)\/(.*)/';
+                    preg_match($pattern, $id, $matches);
                     $doi = new DOI();
-                    $doi->setIdentifier($id)
+                    $doi->setPrefix($matches[1])
+                        ->setSuffix($matches[2])
                         ->setUrl($response->getContent());
 
                     return $doi;
@@ -65,8 +68,8 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
         try {
             $request = new Request(new Url($this->adapter->getDoiPostUri()));
             $request->setMethod("POST");
-        $request->setBody(sprintf("doi=%s\nurl=%s", $doi->getIdentifier(), $doi->getUrl()));
-        $headers = $request->getHeaders();
+            $request->setBody(sprintf("doi=%s\nurl=%s", $doi->getIdentifier(), $doi->getUrl()));
+            $headers = $request->getHeaders();
             $headers->add(new ContentType('text/plain;charset=UTF-8'));
             $client = new Client($this->adapter->getAdapter());
             $response = $client->send($request, new Response());
@@ -77,21 +80,22 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
                     $this->logger->info(sprintf("The DOI with the identifier of %s was created", $doi->getIdentifier()),
                                         array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
 
-                    return $doi;
+                    return $response;
                 } else {
                     $this->logger->err(sprintf("The DOI with the identifier of %s could not be created", $doi->getIdentifier()),
                                         array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
+
+                    return $response;
                 }
             } else {
                 $this->logger->err(sprintf("Unexpected response code for the retrieval of the identifier %s", $doi->getIdentifier()),
                                             array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$response::$valid_codes[$response->getCode()]))));
-
             }
         } catch (\Exception $e) {
             $this->logger->err($e->getMessage());
         }
 
-        return null;
+        return $response;
     }
 
     public function exists($id)
@@ -118,7 +122,7 @@ class DOIManager extends AbstractManager implements DOIManagerInterface
                     $this->logger->info(sprintf("The DOI with the identifier of %s was updated with the new URL of %s", $doi->getIdentifier(), $doi->getUrl()),
                                         array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
 
-                    return $doi;
+                    return true;
                 } else {
                     $this->logger->err(sprintf("The DOI with the identifier of %s could not be updated", $doi->getIdentifier()),
                                         array("response"=>array("code"=>sprintf("%s: %s", $response->getCode(),$codes[$response->getCode()]))));
