@@ -21,28 +21,28 @@ abstract class DOI
     /**
      * @var string
      *
-     * @ORM\Column(name="DOI", type="string", length=150)
+     * @ORM\Column(name="DOI_SUFFIX", type="string", length=150)
      */
-    private $doi;
+    private $suffix;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="OBJ_ID", type="string", length=10)
+     * @ORM\Column(name="DOI_PREFIX", type="string", length=7)
      */
-    private $objectId;
+    private $prefix;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="TYPE", type="string", length=150)
+     * @ORM\Column(name="DOI_TYPE", type="string", length=100)
      */
     private $type;
 
     /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="CREATION_DATE", type="datetime")
+     * @ORM\Column(name="DOI_CREATED_AT", type="datetime")
      */
     private $created;
 
@@ -50,64 +50,64 @@ abstract class DOI
      * @var \DateTime
      *
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="LAST_UPDATE", type="datetime")
+     * @ORM\Column(name="DOI_UPDATED_AT", type="datetime")
      */
     private $updated;
 
     /**
-     * Get id
+     * Set prefix
+     *
+     * @param  string $prefix
+     * @return DOI
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * Get prefix
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * Set suffix
+     *
+     * @param  string $suffix
+     * @return DOI
+     */
+    public function setSuffix($suffix)
+    {
+        $this->suffix = $suffix;
+
+        return $this;
+    }
+
+    /**
+     * Get suffix
+     *
+     * @return string
+     */
+    public function getSuffix()
+    {
+        return $this->suffix;
+    }
+
+    /**
+     * Get identifier of a DOI by concatenating the prefix and suffix
      *
      * @return integer
      */
-    public function getId()
+    public function getIdentifier()
     {
-        return $this->id;
-    }
-
-    /**
-     * Set DOI
-     *
-     * @param  string $doi
-     * @return doi
-     */
-    public function setDoi($doi)
-    {
-        $this->doi = $doi;
-
-        return $this;
-    }
-
-    /**
-     * Get DOI
-     *
-     * @return string
-     */
-    public function getDoi()
-    {
-        return $this->doi;
-    }
-
-    /**
-     * Set objectId
-     *
-     * @param  string $objectId
-     * @return DOI
-     */
-    public function setObjectId($objectId)
-    {
-        $this->objectId = $objectId;
-
-        return $this;
-    }
-
-    /**
-     * Get objectId
-     *
-     * @return string
-     */
-    public function getObjectId()
-    {
-        return $this->objectId;
+        return sprintf("%s/%s", $this->prefix, $this->suffix);
     }
 
     /**
