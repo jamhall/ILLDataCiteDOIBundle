@@ -159,7 +159,7 @@ var viewModel = function() {
             dataType: 'json',
             success: function (result) {
                 // populate model
-                if(result == null) {
+                if(result === null) {
                     alert('error');
                 } else {
                     self.metadata.publicationYear(result.publicationYear);
@@ -167,7 +167,7 @@ var viewModel = function() {
                     self.metadata.language(result.language);
                     self.metadata.rights(result.rights);
                     self.metadata.publisher(result.publisher);
-                    self.metadata.resourceType(new ResourceType(result.resourceType.type,result.resourceType.resourceType));
+                    //self.metadata.resourceType(new ResourceType(result.resourceType.type,result.resourceType.resourceType));
                     // add titles
                     for (var i = 0, j = result.titles.length; i < j; i++){
                         self.metadata.titles.push(new Title(result.titles[i].title, result.titles[i].type));
