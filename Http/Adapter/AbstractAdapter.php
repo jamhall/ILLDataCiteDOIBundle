@@ -82,7 +82,7 @@ abstract class AbstractAdapter
 
     public function getDoiGetUri($doi)
     {
-        return sprintf("%s/doi/%s/%s", self::DATACITE_API_ENDPOINT, $this->prefix, $doi);
+        return sprintf("%s/doi/%s", self::DATACITE_API_ENDPOINT, $doi);
     }
 
     public function getMetadataGetDeleteUri($doi)
