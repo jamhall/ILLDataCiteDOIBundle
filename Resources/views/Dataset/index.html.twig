@@ -10,11 +10,12 @@
 		<div class="alert alert-info">
 			<p>You have <b>{{ dois.NbResults}}</b> registered datasets</p>
 		</div>
-		<table class="table">
+		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>DOI</th>
+					<th>#</th>
+					<th>Identifier</th>
+					<th>Type</th>
 					<th>Created at</th>
 					<th>Updated at</th>
 				</tr>
@@ -23,7 +24,10 @@
 				{% for doi in dois %}
 					<tr>
 						<td>{{ doi.id }}</td>
-						<td><a href="{{ path('ill_datacitedoi_dataset_view', { 'id' : doi.id }) }}">{{ doi.doi }}</a></td>
+						<td>
+							<a href="{{ path('ill_datacitedoi_dataset_view', { 'id' : doi.id }) }}">{{ doi.identifier }}</a>
+						</td>
+						<td>{{ doi.type }}</td>
 						<td>{{ doi.created.format("d-m-Y")}}</td>
 						<td>{{ doi.updated ? doi.updated.format("d-m-Y") : "-"}}</td>
 					</tr>
@@ -31,7 +35,6 @@
 			</tbody>
 		</table>
 	    {{ pagerfanta(dois, 'twitter_bootstrap', {'proximity': 3}) }}
-
       {% else %}
       	<div class="alert alert-error">
       		<p>You do not have any DOIs registered</p>

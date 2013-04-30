@@ -36,7 +36,16 @@
 		<table class="table table-striped metadata">
 			<tbody>
 				<tr>
-					<td>Identifier</td><td>{{ doi.doi }}</td>
+					<td>Identifier</td><td>{{ doi.identifier }}</td>
+				</tr>
+				<tr>
+					<td>Prefix</td><td>{{ doi.prefix }}</td>
+				</tr>
+				<tr>
+					<td>Suffix</td><td>{{ doi.suffix }}</td>
+				</tr>
+				<tr>
+					<td>Type</td><td>{{ doi.type }}</td>
 				</tr>
 				<tr>
 					<td>Created</td><td>{{ doi.created.format("d-m-Y h:i:s") }}</td>
@@ -45,7 +54,7 @@
 					<td>Updated</td><td>{{ doi.updated ? doi.updated.format("d-m-Y h:i:s" ): "-" }}</td>
 				</tr>
 				<tr>
-					<td>URL</td><td>{{ url }}</td>
+					<td>URL (fetched from datacite)</td><td><a href="{{ url }}">{{ url }}</a></td>
 				</tr>
 			</tbody>
 		</table>
