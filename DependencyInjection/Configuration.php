@@ -34,7 +34,6 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('username')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('password')->isRequired()->cannotBeEmpty()->end()
-                    ->scalarNode("prefix")->isRequired()->cannotBeEmpty()->end()
                     // allow the use of multiple prefixes
                     ->arrayNode('prefixes')
                         ->prototype('array')
