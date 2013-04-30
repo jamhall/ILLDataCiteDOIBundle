@@ -39,7 +39,7 @@ class DatasetController extends Controller
     }
 
     /**
-     * @Route("/datasets/{id}",requirements={ "id" : "\d+"})
+     * @Route("/datasets/{id}",requirements={"id" : "\d+"})
      * @Template()
      */
     public function viewAction($id)
@@ -51,7 +51,7 @@ class DatasetController extends Controller
             throw $this->createNotFoundException(sprintf("Couldn't find the DOI with the id of %s", $id));
         }
 
-        return array("doi"=>$doi, "url"=>$dm->find($doi->getDOI()));
+        return array("doi"=>$doi, "url"=>$dm->find($doi->getIdentifier())->getUrl());
     }
 
     /**

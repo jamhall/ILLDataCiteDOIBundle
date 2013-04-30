@@ -13,6 +13,7 @@ namespace ILL\DataCiteDOIBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
@@ -57,10 +58,11 @@ class MetadataController extends Controller
         $dm = $this->container->get("ill_data_cite_doi.manager");
         $config = $dm->getConfiguration();
 
-        return new Response(json_encode(array("identifier_types" => $config['identifier_types'],
-                                              "domains" => $config['domains']
-                                             )
-                           ));
+        return new JsonResponse(array("identifier_types" => $config['identifier_types'],
+                                              "domains" => $config['domains'],
+                                              "prefixes" => $config['prefixes']
+                                     )
+                               );
     }
 
     /**
@@ -77,7 +79,7 @@ class MetadataController extends Controller
         }
 
         $metadataManager = $this->container->get("ill_data_cite_doi.metadata_manager");
-        $metadata = $metadataManager->find($doi->getDOI());
+        $metadata = $metadataManager->find($doi->getIdentifier());
 
         if ("json" === $request->getRequestFormat()) {
             // serialize metadata object into JSON
