@@ -11,7 +11,16 @@
          syntaxCheck="false"
          bootstrap="Tests/bootstrap.php"
 >
-
+    <php>
+      <env name="DATACITE_USERNAME" value="USERNAME"/>
+      <env name="DATACITE_PASSWORD" value="PASSWORD"/>
+      <!-- A datacite DOI that exists -->
+      <env name="DATACITE_IDENTIFIER_EXISTS" value="10.5072/IDENTIFIER"/>
+      <!-- Proxy settings -->
+      <env name="USE_PROXY" value="false"/>
+      <env name="PROXY_HOST" value="example.com"/>
+      <env name="PROXY_PORT" value="8080"/>
+    </php>
     <testsuites>
         <testsuite name="ILLDataCiteDOIBundle Test Suite">
             <directory>./Tests</directory>
