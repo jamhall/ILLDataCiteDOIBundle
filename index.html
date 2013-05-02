@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>ILLDataCiteDOIBundle by ILLGrenoble</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>ILLDataCiteDOIBundle</h1>
+        <h2>A symfony 2 bundle for communicating with the datacite.org API for minting DOIs and storing metadata for the datasets.</h2>
+        <a href="https://github.com/ILLGrenoble/ILLDataCiteDOIBundle" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>ILLDataCiteDOIBundle</h1>
+
+<p>At the moment this bundle is not stable. It is being actively developed.</p>
+
+<p><a href="http://knpbundles.com/ILLGrenoble/ILLDataCiteDOIBundle"><img src="http://knpbundles.com/ILLGrenoble/ILLDataCiteDOIBundle/badge-short" alt="knpbundles.com"></a></p>
+
+<p>A symfony 2 bundle for communicating with the <a href="https://mds.datacite.org/">mds.datacite.org</a> API to mint DOIs and register associated metadata.</p>
+
+<p><strong>Note</strong> </p>
+
+<p>In order to use the API, it requires organisations to first register for an account with a <a href="http://www.datacite.org/members">DataCite member</a>.</p>
+
+<p>This bundle has only been <strong>tested with Symfony 2.1</strong>. If you would like it to work with a <strong>Symfony 2.0</strong> project then please fork the repository and modify the code.</p>
+
+<h2>Documentation</h2>
+
+<p>The bulk of the documentation is stored in the <a href="Resources/doc/index.md">Resources/doc/index.md</a></p>
+
+<h2>Installation</h2>
+
+<p>Installation is a quick (I promise!) three step process:</p>
+
+<ol>
+<li>Download ILLDataCiteDOIBundle using composer</li>
+<li>Enable the Bundle</li>
+<li>Configure your application's config.yml</li>
+</ol><h3>Step 1: Download ILLDataCiteDOIBundle using composer</h3>
+
+<p>Add FOSUserBundle in your composer.json:</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="s2">"require"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"illgrenoble/datacite-doi-bundle"</span><span class="o">:</span> <span class="s2">"*"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Now tell composer to download the bundle by running the command:</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>php composer.phar update illgrenoble/datacite-doi-bundle
+</pre></div>
+
+<p>Composer will install the bundle to your project's <code>vendor/illgrenoble</code> directory.</p>
+
+<h3>Step 2: Enable the bundle</h3>
+
+<p>Enable the bundle in the kernel:</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="c1">// app/AppKernel.php</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">registerBundles</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$bundles</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="c1">// ...</span>
+        <span class="k">new</span> <span class="nx">ILL\DataCiteDOIBundle\ILLDataCiteDOIBundle</span><span class="p">(),</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>Step 2: Configure your application's config.yml</h3>
+
+<div class="highlight"><pre><span class="l-Scalar-Plain">ill_data_cite_doi</span><span class="p-Indicator">:</span>
+   <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">DataCiteMDSUsername</span>
+   <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">DataCiteMDSPassword</span>
+   <span class="l-Scalar-Plain">prefix</span><span class="p-Indicator">:</span>   <span class="l-Scalar-Plain">YourFacilityPrefix</span>
+   <span class="l-Scalar-Plain">proxy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">~</span>
+   <span class="c1"># Entity class representating your DOI database table</span>
+   <span class="l-Scalar-Plain">doi_class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ILL\DateCiteDOITestBundle\Entity\DOI</span>
+   <span class="c1"># valid domains for registering a DOI to an URL</span>
+   <span class="l-Scalar-Plain">domains</span><span class="p-Indicator">:</span> <span class="s">"/^(.*)</span><span class="err">\</span><span class="s">.ill</span><span class="err">\</span><span class="s">.fr/"</span>
+   <span class="c1"># identifier types patterns that a DOI must match</span>
+   <span class="l-Scalar-Plain">identifier_types</span><span class="p-Indicator">:</span>
+        <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">type</span><span class="p-Indicator">:</span> <span class="nv">ARTICLE</span><span class="p-Indicator">,</span> <span class="nv">pattern</span><span class="p-Indicator">:</span> <span class="s">"/^ILL-ARTICLE-[A-Za-z0-9</span><span class="err">\</span><span class="s">-.\_]+/"</span> <span class="p-Indicator">}</span>
+        <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">type</span><span class="p-Indicator">:</span> <span class="nv">BOOK</span><span class="p-Indicator">,</span> <span class="nv">pattern</span><span class="p-Indicator">:</span> <span class="s">"/^ILL-BOOK-[A-Za-z0-9</span><span class="err">\</span><span class="s">-.\_]+/"</span> <span class="p-Indicator">}</span>
+        <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">type</span><span class="p-Indicator">:</span> <span class="nv">REPORT</span><span class="p-Indicator">,</span> <span class="nv">pattern</span><span class="p-Indicator">:</span> <span class="s">"/^ILL-ARTICLE-[A-Za-z0-9</span><span class="err">\</span><span class="s">-.\_]+/"</span> <span class="p-Indicator">}</span>
+        <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">type</span><span class="p-Indicator">:</span> <span class="nv">DATA</span><span class="p-Indicator">,</span> <span class="nv">pattern</span><span class="p-Indicator">:</span> <span class="s">"/^ILL-DATA-</span><span class="err">\</span><span class="s">d+-</span><span class="err">\</span><span class="s">d+-</span><span class="err">\</span><span class="s">d+)/"</span> <span class="p-Indicator">}</span>
+        <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">type</span><span class="p-Indicator">:</span> <span class="nv">PROCEEDINGS</span><span class="p-Indicator">,</span> <span class="nv">pattern</span><span class="p-Indicator">:</span> <span class="s">"/^ILL-PROCEEDINGS-[A-Za-z0-9</span><span class="err">\</span><span class="s">-.\_]+/"</span> <span class="p-Indicator">}</span>
+<span class="l-Scalar-Plain">twig</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">globals</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">logo</span> <span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://example.com/images/logo.gif</span>
+</pre></div>
+
+<h2>License</h2>
+
+<p>This bundle is under the MIT license. The license is stored in <a href="Resources/meta/LICENSE">Resources/meta/LICENSE</a></p>
+
+<h2>Authors</h2>
+
+<p>Mr. Jamie Hall - Technical Projects group at Institut Laue-Langevin.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/ILLGrenoble/ILLDataCiteDOIBundle/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/ILLGrenoble/ILLDataCiteDOIBundle/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/ILLGrenoble/ILLDataCiteDOIBundle"></a> is maintained by <a href="https://github.com/ILLGrenoble">ILLGrenoble</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
