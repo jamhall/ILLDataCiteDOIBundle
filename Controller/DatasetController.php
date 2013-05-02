@@ -58,7 +58,7 @@ class DatasetController extends Controller
      * @Route("/datasets/register")
      * @Template()
      */
-    public function registerAction()
+    public function createAction()
     {
         return array();
     }

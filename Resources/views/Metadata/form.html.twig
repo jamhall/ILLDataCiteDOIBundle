@@ -8,20 +8,20 @@
  <div class="control-group" data-bind="validationElement: publicationYear">
     <label class="control-label" for="publicationYear">Publication year</label>
     <div class="controls">
-        <input type="text"  class="input-small" id="publicationYear"  data-bind="value: publicationYear, valueUpdate: 'afterkeydown'" />
+        <select data-bind="options: publicationYears, chosen: {}, optionsValue: 'id',  optionsText: 'value', value: publicationYear"></select>
         <p class="help-inline" data-bind="if: publicationYear.isModified() && !publicationYear.isValid(), text: publicationYear.error, attr: { title: publicationYear.error }"></p>
     </div>
 </div>
  <div class="control-group">
     <label class="control-label" for="publisher">Publisher</label>
     <div class="controls">
-        <input type="text"  class="input-xsmall" id="publisher"  data-bind="value: publisher" />
+        <input type="text"  class="input-xxlarge" id="publisher"  data-bind="value: publisher" />
     </div>
 </div>
  <div class="control-group">
     <label class="control-label" for="language">Language</label>
     <div class="controls">
-        <input type="text"  class="input-small" id="language"  data-bind="value: language" />
+        <select data-bind="options: languages, chosen: {}, optionsValue: 'id',  optionsText: 'value', value: language"></select>
     </div>
 </div>
  <div class="control-group">

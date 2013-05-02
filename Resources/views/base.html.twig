@@ -7,6 +7,8 @@
         {% stylesheets filter='cssrewrite'
             'bundles/illdatacitedoi/css/bootstrap.css'
             'bundles/illdatacitedoi/css/bootstrap-responsive.min.css'
+            'bundles/illdatacitedoi/js/datepicker/css/datepicker.css'
+            'bundles/illdatacitedoi/js/chosen/chosen.css'
             'bundles/illdatacitedoi/css/styles.css'
         %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
@@ -34,7 +36,7 @@
                 <div class="navbar-inner">
                     <ul class="nav">
                         <li><a href="{{ path('ill_datacitedoi_dataset_index') }}">Datasets</a></li>
-                        <li><a href="{{ path('ill_datacitedoi_dataset_register') }}">Register new dataset</a></li>
+                        <li><a href="{{ path('ill_datacitedoi_dataset_create') }}">Register new dataset</a></li>
                     </ul>
                 </div>
             </div>
