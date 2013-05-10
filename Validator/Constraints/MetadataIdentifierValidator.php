@@ -20,7 +20,7 @@ class MetadataIdentifierValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        if (!preg_match(sprintf('/^((%s)\/[-_a-zA-Z0-9.:\+\/]+)/', addcslashes($constraint->prefix, ".")), $value, $matches)) {
+        if (!preg_match('/^(\d+)\/[-_a-zA-Z0-9.:\+\/]+)/', $value, $matches)) {
             $this->context->addViolation($constraint->message, array('%string%' => $value));
         }
     }

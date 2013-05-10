@@ -14,6 +14,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Pagerfanta\Exception\NotValidCurrentPageException;
 
 class DatasetController extends Controller
@@ -58,8 +61,32 @@ class DatasetController extends Controller
      * @Route("/datasets/register")
      * @Template()
      */
-    public function createAction()
+    public function createAction(Request $request)
     {
+        // ajax request
+        if ($request->isXmlHttpRequest()) {
+            if($request->isMethod('POST')) {
+                $serializer = \JMS\Serializer\SerializerBuilder::create()->setDebug(false)->build();
+                $metadata = $serializer->deserialize($request->getContent(), 'ILL\DataCiteDOIBundle\Model\Metadata', 'json');
+                $metadataManager = $this->container->get("ill_data_cite_doi.metadata_manager");
+                $errors = $metadataManager->isValid($metadata);
+                if(count($errors) > 0) {
+                    // invalid metadata
+                    var_dump($errors); die();
+                    return new JsonResponse(array("success"=>"false", "message"=>"The metadata submitted is invalid"));
+                } else {
+                    // valid, upload to datacite
+                    //if($metadataManager->create($metadata)) {
+                        return new JsonResponse(array("success"=>"true", "message"=>"The metadata was uploaded to datacite"));
+                    //}
+                    $response = new Response($serializer->serialize($metadata, 'json'));
+                    $response->headers->set('Content-Type', 'application/json');
+                    return $response;
+                }
+            } else {
+                throw new HttpException(400, "Invalid request");
+            }
+        }
         return array();
     }
 

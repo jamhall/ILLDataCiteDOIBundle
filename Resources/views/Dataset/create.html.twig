@@ -1,5 +1,5 @@
 {% extends 'ILLDataCiteDOIBundle::base.html.twig' %}
-{% block title %}DOI Administration{% endblock %}
+{% block title %}Register dataset - DOI Administration{% endblock %}
 {% block header %}DOI Administration{% endblock %}
 {% block body %}
 <div class="row-fluid">
@@ -18,7 +18,14 @@
              <div class="control-group">
                 <label class="control-label" for="prefix">Prefix</label>
                 <div class="controls">
-                    <select data-bind="options: prefixes, optionsValue: 'id',  optionsText: 'value', value: prefixes().prefix"></select>
+                    <select data-bind="options: prefixes, optionsValue: 'id',  optionsText: 'value', value: prefix" data-toggle="popover" data-placement="right" data-content="This field is required. For testing purposes, please select the test prefix of 10.5072" title="Prefix" ></select>
+                </div>
+            </div>
+             <div class="control-group">
+                <label class="control-label" for="suffix">Suffix</label>
+                <div class="controls">
+                    <input type="text"  class="input-xxsmall" id="suffix"  data-bind="value: suffix"  data-toggle="popover" data-placement="top" data-content="This field is required. An example of a suffix is: ILL-DATA-2-4-2" title="Suffix" />
+                    <p class="help-inline" style="color: #B94A48; font-weight: bold" data-bind="if: suffix.isModified() && !suffix.isValid(), text: suffix.error, attr: { title: suffix.error }"></p>
                 </div>
             </div>
             {% include 'ILLDataCiteDOIBundle:Metadata:form.html.twig' %}
@@ -26,7 +33,7 @@
     </div>
     <div class="span3">
         <ul class="nav nav-list">
-            <li class="nav-header">Help on updating metadata</li>
+            <li class="nav-header">Help on creating a dataset</li>
             <li>
                 <p>When updating metadata for a dataset, there are four <b>required</b> properties:</p>
                 <ol>
@@ -39,7 +46,7 @@
             </li>
             <li>
                 <h2>Debug</h2>
-                <div data-bind="text: ko.toJSON(metadata.creators)"></div>
+                <div data-bind="text: ko.toJSON(metadata)"></div>
             </li>
         </ul>
     </div>

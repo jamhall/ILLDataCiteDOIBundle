@@ -187,11 +187,11 @@ class MetadataManager extends AbstractManager implements MetadataManagerInterfac
 
     public function isValid(Metadata $metadata)
     {
-        $errors = $this->validator->validateValue($metadata->getIdentifier(), new DataCiteAssert\MetadataIdentifier($this->defaults['prefix']));
-        if (count($errors) > 0) {
-            return $errors;
-        } else {
+       // $errors = $this->validator->validateValue($metadata->getIdentifier(), new DataCiteAssert\MetadataIdentifier($this->defaults['prefix']));
+       // if (count($errors) > 0) {
+       //     return $errors;
+        //} else {
             return $this->validator->validate($metadata);
-        }
+        //}
     }
 }

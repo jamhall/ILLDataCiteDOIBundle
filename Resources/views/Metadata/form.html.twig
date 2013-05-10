@@ -5,6 +5,12 @@
         <p class="help-inline" data-bind="if: identifier.isModified() && !identifier.isValid(), text: identifier.error, attr: { title: identifier.error }"></p>
     </div>
 </div>
+ <div class="control-group">
+    <label class="control-label" for="language">Language</label>
+    <div class="controls">
+        <select data-bind="options: languages, chosen: {}, optionsValue: 'id',  optionsText: 'value', value: language"></select>
+    </div>
+</div>
  <div class="control-group" data-bind="validationElement: publicationYear">
     <label class="control-label" for="publicationYear">Publication year</label>
     <div class="controls">
@@ -16,12 +22,6 @@
     <label class="control-label" for="publisher">Publisher</label>
     <div class="controls">
         <input type="text"  class="input-xxlarge" id="publisher"  data-bind="value: publisher" />
-    </div>
-</div>
- <div class="control-group">
-    <label class="control-label" for="language">Language</label>
-    <div class="controls">
-        <select data-bind="options: languages, chosen: {}, optionsValue: 'id',  optionsText: 'value', value: language"></select>
     </div>
 </div>
  <div class="control-group">
@@ -79,7 +79,10 @@
 </fieldset>
 <fieldset class="details">
     <legend>Creators</legend>
-    <div class="alert alert-info">
+    <div class="alert alert-error" data-bind="visible: creators().length == 0">
+        <p>You must specify at least one creator</p>
+    </div>
+    <div class="alert alert-info" data-bind="visible: creators().length > 0">
         <p>You have <span data-bind='text: creators().length'>&nbsp;</span> creator(s)</p>
     </div>
     <table class="table table-striped" data-bind='visible: creators().length > 0'>
@@ -157,7 +160,10 @@
 </fieldset>
 <fieldset class="details">
     <legend>Titles</legend>
-    <div class="alert alert-info">
+    <div class="alert alert-error" data-bind="visible: titles().length == 0">
+        <p>You must specify at least one title</p>
+    </div>
+    <div class="alert alert-info" data-bind="visible: titles().length > 0">
         <p>You have <span data-bind='text: titles().length'>&nbsp;</span> title(s)</p>
     </div>
     <table class="table table-striped" data-bind='visible: titles().length > 0'>
@@ -182,5 +188,5 @@
     <button class="btn" data-bind='click: addTitle'><i class="icon-plus"></i> Add title</button>
 </fieldset>
  <div class="control-group well">
-    <button data-bind='enable: titles().length > 0, click: save' class="btn btn-large btn-block btn-primary" type='submit'>Update the metadata</button>
+    <button data-bind='click: save' class="btn btn-large btn-block btn-primary" type='submit'>Submit</button>
 </div>

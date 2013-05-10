@@ -114,7 +114,7 @@ class Metadata
      *      minMessage = "Must specify at least one title"
      * )
      */
-    private $titles = array();
+    private $titles = null;
 
     /**
      * The main researchers involved working on the data, or the authors of the publication in priority order.
@@ -127,7 +127,7 @@ class Metadata
      *      minMessage = "Must specify at least one creator"
      * )
      */
-    private $creators = array();
+    private $creators = null;
 
     /**
      * The institution or person responsible for collecting, creating, or otherwise contributing to the development of the dataset.
@@ -135,14 +135,14 @@ class Metadata
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Contributor>")
      * @Assert\Valid()
      */
-    private $contributors = array();
+    private $contributors = null;
 
     /**
      * Subject, keywords, classification codes, or key phrases describing the resource.
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Subject>")
      * @Assert\Valid()
      */
-    private $subjects = array();
+    private $subjects = null;
 
     /**
      * Different dates relevant to the work.
@@ -150,7 +150,7 @@ class Metadata
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Date>")
      * @Assert\Valid()
      */
-    private $dates = array();
+    private $dates = null;
 
     /**
      * An identifier other than the primary identifier applied to the resource being registered.
@@ -160,7 +160,7 @@ class Metadata
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\AlternateIdentifier>")
      * @Assert\Valid()
      */
-    private $alternateIdentifiers = array();
+    private $alternateIdentifiers = null;
 
     /**
      * Identifiers of related resources. Use this property to indicate subsets of properties, as appropriate.
@@ -168,7 +168,7 @@ class Metadata
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\RelatedIdentifier>")
      * @Assert\Valid()
      */
-    private $relatedIdentifiers = array();
+    private $relatedIdentifiers = null;
 
     /**
      * Unstructures size information about the resource.
@@ -176,7 +176,7 @@ class Metadata
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Size>")
      * @Assert\Valid()
      */
-    private $sizes = array();
+    private $sizes = null;
 
     /**
      * Technical format of the resource. Use file extension or MIME type where possible.
@@ -184,7 +184,7 @@ class Metadata
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Format>")
      * @Assert\Valid()
      */
-    private $formats = array();
+    private $formats = null;
 
     /**
      * Descriptions of the resource
@@ -192,7 +192,7 @@ class Metadata
      * @Type("array<ILL\DataCiteDOIBundle\Model\Metadata\Description>")
      * @Assert\Valid()
      */
-    private $descriptions = array();
+    private $descriptions = null;
 
     public function __construct($identifier = null)
     {
