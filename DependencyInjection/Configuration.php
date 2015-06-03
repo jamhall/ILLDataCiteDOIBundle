@@ -34,6 +34,7 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('username')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('password')->isRequired()->cannotBeEmpty()->end()
+                    ->scalarNode("prefix")->isRequired()->cannotBeEmpty()->end()
                     // allow the use of a proxy for cURL requests
                     ->arrayNode('proxy')
                         ->children()
