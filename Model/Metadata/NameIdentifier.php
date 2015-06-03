@@ -32,6 +32,13 @@ class NameIdentifier
      * @Assert\NotNull()
      * @Assert\NotBlank()
      */
+    private $schemeUri = null;
+    
+    /**
+     * @Type("string")
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
+     */
     private $identifier;
 
     public function setIdentifier($identifier)
@@ -56,5 +63,13 @@ class NameIdentifier
     public function getScheme()
     {
         return $this->scheme;
+    }
+    
+    public function getSchemeUri() {
+        return $this->schemeUri;
+    }
+    
+    public function setSchemeUri($uri) {
+        $this->schemeUri = $uri;
     }
 }

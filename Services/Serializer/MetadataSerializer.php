@@ -75,6 +75,7 @@ class MetadataSerializer
             if ($creator->getNameIdentifier()) {
                     $nameIdentifierElement = $xml->createElement("nameIdentifier", $creator->getNameIdentifier()->getIdentifier());
                     $nameIdentifierElement->setAttribute("nameIdentifierScheme", $creator->getNameIdentifier()->getScheme());
+                    $nameIdentifierElement->setAttribute("schemeURI", $creator->getNameIdentifier()->getSchemeUri());
                     $creatorElement->appendChild($nameIdentifierElement);
             }
         }
@@ -253,7 +254,6 @@ class MetadataSerializer
         $validate = new \DOMDocument();
         $xmlOutput = $xml->saveXML($xml->documentElement);
         $validate->loadXML($xmlOutput);
-       // file_put_contents("/tmp/test.xml",  $xml->saveXML($xml->documentElement));
 
         try {
             if ($validate->schemaValidate(__DIR__ . "../../../Model/Metadata/Schema/metadata.xsd")) {

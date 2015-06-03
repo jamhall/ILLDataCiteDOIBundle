@@ -9,7 +9,6 @@
         <parameter key="ill_data_cite_doi.metadata_manager.class">ILL\DataCiteDOIBundle\Services\MetadataManager</parameter>
         <parameter key="ill_data_cite_doi.media_manager.class">ILL\DataCiteDOIBundle\Services\MediaManager</parameter>
         <parameter key="ill_data_cite_doi.metadata_serializer.class">ILL\DataCiteDOIBundle\Services\Serializer\MetadataSerializer</parameter>
-        <parameter key="ill_data_cite_doi.doctrine.repository.doi.class">ILL\DataCiteDOIBundle\Repository\DOIRepositoryInterface</parameter>
     </parameters>
 
     <services>
@@ -26,10 +25,6 @@
         <service id="ill_data_cite_doi.logger_handler" class="%monolog.handler.stream.class%">
             <argument>%kernel.logs_dir%/%kernel.environment%.doi.log</argument>
             <argument>200</argument>
-        </service>
-        <!-- DOI Doctrine repository service -->
-        <service id="ill_data_cite_doi.doctrine.repository.doi" class="%ill_data_cite_doi.doctrine.repository.doi.class%" factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
-            <argument type="string">%ill_data_cite_doi.doctrine.entity.doi.class%</argument>
         </service>
     </services>
 </container>
