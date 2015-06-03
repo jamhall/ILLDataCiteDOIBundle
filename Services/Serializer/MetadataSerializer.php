@@ -33,9 +33,9 @@ class MetadataSerializer
      * XML namespaces and XML schemas
      */
     const W3_XML_NAMESPACE = "http://www.w3.org/2000/xmlns/";
-    const DATACITE_KERNEL_RESOURCE_NAMESPACE = "http://datacite.org/schema/kernel-3.1";
+    const DATACITE_KERNEL_RESOURCE_NAMESPACE = "http://datacite.org/schema/kernel-3";
     const W3_XML_SCHEMA_NAMESPACE = "http://www.w3.org/2001/XMLSchema-instance";
-    const DATACITE_METADATA_XML_SCHEMA = "http://schema.datacite.org/meta/kernel-3.1/metadata.xsd";
+    const DATACITE_METADATA_XML_SCHEMA = "http://schema.datacite.org/meta/kernel-3/metadata.xsd";
 
     /**
      * Serialize metadata model into XML for the API
@@ -73,16 +73,16 @@ class MetadataSerializer
             $creatorsElement->appendChild($creatorElement);
             $creatorElement->appendChild($creatorNameElement);
             
-            if($creator->getAffiliation()) {
-                $affiliationElement = $xml->createElement("affiliation", $creator->getAffiliation());
-                $creatorElement->appendChild($affiliationElement);
-            }
-            
             if ($creator->getNameIdentifier()) {
                     $nameIdentifierElement = $xml->createElement("nameIdentifier", $creator->getNameIdentifier()->getIdentifier());
                     $nameIdentifierElement->setAttribute("nameIdentifierScheme", $creator->getNameIdentifier()->getScheme());
                     $nameIdentifierElement->setAttribute("schemeURI", $creator->getNameIdentifier()->getSchemeUri());
                     $creatorElement->appendChild($nameIdentifierElement);
+            }
+            
+            if($creator->getAffiliation()) {
+                $affiliationElement = $xml->createElement("affiliation", $creator->getAffiliation());
+                $creatorElement->appendChild($affiliationElement);
             }
         }
 
