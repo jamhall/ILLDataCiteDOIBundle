@@ -30,8 +30,7 @@ class CurlAdapter extends AbstractAdapter
                $curl->setOption(CURLOPT_PROXYPORT, $this->proxy['port']);
         }
         $curl->setOption(CURLOPT_USERPWD, sprintf("%s:%s", $this->username, $this->password));
-        $curl->setOption(CURLOPT_SSLVERSION, parent::DATACITE_SSL_VERSION);
-
+        
         return $curl;
     }
 }
