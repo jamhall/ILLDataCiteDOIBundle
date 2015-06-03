@@ -35,6 +35,8 @@ class Creator
      */
     private $nameIdentifier;
 
+    private $affiliation;
+    
     public function setName($name)
     {
         $this->name = $name;
@@ -45,6 +47,17 @@ class Creator
     public function getName()
     {
         return $this->name;
+    }
+    
+    public function setAffiliation($affiliation)
+    {
+        $this->affiliation = $affiliation;
+        return $this;   
+    }
+    
+    public function getAffiliation() 
+    {
+        return $this->affiliation;
     }
 
     public function setNameIdentifier(NameIdentifier $nameIdentifier)
