@@ -36,17 +36,12 @@ abstract class AbstractManager
         'test'      => false,
         'testMode'  => false,
         'proxy' => false,
-        'domains' => false,
-        'identifier_types'=> false,
-        'prefixes' => false
     );
 
     public function __construct(array $options = array(), $logger, $validator)
     {
         $this->defaults = array_merge($this->defaults, $options);
         $this->adapter = new CurlAdapter($this->defaults);
-        // add the datacite test prefix
-        array_push($this->defaults['prefixes'], array("prefix"=>10.5072, "description"=>"Test prefix"));
         $this->logger = $logger;
         $this->validator = $validator;
         self::$responseCodes = $this->loadResponseCodes();
