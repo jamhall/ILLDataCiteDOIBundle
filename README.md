@@ -69,20 +69,6 @@ ill_data_cite_doi:
    password: DataCiteMDSPassword
    prefix:   YourFacilityPrefix
    proxy: ~
-   # Entity class representating your DOI database table
-   doi_class: ILL\DateCiteDOITestBundle\Entity\DOI
-   # valid domains for registering a DOI to an URL
-   domains: "/^(.*)\.ill\.fr/"
-   # identifier types patterns that a DOI must match
-   identifier_types:
-        - { type: ARTICLE, pattern: "/^ILL-ARTICLE-[A-Za-z0-9\-.\_]+/" }
-        - { type: BOOK, pattern: "/^ILL-BOOK-[A-Za-z0-9\-.\_]+/" }
-        - { type: REPORT, pattern: "/^ILL-ARTICLE-[A-Za-z0-9\-.\_]+/" }
-        - { type: DATA, pattern: "/^ILL-DATA-\d+-\d+-\d+)/" }
-        - { type: PROCEEDINGS, pattern: "/^ILL-PROCEEDINGS-[A-Za-z0-9\-.\_]+/" }
-twig:
-    globals:
-        logo : http://example.com/images/logo.gif
 ```
 
 License
