@@ -18,9 +18,6 @@ abstract class AbstractAdapter
     // the API end point for the datacite api
     const DATACITE_API_ENDPOINT = "https://mds.datacite.org";
 
-    // the SSL version for the datacite api
-    const DATACITE_SSL_VERSION = 3;
-
     // common attributes for all adapters
     protected $username = null;
     protected $password = null;
