@@ -69,7 +69,8 @@ class MetadataSerializer
         $root->appendChild($creatorsElement);
         foreach ($metadata->getCreators() as $creator) {
             $creatorElement = $xml->createElement("creator");
-            $creatorNameElement = $xml->createElement("creatorName", $creator->getName());
+            $creatorNameElement = $xml->createElement("creatorName");
+            $creatorNameElement->appendChild($xml->createCDATASection((string) $creator->getName()));
             $creatorsElement->appendChild($creatorElement);
             $creatorElement->appendChild($creatorNameElement);
             
@@ -81,7 +82,8 @@ class MetadataSerializer
             }
             
             if($creator->getAffiliation()) {
-                $affiliationElement = $xml->createElement("affiliation", $creator->getAffiliation());
+                $affiliationElement = $xml->createElement("affiliation");
+                $affiliationElement->appendChild($xml->createCDATASection($creator->getAffiliation()));
                 $creatorElement->appendChild($affiliationElement);
             }
         }
@@ -93,8 +95,7 @@ class MetadataSerializer
         $root->appendChild($titlesElement);
         foreach ($metadata->getTitles() as $title) {
             $titleElement = $xml->createElement("title");
-            $titleElement->appendChild(
-                $xml->createTextNode($title->getTitle()));
+            $titleElement->appendChild($xml->createCDATASection($title->getTitle()));
         if ($title->getType()) {
                 $titleElement->setAttribute("titleType", $title->getType());
             }
