@@ -15,24 +15,26 @@
         "php": ">=5.3.2",
         "symfony/framework-bundle": ">=2.1",
         "versionable/prospect": "1.0.*@dev",
-        "jms/serializer-bundle": "dev-master"    
+        "jms/serializer-bundle": "0.13.*"
     },
     "require-dev": {
-    	"symfony/finder": "2.1.*",
-	    "symfony/validator": "2.1.*@dev",
+        "symfony/finder": "2.1.*",
+        "symfony/validator": "2.1.*@dev",
         "symfony/yaml": "2.1.*@dev",
         "monolog/monolog": "1.5.*@dev"
     },
     "autoload": {
-        "psr-0": { "ILL\\DataCiteDOIBundle": "" }
+        "psr-0": {
+            "ILL\\DataCiteDOIBundle": ""
+        }
     },
     "minimum-stability": "dev",
     "target-dir": "ILL/DataCiteDOIBundle",
     "repositories": [
-      {
-     "type": "vcs",
-     "url": "https://github.com/ILLGrenoble/Prospect"
-      }
+        {
+            "type": "vcs",
+            "url": "https://github.com/ILLGrenoble/Prospect"
+        }
     ]
 
 }
