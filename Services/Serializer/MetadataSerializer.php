@@ -260,6 +260,7 @@ class MetadataSerializer
         */
         $validate = new \DOMDocument();
         $xmlOutput = $xml->saveXML($xml->documentElement);
+        $xmlOutput = utf8_encode($xmlOutput);
         $validate->loadXML($xmlOutput);
         return $xmlOutput;
         try {
